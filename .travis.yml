@@ -1,0 +1,10 @@
+language: csharp
+solution: PredicateMaps/PredicateMaps.sln
+install:
+  - nuget restore PredicateMaps/PredicateMaps.sln
+  - nuget restore PredicateMapsTests/PredicateMapsTests.sln
+  - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
+script:
+  - xbuild /p:Configuration=Release PredicateMaps/PredicateMaps.sln
+  - xbuild /p:Configuration=Release PredicateMapsTests/PredicateMapsTests.sln
+  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./PredicateMapsTests/bin/Release/PredicateMaps.dll
