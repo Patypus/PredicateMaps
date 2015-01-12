@@ -1,4 +1,6 @@
 PredicateMaps/bin/*
 PredicateMaps/obj/*
+PredicateMaps/packages/*
+PredicateMapsTests/packages/*
 PredicateMapsTests/bin/*
 PredicateMapsTests/obj/*

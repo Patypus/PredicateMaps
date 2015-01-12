@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using PredicateMaps.Exceptions;
 using PredicateMaps.Resources;
 using System;
@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace PredicateMapsTests.Exceptions
 {
-    [TestClass]
+    [TestFixture]
     public class InconsitentIndexExceptionTests
     {
-        [TestMethod]
+        [Test]
         public void MessageForExceptionHasIntParametersInCorrectPossitionsInReturnMessage()
         {
             var keyCollectionSize = 3;

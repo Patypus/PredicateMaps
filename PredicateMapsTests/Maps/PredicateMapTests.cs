@@ -1,5 +1,5 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,28 +7,28 @@ using System.Threading.Tasks;
 
 namespace PredicateMapsTests.Maps
 {
-    [TestClass]
+    [TestFixture]
     public class PredicateMapTests
     {
-        [TestMethod]
+        [Test]
         public void ConstructorCreatesEmptyMap()
         {
             Assert.IsTrue(false);
         } 
 
-        [TestMethod]
+        [Test]
         public void FactoryMethodCreatesMapWithSuppliedCollectionsIn()
         {
             Assert.IsTrue(false);
         }
 
-        [TestMethod]
+        [Test]
         public void FactoryMethodThrowsInconsistentIndexExceptionWhenIndexesOfSuppliedCollectionsDontMatch()
         {
             Assert.IsTrue(false);
         }
 
-        [TestMethod]
+        [Test]
         public void CountReturnsSizeOfMap()
         {
             Assert.IsTrue(false);
