@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 namespace PredicateMapsTests.Exceptions
 {
     [TestFixture]
-    public class InconsitentIndexExceptionTests
+    public class InconsistentIndexExceptionTests
     {
         [Test]
         public void MessageForExceptionHasIntParametersInCorrectPossitionsInReturnMessage()
         {
             var keyCollectionSize = 3;
             var dataCollectionSize = 5;
-            var exception = new InconsitentIndexException(keyCollectionSize, dataCollectionSize);
+            var exception = new InconsistentIndexException(keyCollectionSize, dataCollectionSize);
             var expectedMessage = string.Format(strings.InconsistentCollectionSizeError, keyCollectionSize, dataCollectionSize);
             Assert.AreEqual(expectedMessage, exception.Message);
         }

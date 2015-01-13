@@ -39,7 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exceptions\InconsitentIndexException.cs" />
+    <Compile Include="Exceptions\InconsistentIndexException.cs" />
     <Compile Include="Maps\PredicateMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\strings.Designer.cs">

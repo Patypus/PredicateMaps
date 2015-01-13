@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exceptions\InconsitentIndexExceptionTests.cs" />
+    <Compile Include="Exceptions\InconsistentIndexExceptionTests.cs" />
     <Compile Include="Maps\PredicateMapTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

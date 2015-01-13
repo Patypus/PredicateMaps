@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace PredicateMaps.Exceptions
 {
-    public class InconsitentIndexException : Exception
+    public class InconsistentIndexException : Exception
     {
-        public InconsitentIndexException(int keyCollectionSize, int valueCollectionSize) 
+        public InconsistentIndexException(int keyCollectionSize, int valueCollectionSize) 
             : base(string.Format(strings.InconsistentCollectionSizeError, keyCollectionSize, valueCollectionSize))
         {
         }

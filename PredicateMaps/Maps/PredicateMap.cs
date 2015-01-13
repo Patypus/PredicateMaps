@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PredicateMaps.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +9,8 @@ namespace PredicateMaps.Maps
 {
     public class PredicateMap<K, V>
     {
-        private readonly List<Predicate<K>> keyPredicateList;
-        private readonly List<V> valueList;
+        public List<Predicate<K>> keyPredicateList { get; private set; }
+        public List<V> valueList { get; private set; }
 
         public PredicateMap()
         {
@@ -17,7 +18,18 @@ namespace PredicateMaps.Maps
             valueList = new List<V>();
         }
 
+        public PredicateMap( List<Predicate<K>> keyList, List<V> dataList )
+        {
+            if (keyList.Count != dataList.Count) {
+                throw new InconsistentIndexException(keyList.Count, dataList.Count);
+            }
+            keyPredicateList = keyList;
+            valueList = dataList;
+        }
 
-
+        public int GetCount()
+        {
+            return keyPredicateList.Count;
+        }
     }
 }
