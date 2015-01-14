@@ -20,24 +20,24 @@ namespace PredicateMaps.Maps
         }
 
         /// <summary>
-        /// Creates a PredicateMap which is has the contents of the keyList and dataList params populated in it.
-        /// The collections for keys and data must be of the same size.
+        /// Creates a PredicateMap which is has the contents of the keyList and valuesList params populated in it.
+        /// The collections for keys and values must be of the same size.
         /// </summary>
         /// <param name="keyList">Collection of typed Predicates to use as the keys collection in the new map.</param>
-        /// <param name="dataList">Typed collection of data to include in the map.</param>
+        /// <param name="valuesList">Typed collection of values to include in the map.</param>
         /// <exception cref="InconsistentIndexException">Thrown if the sizes of keyList and dataList are not equal.</exception>
         /// <exception cref="ArgumentException">Thrown if either parameter value is null.</exception>
-        public PredicateMap(List<Predicate<K>> keyList, List<V> dataList)
+        public PredicateMap(List<Predicate<K>> keyList, List<V> valuesList)
         {
-            if(keyList == null || dataList == null) {
+            if(keyList == null || valuesList == null) {
                 var message = keyList == null ? Strings.InvalidKeyCollectionParameter : Strings.InvalidDataCollectionParameter;
                 throw new ArgumentException(message);
             }
-            if (keyList.Count != dataList.Count) {
-                throw new InconsistentIndexException(keyList.Count, dataList.Count);
+            if (keyList.Count != valuesList.Count) {
+                throw new InconsistentIndexException(keyList.Count, valuesList.Count);
             }
             keyPredicateList = keyList;
-            valueList = dataList;
+            valueList = valuesList;
         }
 
         /// <summary>
