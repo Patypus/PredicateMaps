@@ -118,6 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="InconsistentCollectionSizeError" xml:space="preserve">
-    <value />
+    <value>The sizes of the provided collections were not equal. Key collection was: {0}  and data collection size was: {1}</value>
+  </data>
+  <data name="InvalidDataCollectionParameter" xml:space="preserve">
+    <value>Null is not a valid value for the data collection parameter.</value>
+  </data>
+  <data name="InvalidKeyCollectionParameter" xml:space="preserve">
+    <value>Null is not a valid value for key collection parameter.</value>
   </data>
 </root>

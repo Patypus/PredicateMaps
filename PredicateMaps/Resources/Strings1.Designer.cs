@@ -22,14 +22,14 @@ namespace PredicateMaps.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class strings {
+    internal class Strings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal strings() {
+        internal Strings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace PredicateMaps.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PredicateMaps.Resources.strings", typeof(strings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("PredicateMaps.Resources.Strings", typeof(Strings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,11 +61,29 @@ namespace PredicateMaps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to The sizes of the provided collections were not equal. Key collection was: {0}  and data collection size was: {1}.
         /// </summary>
         internal static string InconsistentCollectionSizeError {
             get {
                 return ResourceManager.GetString("InconsistentCollectionSizeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Null is not a valid value for the data collection parameter..
+        /// </summary>
+        internal static string InvalidDataCollectionParameter {
+            get {
+                return ResourceManager.GetString("InvalidDataCollectionParameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Null is not a valid value for key collection parameter..
+        /// </summary>
+        internal static string InvalidKeyCollectionParameter {
+            get {
+                return ResourceManager.GetString("InvalidKeyCollectionParameter", resourceCulture);
             }
         }
     }

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PredicateMaps.Maps;
 using PredicateMaps.Exceptions;
+using PredicateMaps.Resources;
 
 namespace PredicateMapsTests.Maps
 {
@@ -18,7 +19,18 @@ namespace PredicateMapsTests.Maps
             var basicMap = new PredicateMap<string,string>();
             var itemsInNewMap = basicMap.GetCount();
             Assert.AreEqual(0, itemsInNewMap);
-        } 
+        }
+
+        [Test]
+        public void CountReturnsSizeOfMap()
+        {
+            var keys = new List<Predicate<int>> { (i) => i > 1, (i) => i == 1, (i) => 1 < 1 };
+            var data = new List<string> { "More than 1", "Exactly 1", "Less than 1" };
+
+            var map = new PredicateMap<int, string>(keys, data);
+
+            Assert.AreEqual(3, map.GetCount());
+        }
 
         [Test]
         public void ParameteredConstructorCreatesMapWithSuppliedCollectionsIn()
@@ -49,18 +61,76 @@ namespace PredicateMapsTests.Maps
         }
 
         [Test]
-        public void CountReturnsSizeOfMap()
+        public void InconsistentIndexExceptionMessageContainsSizeOfProvidedLists()
         {
-            var keys = new List<Predicate<int>> { (i) => i > 1, (i) => i == 1, (i) => 1 < 1 };
-            var data = new List<string> { "More than 1", "Exactly 1", "Less than 1" };
+            Exception caughtException = null;
+            var keys = new List<Predicate<int>> { (i) => i == 0 };
+            var data = new List<string> { "These list sizes dont match...", "No indeed" };
 
-            var map = new PredicateMap<int, string>(keys, data);
-
-            Assert.AreEqual(3, map.GetCount());
+            try
+            {
+                new PredicateMap<int, string>(keys, data);
+            }
+            catch (InconsistentIndexException iie)
+            {
+                caughtException = iie;
+            }
+            Assert.NotNull(caughtException);
+            Assert.True(caughtException.Message.Contains(keys.Count.ToString()));
+            Assert.True(caughtException.Message.Contains(data.Count.ToString()));
         }
 
-        //check numbers are right in inconsistent index exception
-        //add?
+        [Test]
+        public void nullKeyCollectionCausesInvalidArgumentException()
+        {
+            ArgumentException caughtException = null;
+
+            try
+            {
+                new PredicateMap<string, string>(null, new List<string>());
+            }
+            catch (ArgumentException ae) 
+            {
+                caughtException = ae;
+            }
+
+            Assert.NotNull(caughtException);
+            Assert.AreEqual(Strings.InvalidKeyCollectionParameter, caughtException.Message);
+        }
+
+        [Test]
+        public void dataCollectionCausesInvalidArgumentException()
+        {
+            ArgumentException caughtException = null;
+
+            try
+            {
+                new PredicateMap<string, string>(new List<Predicate<string>>(), null);
+            }
+            catch (ArgumentException ae)
+            {
+                caughtException = ae;
+            }
+
+            Assert.NotNull(caughtException);
+            Assert.AreEqual(Strings.InvalidDataCollectionParameter, caughtException.Message);
+        }
+
+        [Test]
+        public void addPutsKeyAndDataItemInMap()
+        {
+            var map = new PredicateMap<int, string>();
+            
+            var mapSizeBeforeAdd = map.GetCount();
+            map.Add((i) => i < 5, "Value was little.");
+            var mapSizeAfterAdd = map.GetCount();
+
+            Assert.True(mapSizeBeforeAdd < mapSizeAfterAdd);
+            Assert.AreEqual(1, mapSizeAfterAdd - mapSizeBeforeAdd);
+        }
+
+
+        //add? -adds -adds at next index -null not accepted for either param...
         //getFirst?
         //addAll?
         //getAll?
