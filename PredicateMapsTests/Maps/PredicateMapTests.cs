@@ -129,6 +129,45 @@ namespace PredicateMapsTests.Maps
             Assert.AreEqual(1, mapSizeAfterAdd - mapSizeBeforeAdd);
         }
 
+        [Test]
+        public void nullKeyGivesArgumentException()
+        {
+            var expectedMessage = StringResources.InvalidKeyParameter;
+            Exception caughtException = null;
+
+            try
+            {
+                var map = new PredicateMap<string, string>();
+                map.Add(null, "someValue");
+            }
+            catch (ArgumentException ae)
+            {
+                caughtException = ae;
+            }
+
+            Assert.NotNull(caughtException);
+            Assert.AreEqual(expectedMessage, caughtException.Message);
+        }
+
+        [Test]
+        public void nullValueGivesArgumentException()
+        {
+            var expectedMessage = StringResources.InvalidDataParameter;
+            Exception caughtException = null;
+
+            try
+            {
+                var map = new PredicateMap<string, string>();
+                map.Add((s) => s.Equals("someKey"), null);
+            }
+            catch (ArgumentException ae)
+            {
+                caughtException = ae;
+            }
+
+            Assert.NotNull(caughtException);
+            Assert.AreEqual(expectedMessage, caughtException.Message);
+        }
 
         //add? -adds -adds at next index -null not accepted for either param...
         //getFirst?

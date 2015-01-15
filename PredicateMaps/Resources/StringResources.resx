@@ -123,7 +123,13 @@
   <data name="InvalidDataCollectionParameter" xml:space="preserve">
     <value>Null is not a valid value for the data collection parameter.</value>
   </data>
+  <data name="InvalidDataParameter" xml:space="preserve">
+    <value>Null is not a valid data value.</value>
+  </data>
   <data name="InvalidKeyCollectionParameter" xml:space="preserve">
     <value>Null is not a valid value for key collection parameter.</value>
+  </data>
+  <data name="InvalidKeyParameter" xml:space="preserve">
+    <value>Null is not a valid key value.</value>
   </data>
 </root>

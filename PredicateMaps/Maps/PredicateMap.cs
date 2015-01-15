@@ -52,6 +52,12 @@ namespace PredicateMaps.Maps
 
         public void Add(Predicate<K> key, V value)
         {
+            if (key == null || value == null) 
+            {
+                var message = key == null ? StringResources.InvalidKeyParameter
+                                          : StringResources.InvalidDataParameter;
+                throw new ArgumentException(message);
+            }
             keyPredicateList.Add(key);
             valueList.Add(value);
         }

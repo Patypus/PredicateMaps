@@ -79,11 +79,29 @@ namespace PredicateMaps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Null is not a valid data value..
+        /// </summary>
+        internal static string InvalidDataParameter {
+            get {
+                return ResourceManager.GetString("InvalidDataParameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Null is not a valid value for key collection parameter..
         /// </summary>
         internal static string InvalidKeyCollectionParameter {
             get {
                 return ResourceManager.GetString("InvalidKeyCollectionParameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Null is not a valid key value..
+        /// </summary>
+        internal static string InvalidKeyParameter {
+            get {
+                return ResourceManager.GetString("InvalidKeyParameter", resourceCulture);
             }
         }
     }
