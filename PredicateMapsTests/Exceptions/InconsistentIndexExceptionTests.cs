@@ -18,7 +18,7 @@ namespace PredicateMapsTests.Exceptions
             var keyCollectionSize = 3;
             var dataCollectionSize = 5;
             var exception = new InconsistentIndexException(keyCollectionSize, dataCollectionSize);
-            var expectedMessage = string.Format(Strings.InconsistentCollectionSizeError, keyCollectionSize, dataCollectionSize);
+            var expectedMessage = string.Format(StringResources.InconsistentCollectionSizeError, keyCollectionSize, dataCollectionSize);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
