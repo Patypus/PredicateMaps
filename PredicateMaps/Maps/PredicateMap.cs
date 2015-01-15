@@ -30,7 +30,8 @@ namespace PredicateMaps.Maps
         public PredicateMap(List<Predicate<K>> keyList, List<V> valuesList)
         {
             if(keyList == null || valuesList == null) {
-                var message = keyList == null ? Strings.InvalidKeyCollectionParameter : Strings.InvalidDataCollectionParameter;
+                var message = keyList == null ? StringResources.InvalidKeyCollectionParameter : 
+                                                StringResources.InvalidDataCollectionParameter;
                 throw new ArgumentException(message);
             }
             if (keyList.Count != valuesList.Count) {

@@ -95,7 +95,7 @@ namespace PredicateMapsTests.Maps
             }
 
             Assert.NotNull(caughtException);
-            Assert.AreEqual(Strings.InvalidKeyCollectionParameter, caughtException.Message);
+            Assert.AreEqual(StringResources.InvalidKeyCollectionParameter, caughtException.Message);
         }
 
         [Test]
@@ -113,7 +113,7 @@ namespace PredicateMapsTests.Maps
             }
 
             Assert.NotNull(caughtException);
-            Assert.AreEqual(Strings.InvalidDataCollectionParameter, caughtException.Message);
+            Assert.AreEqual(StringResources.InvalidDataCollectionParameter, caughtException.Message);
         }
 
         [Test]
