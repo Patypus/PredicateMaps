@@ -13,6 +13,9 @@ namespace PredicateMaps.Maps
         public List<Predicate<K>> keyPredicateList { get; private set; }
         public List<V> valueList { get; private set; }
 
+        /// <summary>
+        /// Creates a new PredicateMap with empty key and value lists
+        /// </summary>
         public PredicateMap()
         {
             keyPredicateList = new List<Predicate<K>>();
@@ -50,6 +53,12 @@ namespace PredicateMaps.Maps
             return keyPredicateList.Count;
         }
 
+        /// <summary>
+        /// Add a key value pair to the map. The value can be retrieved later with values supplied to the Get methods in this class
+        /// which return true for the key Predicate supplied.
+        /// </summary>
+        /// <param name="key">Predicate which can be used to return the value when it evaluates to true.</param>
+        /// <param name="value">Value item to be stored.</param>
         public void Add(Predicate<K> key, V value)
         {
             if (key == null || value == null) 
