@@ -40,7 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\InconsistentIndexException.cs" />
-    <Compile Include="Maps\PredicateMap.cs" />
+    <Compile Include="Maps\IPredicateMap.cs" />
+    <Compile Include="Maps\ClassPredicateMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\StringResources.Designer.cs">
       <AutoGen>True</AutoGen>

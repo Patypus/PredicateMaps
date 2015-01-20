@@ -11,12 +11,12 @@ using PredicateMaps.Resources;
 namespace PredicateMapsTests.Maps
 {
     [TestFixture]
-    public class PredicateMapTests
+    public class ClassPredicateMapTests
     {
         [Test]
         public void DefaultConstructorCreatesEmptyMap()
         {
-            var basicMap = new PredicateMap<string,string>();
+            var basicMap = new ClassPredicateMap<string,string>();
             var itemsInNewMap = basicMap.GetCount();
             Assert.AreEqual(0, itemsInNewMap);
         }
@@ -27,7 +27,7 @@ namespace PredicateMapsTests.Maps
             var keys = new List<Predicate<int>> { (i) => i > 1, (i) => i == 1, (i) => 1 < 1 };
             var data = new List<string> { "More than 1", "Exactly 1", "Less than 1" };
 
-            var map = new PredicateMap<int, string>(keys, data);
+            var map = new ClassPredicateMap<int, string>(keys, data);
 
             Assert.AreEqual(3, map.GetCount());
         }
@@ -39,7 +39,7 @@ namespace PredicateMapsTests.Maps
             var keyList = new List<Predicate<string>> { (string s) => s.Contains("Hello")  };
             var dataList = new List<string> { dataItem };
            
-            var populatedMap = new PredicateMap<string, string>(keyList, dataList);
+            var populatedMap = new ClassPredicateMap<string, string>(keyList, dataList);
             var keysFromMap = populatedMap.keyPredicateList;
 
             Assert.IsTrue(populatedMap.valueList.Contains(dataItem));
@@ -57,7 +57,7 @@ namespace PredicateMapsTests.Maps
             var keys = new List<Predicate<string>>();
             var data = new List<string> { "These list sizes dont match..." };
 
-            new PredicateMap<string, string>(keys, data);
+            new ClassPredicateMap<string, string>(keys, data);
         }
 
         [Test]
@@ -69,7 +69,7 @@ namespace PredicateMapsTests.Maps
 
             try
             {
-                new PredicateMap<int, string>(keys, data);
+                new ClassPredicateMap<int, string>(keys, data);
             }
             catch (InconsistentIndexException iie)
             {
@@ -87,7 +87,7 @@ namespace PredicateMapsTests.Maps
 
             try
             {
-                new PredicateMap<string, string>(null, new List<string>());
+                new ClassPredicateMap<string, string>(null, new List<string>());
             }
             catch (ArgumentException ae) 
             {
@@ -105,7 +105,7 @@ namespace PredicateMapsTests.Maps
 
             try
             {
-                new PredicateMap<string, string>(new List<Predicate<string>>(), null);
+                new ClassPredicateMap<string, string>(new List<Predicate<string>>(), null);
             }
             catch (ArgumentException ae)
             {
@@ -119,7 +119,7 @@ namespace PredicateMapsTests.Maps
         [Test]
         public void AddPutsKeyAndDataItemInMap()
         {
-            var map = new PredicateMap<int, string>();
+            var map = new ClassPredicateMap<int, string>();
             
             var mapSizeBeforeAdd = map.GetCount();
             map.Add((i) => i < 5, "Value was little.");
@@ -137,7 +137,7 @@ namespace PredicateMapsTests.Maps
 
             try
             {
-                var map = new PredicateMap<string, string>();
+                var map = new ClassPredicateMap<string, string>();
                 map.Add(null, "someValue");
             }
             catch (ArgumentException ae)
@@ -157,7 +157,7 @@ namespace PredicateMapsTests.Maps
 
             try
             {
-                var map = new PredicateMap<string, string>();
+                var map = new ClassPredicateMap<string, string>();
                 map.Add((s) => s.Equals("someKey"), null);
             }
             catch (ArgumentException ae)
@@ -168,7 +168,25 @@ namespace PredicateMapsTests.Maps
             Assert.NotNull(caughtException);
             Assert.AreEqual(expectedMessage, caughtException.Message);
         }
+        /*
+         * Tests removed for commit.
+        [Test]
+        public void GetFirstMatch_ReturnsCorrectItemForKey()
+        {
+            Assert.Fail();
+        }
 
+        [Test]
+        public void GetFirstMatch_RetrunsNullWhenNoMatchesExists()
+        {
+            Assert.Fail();
+        }
+
+        [Test]
+        public void GetFirstMatch_AcceptsNullAsParameter()
+        {
+            Assert.Fail();
+        }*/
 
         //getFirst?
         //addAll?

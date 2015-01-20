@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PredicateMaps.Maps
 {
-    public class PredicateMap<K, V>
+    public class ClassPredicateMap<K, V> : IPredicateMap<K, V> where V : class
     {
         public List<Predicate<K>> keyPredicateList { get; private set; }
         public List<V> valueList { get; private set; }
@@ -16,7 +16,7 @@ namespace PredicateMaps.Maps
         /// <summary>
         /// Creates a new PredicateMap with empty key and value lists
         /// </summary>
-        public PredicateMap()
+        public ClassPredicateMap()
         {
             keyPredicateList = new List<Predicate<K>>();
             valueList = new List<V>();
@@ -30,7 +30,7 @@ namespace PredicateMaps.Maps
         /// <param name="valuesList">Typed collection of values to include in the map.</param>
         /// <exception cref="InconsistentIndexException">Thrown if the sizes of keyList and dataList are not equal.</exception>
         /// <exception cref="ArgumentException">Thrown if either parameter value is null.</exception>
-        public PredicateMap(List<Predicate<K>> keyList, List<V> valuesList)
+        public ClassPredicateMap(List<Predicate<K>> keyList, List<V> valuesList)
         {
             if(keyList == null || valuesList == null) {
                 var message = keyList == null ? StringResources.InvalidKeyCollectionParameter : 
@@ -69,6 +69,20 @@ namespace PredicateMaps.Maps
             }
             keyPredicateList.Add(key);
             valueList.Add(value);
+        }
+
+        /// <summary>
+        /// Method to find the value which is associated with the first predicate to resolve to true for the valueToTest parameter.
+        /// 
+        /// This method only finds the value for the first predicate which resolves to true with the value supplied through
+        /// the valueToTest parameter. To find values associated with all predicates which resolve to true for the supplied
+        /// parameter use GetAllMatches
+        /// </summary>
+        /// <param name="valueToTest">Value to test in key predicates</param>
+        /// <returns>Value associated with first predicate found that is true for the valueToTest parameter</returns>
+        public V GetFirstMatch(K valueToTest)
+        {
+            return null;
         }
     }
 }
