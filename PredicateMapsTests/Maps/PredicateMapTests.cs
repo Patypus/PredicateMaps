@@ -81,7 +81,7 @@ namespace PredicateMapsTests.Maps
         }
 
         [Test]
-        public void nullKeyCollectionCausesInvalidArgumentException()
+        public void NullKeyCollectionCausesInvalidArgumentException()
         {
             ArgumentException caughtException = null;
 
@@ -99,7 +99,7 @@ namespace PredicateMapsTests.Maps
         }
 
         [Test]
-        public void dataCollectionCausesInvalidArgumentException()
+        public void DataCollectionCausesInvalidArgumentException()
         {
             ArgumentException caughtException = null;
 
@@ -117,7 +117,7 @@ namespace PredicateMapsTests.Maps
         }
 
         [Test]
-        public void addPutsKeyAndDataItemInMap()
+        public void AddPutsKeyAndDataItemInMap()
         {
             var map = new PredicateMap<int, string>();
             
@@ -130,7 +130,7 @@ namespace PredicateMapsTests.Maps
         }
 
         [Test]
-        public void nullKeyGivesArgumentException()
+        public void NullKeyGivesArgumentException()
         {
             var expectedMessage = StringResources.InvalidKeyParameter;
             Exception caughtException = null;
@@ -150,7 +150,7 @@ namespace PredicateMapsTests.Maps
         }
 
         [Test]
-        public void nullValueGivesArgumentException()
+        public void NullValueGivesArgumentException()
         {
             var expectedMessage = StringResources.InvalidDataParameter;
             Exception caughtException = null;
@@ -168,7 +168,6 @@ namespace PredicateMapsTests.Maps
             Assert.NotNull(caughtException);
             Assert.AreEqual(expectedMessage, caughtException.Message);
         }
-
 
 
         //getFirst?
