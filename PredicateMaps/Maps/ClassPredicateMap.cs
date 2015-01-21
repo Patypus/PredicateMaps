@@ -10,6 +10,7 @@ namespace PredicateMaps.Maps
 {
     public class ClassPredicateMap<K, V> : IPredicateMap<K, V> where V : class
     {
+        private readonly int NO_VALUE_FOUND = -1;
         public List<Predicate<K>> keyPredicateList { get; private set; }
         public List<V> valueList { get; private set; }
 
@@ -82,7 +83,22 @@ namespace PredicateMaps.Maps
         /// <returns>Value associated with first predicate found that is true for the valueToTest parameter</returns>
         public V GetFirstMatch(K valueToTest)
         {
-            return null;
+            var indexForValue = GetIndexOfFirstMatch(valueToTest);
+            return indexForValue != NO_VALUE_FOUND ? valueList[indexForValue] : null;
+        }
+
+        private int GetIndexOfFirstMatch(K valueToTest)
+        {
+            foreach (var keyPred in keyPredicateList) {
+                var valueMatchesPredicate = keyPred.Invoke(valueToTest);
+                if (valueMatchesPredicate)
+                {
+                    //Quick return for performence over completeness.
+                    return keyPredicateList.IndexOf(keyPred);
+                }
+            }
+            //Return nothing found if no predicates evaluate to true for the given value
+            return NO_VALUE_FOUND;
         }
     }
 }

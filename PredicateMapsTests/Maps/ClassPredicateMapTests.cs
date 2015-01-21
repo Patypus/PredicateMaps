@@ -168,26 +168,45 @@ namespace PredicateMapsTests.Maps
             Assert.NotNull(caughtException);
             Assert.AreEqual(expectedMessage, caughtException.Message);
         }
-        /*
-         * Tests removed for commit.
+        
         [Test]
         public void GetFirstMatch_ReturnsCorrectItemForKey()
         {
-            Assert.Fail();
-        }
+            var predicateList = new List<Predicate<int>> { (i) => i == 5 };
+            var value = "This should get returned.";
+            var valueList = new List<string> { value };
+            
+            var predicateMap = new ClassPredicateMap<int, string>(predicateList, valueList);
+            var returnedValue = predicateMap.GetFirstMatch(5);
 
+            Assert.AreEqual(value, returnedValue);
+        }
+        
         [Test]
         public void GetFirstMatch_RetrunsNullWhenNoMatchesExists()
         {
-            Assert.Fail();
+            var predicateList = new List<Predicate<int>> { (i) => i == 5, (i) => i == 3 };
+            var valueList = new List<string> { "This should NOT get returned.", "Neither should this" };
+
+            var predicateMap = new ClassPredicateMap<int, string>(predicateList, valueList);
+            var returnedValue = predicateMap.GetFirstMatch(4);
+
+            Assert.Null(returnedValue);
         }
 
         [Test]
         public void GetFirstMatch_AcceptsNullAsParameter()
         {
-            Assert.Fail();
-        }*/
+            var predicateList = new List<Predicate<string>> { (s) => s == null, (s) => s.Length > 10 };
+            var value = "This will be matched for null";
+            var valueList = new List<string> { value, "value for longer strings" };
 
+            var predicateMap = new ClassPredicateMap<string, string>(predicateList, valueList);
+            var returnedValue = predicateMap.GetFirstMatch(null);
+
+            Assert.AreEqual(value, returnedValue);
+        }
+        
         //getFirst?
         //addAll?
         //getAll?
