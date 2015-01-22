@@ -100,5 +100,21 @@ namespace PredicateMaps.Maps
             //Return nothing found if no predicates evaluate to true for the given value
             return NO_VALUE_FOUND;
         }
+
+        /// <summary>
+        /// Adds all elements in key and value lists to the map. The values from both lists are matched by index and must be provided in
+        /// the correct order. If the size of the keyList and valueList do not match this method will throw an 
+        /// InconsistentIndexException.
+        /// 
+        /// Null is not a valid value for either parameter
+        /// </summary>
+        /// <param name="keyList">Collection of predicates for use as keys</param>
+        /// <param name="valuesList">Collection of values for retreival when the key predicate evaluates to true.</param>
+        /// /// <exception cref="InconsistentIndexException">Thrown if the sizes of keyList and valueList are not equal.</exception>
+        /// <exception cref="ArgumentException">Thrown if either parameter value is null.</exception>
+        public void AddAll(List<Predicate<K>> keyList, List<V> valueList)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
