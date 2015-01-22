@@ -42,7 +42,7 @@ namespace PredicateMapsTests.Maps
             var populatedMap = new ClassPredicateMap<string, string>(keyList, dataList);
             var keysFromMap = populatedMap.keyPredicateList;
 
-            Assert.IsTrue(populatedMap.valueList.Contains(dataItem));
+            Assert.IsTrue(populatedMap.valueItemList.Contains(dataItem));
             //Harder to test for the key as the original predicate can't be checked for equality directly.
             //Sticking with checking the number in the collection and it returns true when it should as a check for equality.
             //This is a basic test for coverage rather than checking something complex.
@@ -207,6 +207,23 @@ namespace PredicateMapsTests.Maps
             Assert.AreEqual(value, returnedValue);
         }
 
+        [Test]
+        public void AddAll_AddsAllItemsInCollectionToMap()
+        {
+            var predicates = new List<Predicate<double>> { (d) => d < 2.0, (d) => d == null, (d) => d > 100.0 };
+            var values = new List<string> { "Small double", "That's null", "Large double." };
+            var map = new ClassPredicateMap<double, string>();
+            map.AddAll(predicates, values);
+
+            Assert.True(map.GetCount() == predicates.Count && map.GetCount() == values.Count);
+        }
+
+        //append to existing items
+        //null key collection
+        //null value collection
+        //mismatched indexes
+        //
+        //
         //addAll?
         //getAll?
         //update?

@@ -12,7 +12,7 @@ namespace PredicateMaps.Maps
     {
         private readonly int NO_VALUE_FOUND = -1;
         public List<Predicate<K>> keyPredicateList { get; private set; }
-        public List<V> valueList { get; private set; }
+        public List<V> valueItemList { get; private set; }
 
         /// <summary>
         /// Creates a new PredicateMap with empty key and value lists
@@ -20,7 +20,7 @@ namespace PredicateMaps.Maps
         public ClassPredicateMap()
         {
             keyPredicateList = new List<Predicate<K>>();
-            valueList = new List<V>();
+            valueItemList = new List<V>();
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace PredicateMaps.Maps
                 throw new InconsistentIndexException(keyList.Count, valuesList.Count);
             }
             keyPredicateList = keyList;
-            valueList = valuesList;
+            valueItemList = valuesList;
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace PredicateMaps.Maps
                 throw new ArgumentException(message);
             }
             keyPredicateList.Add(key);
-            valueList.Add(value);
+            valueItemList.Add(value);
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace PredicateMaps.Maps
         public V GetFirstMatch(K valueToTest)
         {
             var indexForValue = GetIndexOfFirstMatch(valueToTest);
-            return indexForValue != NO_VALUE_FOUND ? valueList[indexForValue] : null;
+            return indexForValue != NO_VALUE_FOUND ? valueItemList[indexForValue] : null;
         }
 
         private int GetIndexOfFirstMatch(K valueToTest)
@@ -104,9 +104,7 @@ namespace PredicateMaps.Maps
         /// <summary>
         /// Adds all elements in key and value lists to the map. The values from both lists are matched by index and must be provided in
         /// the correct order. If the size of the keyList and valueList do not match this method will throw an 
-        /// InconsistentIndexException.
-        /// 
-        /// Null is not a valid value for either parameter
+        /// InconsistentIndexException. Null is not a valid value for either parameter for this method.
         /// </summary>
         /// <param name="keyList">Collection of predicates for use as keys</param>
         /// <param name="valuesList">Collection of values for retreival when the key predicate evaluates to true.</param>
@@ -114,7 +112,8 @@ namespace PredicateMaps.Maps
         /// <exception cref="ArgumentException">Thrown if either parameter value is null.</exception>
         public void AddAll(List<Predicate<K>> keyList, List<V> valueList)
         {
-            throw new NotImplementedException();
+            keyPredicateList.AddRange(keyList);
+            valueItemList.AddRange(valueList);
         }
     }
 }
