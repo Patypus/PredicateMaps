@@ -11,16 +11,16 @@ namespace PredicateMaps.Maps
     public class ClassPredicateMap<K, V> : IPredicateMap<K, V> where V : class
     {
         private readonly int NO_VALUE_FOUND = -1;
-        public List<Predicate<K>> keyPredicateList { get; private set; }
-        public List<V> valueItemList { get; private set; }
+        public List<Predicate<K>> KeyPredicateList { get; private set; }
+        public List<V> ValueItemList { get; private set; }
 
         /// <summary>
         /// Creates a new PredicateMap with empty key and value lists
         /// </summary>
         public ClassPredicateMap()
         {
-            keyPredicateList = new List<Predicate<K>>();
-            valueItemList = new List<V>();
+            KeyPredicateList = new List<Predicate<K>>();
+            ValueItemList = new List<V>();
         }
 
         /// <summary>
@@ -41,8 +41,8 @@ namespace PredicateMaps.Maps
             if (keyList.Count != valuesList.Count) {
                 throw new InconsistentIndexException(keyList.Count, valuesList.Count);
             }
-            keyPredicateList = keyList;
-            valueItemList = valuesList;
+            KeyPredicateList = keyList;
+            ValueItemList = valuesList;
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace PredicateMaps.Maps
         /// <returns>int number of items in the map</returns>
         public int GetCount()
         {
-            return keyPredicateList.Count;
+            return KeyPredicateList.Count;
         }
 
         /// <summary>
@@ -68,8 +68,8 @@ namespace PredicateMaps.Maps
                                           : StringResources.InvalidDataParameter;
                 throw new ArgumentException(message);
             }
-            keyPredicateList.Add(key);
-            valueItemList.Add(value);
+            KeyPredicateList.Add(key);
+            ValueItemList.Add(value);
         }
 
         /// <summary>
@@ -84,17 +84,17 @@ namespace PredicateMaps.Maps
         public V GetFirstMatch(K valueToTest)
         {
             var indexForValue = GetIndexOfFirstMatch(valueToTest);
-            return indexForValue != NO_VALUE_FOUND ? valueItemList[indexForValue] : null;
+            return indexForValue != NO_VALUE_FOUND ? ValueItemList[indexForValue] : null;
         }
 
         private int GetIndexOfFirstMatch(K valueToTest)
         {
-            foreach (var keyPred in keyPredicateList) {
+            foreach (var keyPred in KeyPredicateList) {
                 var valueMatchesPredicate = keyPred.Invoke(valueToTest);
                 if (valueMatchesPredicate)
                 {
                     //Quick return for performence over completeness.
-                    return keyPredicateList.IndexOf(keyPred);
+                    return KeyPredicateList.IndexOf(keyPred);
                 }
             }
             //Return nothing found if no predicates evaluate to true for the given value
@@ -112,8 +112,8 @@ namespace PredicateMaps.Maps
         /// <exception cref="ArgumentException">Thrown if either parameter value is null.</exception>
         public void AddAll(List<Predicate<K>> keyList, List<V> valueList)
         {
-            keyPredicateList.AddRange(keyList);
-            valueItemList.AddRange(valueList);
+            KeyPredicateList.AddRange(keyList);
+            ValueItemList.AddRange(valueList);
         }
     }
 }

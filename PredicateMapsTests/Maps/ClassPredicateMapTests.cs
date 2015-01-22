@@ -40,9 +40,9 @@ namespace PredicateMapsTests.Maps
             var dataList = new List<string> { dataItem };
            
             var populatedMap = new ClassPredicateMap<string, string>(keyList, dataList);
-            var keysFromMap = populatedMap.keyPredicateList;
+            var keysFromMap = populatedMap.KeyPredicateList;
 
-            Assert.IsTrue(populatedMap.valueItemList.Contains(dataItem));
+            Assert.IsTrue(populatedMap.ValueItemList.Contains(dataItem));
             //Harder to test for the key as the original predicate can't be checked for equality directly.
             //Sticking with checking the number in the collection and it returns true when it should as a check for equality.
             //This is a basic test for coverage rather than checking something complex.
