@@ -218,10 +218,40 @@ namespace PredicateMapsTests.Maps
             Assert.True(map.GetCount() == predicates.Count && map.GetCount() == values.Count);
         }
 
+        [Test]
+        [ExpectedException(typeof(InconsistentIndexException))]
+        public void AddAll_ThrowsInconsistentIndexExceptionWhenSizesOfParameterCollectionsDoNoMatch()
+        {
+            var predicates = new List<Predicate<string>> { (s) => s.Length == 0 };
+            var values = new List<string> { "0", "4", "4", "E", "6" };
+            var map = new ClassPredicateMap<string, string>();
+
+            map.AddAll(predicates, values);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void AddAll_ThrowsInvalidArgumentExceptionWhenKeyCollectionIsNull()
+        {
+            var valuesCollection = new List<string>();
+            var map = new ClassPredicateMap<string, string>();
+
+            map.AddAll(null, valuesCollection);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void AddAll_ThrowsInvalidArgumentExceptionWhenValueCollectionIsNull()
+        {
+            var predicatesCollection = new List<Predicate<string>>();
+            var map = new ClassPredicateMap<string, string>();
+
+            map.AddAll(predicatesCollection, null);
+        }
+
         //append to existing items
         //null key collection
         //null value collection
-        //mismatched indexes
         //
         //
         //addAll?

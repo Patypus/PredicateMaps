@@ -33,16 +33,24 @@ namespace PredicateMaps.Maps
         /// <exception cref="ArgumentException">Thrown if either parameter value is null.</exception>
         public ClassPredicateMap(List<Predicate<K>> keyList, List<V> valuesList)
         {
-            if(keyList == null || valuesList == null) {
-                var message = keyList == null ? StringResources.InvalidKeyCollectionParameter : 
+            CheckValidityOfMultipleAddParameters(keyList, valuesList);
+
+            KeyPredicateList = keyList;
+            ValueItemList = valuesList;
+        }
+
+        private void CheckValidityOfMultipleAddParameters(List<Predicate<K>> keyList, List<V> valueList)
+        {
+            if (keyList == null || valueList == null)
+            {
+                var message = keyList == null ? StringResources.InvalidKeyCollectionParameter :
                                                 StringResources.InvalidDataCollectionParameter;
                 throw new ArgumentException(message);
             }
-            if (keyList.Count != valuesList.Count) {
-                throw new InconsistentIndexException(keyList.Count, valuesList.Count);
+            if (keyList.Count != valueList.Count)
+            {
+                throw new InconsistentIndexException(keyList.Count, valueList.Count);
             }
-            KeyPredicateList = keyList;
-            ValueItemList = valuesList;
         }
 
         /// <summary>
@@ -112,6 +120,8 @@ namespace PredicateMaps.Maps
         /// <exception cref="ArgumentException">Thrown if either parameter value is null.</exception>
         public void AddAll(List<Predicate<K>> keyList, List<V> valueList)
         {
+            CheckValidityOfMultipleAddParameters(keyList, valueList);
+
             KeyPredicateList.AddRange(keyList);
             ValueItemList.AddRange(valueList);
         }
