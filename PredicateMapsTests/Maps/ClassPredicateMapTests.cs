@@ -130,7 +130,7 @@ namespace PredicateMapsTests.Maps
         }
 
         [Test]
-        public void NullKeyGivesArgumentException()
+        public void NullKeyForAddGivesArgumentException()
         {
             var expectedMessage = StringResources.InvalidKeyParameter;
             Exception caughtException = null;
@@ -150,7 +150,7 @@ namespace PredicateMapsTests.Maps
         }
 
         [Test]
-        public void NullValueGivesArgumentException()
+        public void NullValueForAddGivesArgumentException()
         {
             var expectedMessage = StringResources.InvalidDataParameter;
             Exception caughtException = null;
@@ -249,12 +249,6 @@ namespace PredicateMapsTests.Maps
             map.AddAll(predicatesCollection, null);
         }
 
-        //append to existing items
-        //null key collection
-        //null value collection
-        //
-        //
-        //addAll?
         //getAll?
         //update?
         //remove?
