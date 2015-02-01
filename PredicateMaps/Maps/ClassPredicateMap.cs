@@ -85,7 +85,7 @@ namespace PredicateMaps.Maps
         /// 
         /// This method only finds the value for the first predicate which resolves to true with the value supplied through
         /// the valueToTest parameter. To find values associated with all predicates which resolve to true for the supplied
-        /// parameter use GetAllMatches
+        /// parameter use GetAllMatches.
         /// </summary>
         /// <param name="valueToTest">Value to test in key predicates</param>
         /// <returns>Value associated with first predicate found that is true for the valueToTest parameter</returns>
@@ -124,6 +124,20 @@ namespace PredicateMaps.Maps
 
             KeyPredicateList.AddRange(keyList);
             ValueItemList.AddRange(valueList);
+        }
+
+        /// <summary>
+        /// Finds all values where valueToTest evaluates the prdicate related to the value to true.
+        /// 
+        /// This method favours completeness over speed and will evaluate all predicates in the collection even
+        /// if only one near the start evaluates to true. If you know that the Map contains only a single matching
+        /// predicate for valueToTest use GetFirstMatch for performance. 
+        /// </summary>
+        /// <param name="valueToTest">Value to test against the predicate keys</param>
+        /// <returns>A list of all matches</returns>
+        public List<V> GetAllMatches(K valueToTest)
+        {
+            return null;
         }
     }
 }

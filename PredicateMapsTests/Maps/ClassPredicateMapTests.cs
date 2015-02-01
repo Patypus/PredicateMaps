@@ -249,6 +249,12 @@ namespace PredicateMapsTests.Maps
             map.AddAll(predicatesCollection, null);
         }
 
+        [Test]
+        public void GetAll_RetrunsAllMatches()
+        {
+            Assert.Fail();
+        }
+
         //getAll?
         //update?
         //remove?
