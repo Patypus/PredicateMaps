@@ -250,7 +250,7 @@ namespace PredicateMapsTests.Maps
         }
 
         [Test]
-        public void GetAll_RetrunsAllMatches()
+        public void GetAllMatches_RetrunsAllMatches()
         {
             var predicates = new List<Predicate<int>> { (i) => i == 4, (i) => i < 5, (i) => i > 10 };
             var values = new List<string> { "It's 4", "Less than 5", "Over 10" };
@@ -262,8 +262,34 @@ namespace PredicateMapsTests.Maps
             CollectionAssert.AreEquivalent(expected, result);
         }
 
-        //getAll?
+        [Test]
+        public void GetAllMatches_ReturnsEmptyCollectionWhenNoMatchesFound()
+        {
+            var predicates = new List<Predicate<double>> { (d) => d < 1.0 };
+            var values = new List<string> { "This is not the match you are looking for" };
+            var map = new ClassPredicateMap<double, string>(predicates, values);
+
+            var result = map.GetAllMatches(3.7);
+            Assert.AreEqual(0, result.Count);
+        }
+
+        [Test]
+        public void GetAllMatches_ReturnsCorrectValuesWhenTwoKeyPredicatesAreIdentical()
+        {
+            var predicates = new List<Predicate<string>> { (s) => s.Length == 1, (s) => s == "other", (s) => s.Length == 1 };
+            var values = new List<string> { "match one", "No Match", "match two" };
+            var map = new ClassPredicateMap<string, string>(predicates, values);
+
+            var expected = new List<string> { "match one", "match two" };
+            var result = map.GetAllMatches("s");
+            
+            CollectionAssert.AreEquivalent(expected, result);
+        }
+
+        //getAll
         //update?
         //remove?
+        //anyMatches
+        //countMatches
     }
 }
