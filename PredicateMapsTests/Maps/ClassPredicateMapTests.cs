@@ -252,7 +252,7 @@ namespace PredicateMapsTests.Maps
         [Test]
         public void GetAll_RetrunsAllMatches()
         {
-            var predicates = new List<Predicate<int>> { (i) => i == 4, (i) => i < 5, (i) => i < 10 };
+            var predicates = new List<Predicate<int>> { (i) => i == 4, (i) => i < 5, (i) => i > 10 };
             var values = new List<string> { "It's 4", "Less than 5", "Over 10" };
 
             var map = new ClassPredicateMap<int, string>(predicates, values);

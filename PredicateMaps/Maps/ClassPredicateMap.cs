@@ -137,7 +137,11 @@ namespace PredicateMaps.Maps
         /// <returns>A list of all matches</returns>
         public List<V> GetAllMatches(K valueToTest)
         {
-            return null;
+            var matchItems = KeyPredicateList.AsParallel().Where(pred => pred.Invoke(valueToTest) == true).ToList();
+            var matchIndicies = matchItems.Select(match => KeyPredicateList.IndexOf(match));
+            var matchValues = matchIndicies.Select(index => ValueItemList[index]).ToList();
+            
+            return matchValues;
         }
     }
 }
