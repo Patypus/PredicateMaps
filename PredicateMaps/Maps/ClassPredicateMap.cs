@@ -8,6 +8,14 @@ using System.Threading.Tasks;
 
 namespace PredicateMaps.Maps
 {
+    /// <summary>
+    /// Implementation of the IPredicateMap interface for values which are classes.
+    /// Represents a type of map with keys of Predicates which take objects of type K which
+    /// are mapped to values of type V, which is a class. Values are selected for return by this map
+    /// where key predicates evaluate to true.
+    /// </summary>
+    /// <typeparam name="K">Type of items to test in the key predicates</typeparam>
+    /// <typeparam name="V">Class type of values</typeparam>
     public class ClassPredicateMap<K, V> : IPredicateMap<K, V> where V : class
     {
         private readonly int NO_VALUE_FOUND = -1;

@@ -6,6 +6,14 @@ using System.Threading.Tasks;
 
 namespace PredicateMaps.Maps
 {
+    /// <summary>
+    /// Interface which defines a class which maps predicates of type K against values of type V.
+    /// Values can be tested against the predicate keys to find V type values which are associated with
+    /// the predicate.
+    /// This map type allows for pattern matching.
+    /// </summary>
+    /// <typeparam name="K">Type of items to test in the key predicates</typeparam>
+    /// <typeparam name="V">Type of values to map to predicate keys</typeparam>
     public interface IPredicateMap<K, V>
     {
          /// <summary>
