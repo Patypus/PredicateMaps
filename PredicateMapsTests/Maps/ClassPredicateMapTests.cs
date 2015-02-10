@@ -289,19 +289,34 @@ namespace PredicateMapsTests.Maps
         [Test]
         public void CountMatches_ReturnsZeroWhenMapIsEmpty()
         {
-            Assert.Fail();
+            var map = new ClassPredicateMap<string, string>();
+            var matches = map.CountMatches("TestValue");
+            Assert.AreEqual(0, matches);
         }
 
         [Test]
         public void CountMatches_ReturnsZeroWhenMapHasNoMatches()
         {
-            Assert.Fail();
+            var predicates = new List<Predicate<Type>> 
+                                    { 
+                                        (t) => t == typeof(ArgumentException), 
+                                        (t) => t == typeof(NullReferenceException), 
+                                        (t) => t  == typeof(StackOverflowException) 
+                                    };
+            var values = new List<string> { "That was invalid", "Something was null", "Stack has overflown" };
+            var map = new ClassPredicateMap<Type, string>();
+            var matches = map.CountMatches(("This is not an exception").GetType());
+            Assert.AreEqual(0, matches);
         }
 
         [Test]
         public void CountMatches_ReturnsCountForMatchesWhenItemsInMapAreTrueForParameter()
         {
-            Assert.Fail();
+            var predicates = new List<Predicate<int>> { (i) => i < 9, (i) => i == 5, (i) => i > 20 };
+            var values = new List<string> { "under 9", "five", "large number" };
+            var map = new ClassPredicateMap<int, string>(predicates, values);
+            var matches = map.CountMatches(5);
+            Assert.AreEqual(2, matches);
         }
 
         //update?
