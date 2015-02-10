@@ -159,7 +159,7 @@ namespace PredicateMaps.Maps
         /// <returns>The number of predicates which are true for valueToTest</returns>
         public int CountMatches(K valueToTest)
         {
-            throw new NotImplementedException();
+            return KeyPredicateList.AsParallel().Where(pred => pred.Invoke(valueToTest) == true).Count();
         }
     }
 }
