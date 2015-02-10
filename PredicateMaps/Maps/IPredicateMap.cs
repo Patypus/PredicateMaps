@@ -64,5 +64,12 @@ namespace PredicateMaps.Maps
         /// <param name="valueToTest">Value to test against the predicate keys</param>
         /// <returns>A list of all matches or an empty list of no matches are found.</returns>
         List<V> GetAllMatches(K valueToTest);
+
+        /// <summary>
+        /// Counts the number of predicates in the map which evaluate to true for valueToTest
+        /// </summary>
+        /// <param name="valueToTest">Value to evaluate predicates with.</param>
+        /// <returns>The number of predicates which are true for valueToTest</returns>
+        int CountMatches(K valueToTest);
     }
 }

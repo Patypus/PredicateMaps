@@ -286,9 +286,26 @@ namespace PredicateMapsTests.Maps
             CollectionAssert.AreEquivalent(expected, result);
         }
 
+        [Test]
+        public void CountMatches_ReturnsZeroWhenMapIsEmpty()
+        {
+            Assert.Fail();
+        }
+
+        [Test]
+        public void CountMatches_ReturnsZeroWhenMapHasNoMatches()
+        {
+            Assert.Fail();
+        }
+
+        [Test]
+        public void CountMatches_ReturnsCountForMatchesWhenItemsInMapAreTrueForParameter()
+        {
+            Assert.Fail();
+        }
+
         //update?
         //remove?
         //anyMatches
-        //countMatches
     }
 }

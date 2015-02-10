@@ -151,5 +151,15 @@ namespace PredicateMaps.Maps
             
             return matchValues;
         }
+
+        /// <summary>
+        /// Counts the number of predicates in the map which evaluate to true for valueToTest
+        /// </summary>
+        /// <param name="valueToTest">Value to evaluate predicates with.</param>
+        /// <returns>The number of predicates which are true for valueToTest</returns>
+        public int CountMatches(K valueToTest)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
