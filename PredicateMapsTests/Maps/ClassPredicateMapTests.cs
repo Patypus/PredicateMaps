@@ -14,14 +14,6 @@ namespace PredicateMapsTests.Maps
     public class ClassPredicateMapTests
     {
         [Test]
-        public void DefaultConstructorCreatesEmptyMap()
-        {
-            var basicMap = new ClassPredicateMap<string,string>();
-            var itemsInNewMap = basicMap.GetCount();
-            Assert.AreEqual(0, itemsInNewMap);
-        }
-
-        [Test]
         public void CountReturnsSizeOfMap()
         {
             var keys = new List<Predicate<int>> { (i) => i > 1, (i) => i == 1, (i) => 1 < 1 };
@@ -30,90 +22,6 @@ namespace PredicateMapsTests.Maps
             var map = new ClassPredicateMap<int, string>(keys, data);
 
             Assert.AreEqual(3, map.GetCount());
-        }
-
-        [Test]
-        public void ParameteredConstructorCreatesMapWithSuppliedCollectionsIn()
-        {
-            var dataItem = "Hello to you too.";
-            var keyList = new List<Predicate<string>> { (string s) => s.Contains("Hello")  };
-            var dataList = new List<string> { dataItem };
-           
-            var populatedMap = new ClassPredicateMap<string, string>(keyList, dataList);
-            var keysFromMap = populatedMap.KeyPredicateList;
-
-            Assert.IsTrue(populatedMap.ValueItemList.Contains(dataItem));
-            //Harder to test for the key as the original predicate can't be checked for equality directly.
-            //Sticking with checking the number in the collection and it returns true when it should as a check for equality.
-            //This is a basic test for coverage rather than checking something complex.
-            Assert.AreEqual(1, keysFromMap.Count);
-            Assert.IsTrue(keysFromMap.First().Invoke("This contains Hello"));
-        }
-
-        [Test]
-        [ExpectedException(typeof(InconsistentIndexException))]
-        public void ParameteredConstructorThrowsInconsistentIndexExceptionWhenIndexesOfSuppliedCollectionsDontMatch()
-        {
-            var keys = new List<Predicate<string>>();
-            var data = new List<string> { "These list sizes dont match..." };
-
-            new ClassPredicateMap<string, string>(keys, data);
-        }
-
-        [Test]
-        public void InconsistentIndexExceptionMessageContainsSizeOfProvidedLists()
-        {
-            Exception caughtException = null;
-            var keys = new List<Predicate<int>> { (i) => i == 0 };
-            var data = new List<string> { "These list sizes dont match...", "No indeed" };
-
-            try
-            {
-                new ClassPredicateMap<int, string>(keys, data);
-            }
-            catch (InconsistentIndexException iie)
-            {
-                caughtException = iie;
-            }
-            Assert.NotNull(caughtException);
-            Assert.True(caughtException.Message.Contains(keys.Count.ToString()));
-            Assert.True(caughtException.Message.Contains(data.Count.ToString()));
-        }
-
-        [Test]
-        public void NullKeyCollectionCausesInvalidArgumentException()
-        {
-            ArgumentException caughtException = null;
-
-            try
-            {
-                new ClassPredicateMap<string, string>(null, new List<string>());
-            }
-            catch (ArgumentException ae) 
-            {
-                caughtException = ae;
-            }
-
-            Assert.NotNull(caughtException);
-            Assert.AreEqual(StringResources.InvalidKeyCollectionParameter, caughtException.Message);
-        }
-
-        [Test]
-        public void DataCollectionCausesInvalidArgumentException()
-        {
-            ArgumentException caughtException = null;
-
-            try
-            {
-                new ClassPredicateMap<string, string>(new List<Predicate<string>>(), null);
-            }
-            catch (ArgumentException ae)
-            {
-                caughtException = ae;
-            }
-
-            Assert.NotNull(caughtException);
-            Assert.AreEqual(StringResources.InvalidDataCollectionParameter, caughtException.Message);
         }
 
         [Test]
@@ -321,6 +229,8 @@ namespace PredicateMapsTests.Maps
 
         //update?
         //remove?
-        //anyMatches
+        //ItemAtIndex
+
+        //anyMatches?
     }
 }
