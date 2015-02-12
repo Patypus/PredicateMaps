@@ -250,7 +250,6 @@ namespace PredicateMapsTests.Maps
 
         //update?
         //remove?
-        //ItemAtIndex
 
         //anyMatches?
     }

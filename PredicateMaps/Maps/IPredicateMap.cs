@@ -79,5 +79,12 @@ namespace PredicateMaps.Maps
         /// <param name="valueToTest">Value to test predicates against</param>
         /// <returns>Collection of all indexes where valueToTest evaluates predicates to true</returns>
         IEnumerable<int> GetIndexesOfMatches(K valueToTest);
+
+        /// <summary>
+        /// Removes the key/value pair at the given index in the dictionary.
+        /// </summary>
+        /// <param name="index">Int index of the key value pair in the map to remove</param>
+        void RemoveKeyValuePairAtGivenIndex(int index);
+
     }
 }

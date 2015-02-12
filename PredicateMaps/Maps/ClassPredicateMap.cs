@@ -172,6 +172,15 @@ namespace PredicateMaps.Maps
             return GetIndexesOfMatchingPredicates(valueToTest);
         }
 
+        /// <summary>
+        /// Removes the key/value pair at the given index in the dictionary.
+        /// </summary>
+        /// <param name="index">Int index of the key value pair in the map to remove</param>
+        public void RemoveKeyValuePairAtGivenIndex(int index)
+        {
+            throw new NotImplementedException();
+        }
+
         private IEnumerable<int> GetIndexesOfMatchingPredicates(K valueToTest)
         {
             var matchItems = KeyPredicateList.AsParallel().Where(pred => pred.Invoke(valueToTest) == true).ToList();
