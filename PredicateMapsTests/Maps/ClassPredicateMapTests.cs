@@ -227,6 +227,27 @@ namespace PredicateMapsTests.Maps
             Assert.AreEqual(2, matches);
         }
 
+        [Test]
+        public void GetIndexOfMatches_ReturnsEmptyCollectionWhenNothingMatches()
+        {
+            var map = new ClassPredicateMap<Type, string>();
+            var result = map.GetIndexesOfMatches(typeof(Exception));
+            Assert.AreEqual(0, result.Count());
+        }
+
+        [Test]
+        public void GetIndexOfMatches_ReturnsIndexOfAllMatches()
+        {
+            var predicates = new List<Predicate<string>> { (s) => s.Length == 2, (s) => s == "A string", (s) => s.Contains("string") };
+            var values = new List<string> { "2 letters", "It's A string", "Meta-string" };
+            var map = new ClassPredicateMap<string, string>(predicates, values);
+
+            var matches = map.GetIndexesOfMatches("A string");
+            var expected = new[] { 1, 2 };
+            CollectionAssert.AreEquivalent(expected, matches);
+        }
+
+
         //update?
         //remove?
         //ItemAtIndex

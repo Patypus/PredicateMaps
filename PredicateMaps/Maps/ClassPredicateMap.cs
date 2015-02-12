@@ -145,8 +145,7 @@ namespace PredicateMaps.Maps
         /// <returns>A list of all matches</returns>
         public List<V> GetAllMatches(K valueToTest)
         {
-            var matchItems = KeyPredicateList.AsParallel().Where(pred => pred.Invoke(valueToTest) == true).ToList();
-            var matchIndicies = matchItems.Select(match => KeyPredicateList.IndexOf(match));
+            var matchIndicies = GetIndexesOfMatchingPredicates(valueToTest);
             var matchValues = matchIndicies.Select(index => ValueItemList[index]).ToList();
             
             return matchValues;
@@ -160,6 +159,25 @@ namespace PredicateMaps.Maps
         public int CountMatches(K valueToTest)
         {
             return KeyPredicateList.AsParallel().Where(pred => pred.Invoke(valueToTest) == true).Count();
+        }
+
+        /// <summary>
+        /// Returns a collection of all the indexes of entries in the map which evaluate to true for
+        /// valueToTest.
+        /// </summary>
+        /// <param name="valueToTest">Value to test predicates against</param>
+        /// <returns>Collection of all indexes where valueToTest evaluates predicates to true</returns>
+        public IEnumerable<int> GetIndexesOfMatches(K valueToTest)
+        {
+            return GetIndexesOfMatchingPredicates(valueToTest);
+        }
+
+        private IEnumerable<int> GetIndexesOfMatchingPredicates(K valueToTest)
+        {
+            var matchItems = KeyPredicateList.AsParallel().Where(pred => pred.Invoke(valueToTest) == true).ToList();
+            var matchIndicies = matchItems.Select(match => KeyPredicateList.IndexOf(match));
+
+            return matchIndicies;
         }
     }
 }

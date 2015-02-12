@@ -71,5 +71,13 @@ namespace PredicateMaps.Maps
         /// <param name="valueToTest">Value to evaluate predicates with.</param>
         /// <returns>The number of predicates which are true for valueToTest</returns>
         int CountMatches(K valueToTest);
+
+        /// <summary>
+        /// Returns a collection of all the indexes of entries in the map which evaluate to true for
+        /// valueToTest.
+        /// </summary>
+        /// <param name="valueToTest">Value to test predicates against</param>
+        /// <returns>Collection of all indexes where valueToTest evaluates predicates to true</returns>
+        IEnumerable<int> GetIndexesOfMatches(K valueToTest);
     }
 }
