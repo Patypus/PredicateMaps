@@ -247,6 +247,27 @@ namespace PredicateMapsTests.Maps
             CollectionAssert.AreEquivalent(expected, matches);
         }
 
+        [Test]
+        public void Remove_RemovesItemsAtIndex()
+        {
+            var predicates = new List<Predicate<int>> { (i) => i > 5, (i) => i < 9, (i) => i != null };
+            var values = new List<string> { "over 5", "under 9", "Populated." };
+            var map = new ClassPredicateMap<int, string>(predicates, values);
+
+            var countPreRemove = map.GetCount();
+            map.RemoveKeyValuePairAtGivenIndex(2);
+            var countPostRemove = map.GetCount();
+            
+            Assert.True(countPreRemove > countPostRemove);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Remove_ThrowsArgumentExceptionWhenIndexIsOutsideRangeOfMapsIndex()
+        {
+            Assert.Fail();
+        }
+
 
         //update?
         //remove?
