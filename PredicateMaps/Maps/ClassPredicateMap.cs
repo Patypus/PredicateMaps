@@ -204,5 +204,26 @@ namespace PredicateMaps.Maps
         {
             return KeyPredicateList.Any((predicate) => predicate.Invoke(valueToTest));
         }
+
+        /// <summary>
+        /// Replaces the value in the map with newValue for all predicates where valueToTest evaluates them
+        /// to true
+        /// </summary>
+        /// <param name="valueToTest">Value to test predicates against</param>
+        /// <param name="newValue">New value to insert into the map</param>
+        public void UpdateValueInMapForPredicate(K valueToTest, V newValue)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Replace the value in the map with newMap at the given index.
+        /// </summary>
+        /// <param name="index">Index of the location in the map to replace the existing value with newValue</param>
+        /// <param name="newValue">Value to place into the map at the index given</param>
+        public void UpdateValueAtIndex(int index, V newValue)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
