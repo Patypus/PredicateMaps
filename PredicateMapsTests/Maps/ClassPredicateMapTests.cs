@@ -278,7 +278,26 @@ namespace PredicateMapsTests.Maps
             map.RemoveKeyValuePairAtGivenIndex(map.GetCount());
         }
 
+        [Test]
+        public void AnyMatches_ReturnsFalseWhenNothingInTheMapMatches()
+        {
+            var predicates = new List<Predicate<string>> { (s) => s.Length == 3, (s) => s == null };
+            var values = new List<string> { "Three", "null" };
+            var map = new ClassPredicateMap<string, string>(predicates, values);
+
+            Assert.False(map.AnyMatches("This string matches nothing."));
+        }
+
+        [Test]
+        public void AnyMatches_ReturnsTrueWhenSomethingInMapIsTrueForValue()
+        {
+            var predicates = new List<Predicate<string>> { (s) => s.Length > 10, (s) => s != null, (s) => s.Contains("fred") };
+            var values = new List<string> { "over 10", "not null", "Has a FRED" };
+            var map = new ClassPredicateMap<string, string>(predicates, values);
+
+            Assert.True(map.AnyMatches("This string matches for Most"));
+        }
+
         //update?
-        //anyMatches?
     }
 }

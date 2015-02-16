@@ -194,5 +194,15 @@ namespace PredicateMaps.Maps
 
             return matchIndicies;
         }
+
+        /// <summary>
+        /// Method to find if the map contains any matches for the value of valueToTest.
+        /// </summary>
+        /// <param name="valueToTest">Value to run in predicate keys</param>
+        /// <returns>true when a predicate returns true for valueToTest, false otherwise.</returns>
+        public bool AnyMatches(K valueToTest)
+        {
+            return KeyPredicateList.Any((predicate) => predicate.Invoke(valueToTest));
+        }
     }
 }

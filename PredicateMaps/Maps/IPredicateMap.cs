@@ -73,6 +73,13 @@ namespace PredicateMaps.Maps
         int CountMatches(K valueToTest);
 
         /// <summary>
+        /// Method to find if the map contains any matches for the value of valueToTest.
+        /// </summary>
+        /// <param name="valueToTest">Value to run in predicate keys</param>
+        /// <returns>true when a predicate returns true for valueToTest, false otherwise.</returns>
+        bool AnyMatches(K valueToTest);
+
+        /// <summary>
         /// Returns a collection of all the indexes of entries in the map which evaluate to true for
         /// valueToTest.
         /// </summary>
@@ -85,6 +92,8 @@ namespace PredicateMaps.Maps
         /// </summary>
         /// <param name="index">Int index of the key value pair in the map to remove</param>
         void RemoveKeyValuePairAtGivenIndex(int index);
+
+        
 
     }
 }
