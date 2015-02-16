@@ -178,6 +178,11 @@ namespace PredicateMaps.Maps
         /// <param name="index">Int index of the key value pair in the map to remove</param>
         public void RemoveKeyValuePairAtGivenIndex(int index)
         {
+            if (index < 0 || index >= KeyPredicateList.Count)
+            {
+                var message = string.Format(StringResources.IndexOutsideMapCoutRange, index, KeyPredicateList.Count);
+                throw new ArgumentException(message);
+            }
             KeyPredicateList.RemoveAt(index);
             ValueItemList.RemoveAt(index);
         }

@@ -265,13 +265,20 @@ namespace PredicateMapsTests.Maps
         [ExpectedException(typeof(ArgumentException))]
         public void Remove_ThrowsArgumentExceptionWhenIndexIsOutsideRangeOfMapsIndex()
         {
-            Assert.Fail();
+            var map = new ClassPredicateMap<Type, string>();
+            map.RemoveKeyValuePairAtGivenIndex(42);
         }
 
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void Remove_ThrowsArgumentExceptionWhenIndexIsEqualToCountOfMap()
+        {
+            var map = new ClassPredicateMap<Type, string>();
+            map.Add((t) => t == typeof(Exception), "It's an exception");
+            map.RemoveKeyValuePairAtGivenIndex(map.GetCount());
+        }
 
         //update?
-        //remove?
-
         //anyMatches?
     }
 }

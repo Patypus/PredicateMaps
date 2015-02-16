@@ -120,6 +120,9 @@
   <data name="InconsistentCollectionSizeError" xml:space="preserve">
     <value>The sizes of the provided collections were not equal. Key collection was: {0}  and data collection size was: {1}</value>
   </data>
+  <data name="IndexOutsideMapCoutRange" xml:space="preserve">
+    <value>The index value {0} is outside of the range of the map from 0 to {1}.</value>
+  </data>
   <data name="InvalidDataCollectionParameter" xml:space="preserve">
     <value>Null is not a valid value for the data collection parameter.</value>
   </data>

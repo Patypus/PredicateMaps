@@ -70,6 +70,15 @@ namespace PredicateMaps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The index value {0} is outside of the range of the map from 0 to {1}..
+        /// </summary>
+        internal static string IndexOutsideMapCoutRange {
+            get {
+                return ResourceManager.GetString("IndexOutsideMapCoutRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Null is not a valid value for the data collection parameter..
         /// </summary>
         internal static string InvalidDataCollectionParameter {
