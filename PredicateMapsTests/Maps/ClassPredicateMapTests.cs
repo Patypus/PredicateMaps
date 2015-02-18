@@ -298,6 +298,38 @@ namespace PredicateMapsTests.Maps
             Assert.True(map.AnyMatches("This string matches for Most"));
         }
 
+        [Test]
+        public void UpdateByValue_DoesNotUpdateAnythingWhenNoPredicatesMatchForTheValue()
+        {
+            var predicates = new List<Predicate<int>> { (i) => i > 5, (i) => i == 20, (i) => i == -1 };
+            var values = new List<string> { "these", "wont", "change" };
+            var map = new ClassPredicateMap<int, string>(predicates, values);
+
+            var valueToTryToInsert = "This value wont get in.";
+            map.UpdateValueInMapForPredicate(2, valueToTryToInsert);
+            var valuesAfterUpdate = map.ValueItemList;
+
+            Assert.False(valuesAfterUpdate.Contains(valueToTryToInsert));
+            CollectionAssert.AreEquivalent(values, valuesAfterUpdate);
+        }
+
+        [Test]
+        public void UpdateByValue_UpdatesAllValuesWherePredicatesResolveToTrueForTheValue()
+        {
+            var predicates = new List<Predicate<int>> { (i) => i > 5, (i) => i == 20, (i) => i == -1 };
+            var values = new List<string> { "this will change", "so wil this", "this wont change" };
+            var map = new ClassPredicateMap<int, string>(predicates, values);
+
+            var valueToUpdateTo = "This value was put in";
+            map.UpdateValueInMapForPredicate(20, valueToUpdateTo);
+            
+            var valuesAfterUpdate = map.ValueItemList;
+            var expectedCollection = new List<string> { valueToUpdateTo, valueToUpdateTo, "this wont change" };
+            
+            CollectionAssert.AreEqual(values, valuesAfterUpdate);
+        }
+
+
         //update?
     }
 }

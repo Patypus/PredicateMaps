@@ -213,7 +213,11 @@ namespace PredicateMaps.Maps
         /// <param name="newValue">New value to insert into the map</param>
         public void UpdateValueInMapForPredicate(K valueToTest, V newValue)
         {
-            throw new NotImplementedException();
+            var matchingIndicies = GetIndexesOfMatchingPredicates(valueToTest);
+            foreach (var index in matchingIndicies)
+            {
+                ValueItemList[index] = newValue;
+            }
         }
 
         /// <summary>
