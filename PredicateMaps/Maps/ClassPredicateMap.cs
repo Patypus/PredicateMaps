@@ -234,7 +234,7 @@ namespace PredicateMaps.Maps
             if (index < 0 || index >= KeyPredicateList.Count)
             {
                 var message = string.Format(StringResources.IndexOutsideMapCoutRange, index, KeyPredicateList.Count);
-                throw new ArgumentException(message);
+                throw new IndexOutOfRangeException(message);
             }
         }
     }

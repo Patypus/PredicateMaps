@@ -262,16 +262,16 @@ namespace PredicateMapsTests.Maps
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
-        public void Remove_ThrowsArgumentExceptionWhenIndexIsOutsideRangeOfMapsIndex()
+        [ExpectedException(typeof(IndexOutOfRangeException))]
+        public void Remove_ThrowsIndexOutOfRangeExceptionWhenIndexIsOutsideRangeOfMapsIndex()
         {
             var map = new ClassPredicateMap<Type, string>();
             map.RemoveKeyValuePairAtGivenIndex(42);
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
-        public void Remove_ThrowsArgumentExceptionWhenIndexIsEqualToCountOfMap()
+        [ExpectedException(typeof(IndexOutOfRangeException))]
+        public void Remove_ThrowsIndexOutOfRangeExceptionWhenIndexIsEqualToCountOfMap()
         {
             var map = new ClassPredicateMap<Type, string>();
             map.Add((t) => t == typeof(Exception), "It's an exception");
@@ -330,11 +330,20 @@ namespace PredicateMapsTests.Maps
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
-        public void UpdateByIndex_ThrowsArgumentExceptionWhenIndexIsOutsideOfRangeOfMap()
+        [ExpectedException(typeof(IndexOutOfRangeException))]
+        public void UpdateByIndex_ThrowsIndexOutOFExceptionWhenIndexIsOutsideOfRangeOfMap()
         {
             var map = new ClassPredicateMap<string, string>();
             map.UpdateValueAtIndex(500, "This is never going to work.");
+        }
+
+        [Test]
+        [ExpectedException(typeof(IndexOutOfRangeException))]
+        public void UpdateByIndex_ThrowsIndexOutOfRangeExceptionWhenIndexIsEqualToCountOfMap()
+        {
+            var map = new ClassPredicateMap<Type, string>();
+            map.Add((t) => t == typeof(Exception), "Something went wrong.");
+            map.UpdateValueAtIndex(map.GetCount(), "This shouldn't work");
         }
 
         [Test]
