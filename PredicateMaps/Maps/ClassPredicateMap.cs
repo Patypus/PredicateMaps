@@ -178,11 +178,8 @@ namespace PredicateMaps.Maps
         /// <param name="index">Int index of the key value pair in the map to remove</param>
         public void RemoveKeyValuePairAtGivenIndex(int index)
         {
-            if (index < 0 || index >= KeyPredicateList.Count)
-            {
-                var message = string.Format(StringResources.IndexOutsideMapCoutRange, index, KeyPredicateList.Count);
-                throw new ArgumentException(message);
-            }
+            ValidateIndexParameter(index);
+
             KeyPredicateList.RemoveAt(index);
             ValueItemList.RemoveAt(index);
         }
@@ -227,7 +224,18 @@ namespace PredicateMaps.Maps
         /// <param name="newValue">Value to place into the map at the index given</param>
         public void UpdateValueAtIndex(int index, V newValue)
         {
-            throw new NotImplementedException();
+            ValidateIndexParameter(index);
+
+            ValueItemList[index] = newValue;
+        }
+
+        private void ValidateIndexParameter(int index)
+        {
+            if (index < 0 || index >= KeyPredicateList.Count)
+            {
+                var message = string.Format(StringResources.IndexOutsideMapCoutRange, index, KeyPredicateList.Count);
+                throw new ArgumentException(message);
+            }
         }
     }
 }

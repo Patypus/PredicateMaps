@@ -329,7 +329,28 @@ namespace PredicateMapsTests.Maps
             CollectionAssert.AreEqual(values, valuesAfterUpdate);
         }
 
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void UpdateByIndex_ThrowsArgumentExceptionWhenIndexIsOutsideOfRangeOfMap()
+        {
+            var map = new ClassPredicateMap<string, string>();
+            map.UpdateValueAtIndex(500, "This is never going to work.");
+        }
 
-        //update?
+        [Test]
+        public void UpdateByIndex_ChangesValueAtIndex()
+        {
+            var predicates = new List<Predicate<string>> { (s) => s.Contains("words"), (s) => !string.IsNullOrEmpty(s) };
+            var initialValue = "Second item";
+            var values = new List<string> { "one", initialValue };
+            var map = new ClassPredicateMap<string, string>(predicates, values);
+            var newItemToAdd = "inserted value";
+            
+            map.UpdateValueAtIndex(1, newItemToAdd);
+            var valueAfterUpdate = map.ValueItemList[1];
+
+            Assert.AreEqual(newItemToAdd, valueAfterUpdate);
+            Assert.AreNotEqual(initialValue, valueAfterUpdate);
+        }
     }
 }
