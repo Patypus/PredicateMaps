@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using PredicateMaps.Exceptions;
 
 namespace PredicateMaps.Maps
 {
@@ -38,7 +37,7 @@ namespace PredicateMaps.Maps
         /// Null is not a valid value for either parameter
         /// </summary>
         /// <param name="keyList">Collection of predicates for use as keys</param>
-        /// <param name="valuesList">Collection of values for retreival when the key predicate evaluates to true.</param>
+        /// <param name="valueList">Collection of values for retreival when the key predicate evaluates to true.</param>
         /// /// <exception cref="InconsistentIndexException">Thrown if the sizes of keyList and valueList are not equal.</exception>
         /// <exception cref="ArgumentException">Thrown if either parameter value is null.</exception>
         void AddAll(List<Predicate<K>> keyList, List<V> valueList);

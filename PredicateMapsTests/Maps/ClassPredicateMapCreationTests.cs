@@ -5,8 +5,6 @@ using PredicateMaps.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PredicateMapsTests.Maps
 {
@@ -30,7 +28,7 @@ namespace PredicateMapsTests.Maps
         public void ParameteredConstructorCreatesMapWithSuppliedCollectionsIn()
         {
             var dataItem = "Hello to you too.";
-            var keyList = new List<Predicate<string>> { (string s) => s.Contains("Hello") };
+            var keyList = new List<Predicate<string>> { (s) => s.Contains("Hello") };
             var dataList = new List<string> { dataItem };
 
             var populatedMap = new ClassPredicateMap<string, string>(keyList, dataList);

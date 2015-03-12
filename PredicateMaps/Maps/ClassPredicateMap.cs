@@ -3,8 +3,6 @@ using PredicateMaps.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PredicateMaps.Maps
 {
@@ -18,7 +16,8 @@ namespace PredicateMaps.Maps
     /// <typeparam name="V">Class type of values</typeparam>
     public class ClassPredicateMap<K, V> : IPredicateMap<K, V> where V : class
     {
-        private readonly int NO_VALUE_FOUND = -1;
+        private const int NO_VALUE_FOUND = -1;
+
         public List<Predicate<K>> KeyPredicateList { get; private set; }
         public List<V> ValueItemList { get; private set; }
 
@@ -123,7 +122,7 @@ namespace PredicateMaps.Maps
         /// InconsistentIndexException. Null is not a valid value for either parameter for this method.
         /// </summary>
         /// <param name="keyList">Collection of predicates for use as keys</param>
-        /// <param name="valuesList">Collection of values for retreival when the key predicate evaluates to true.</param>
+        /// <param name="valueList">Collection of values for retreival when the key predicate evaluates to true.</param>
         /// /// <exception cref="InconsistentIndexException">Thrown if the sizes of keyList and valueList are not equal.</exception>
         /// <exception cref="ArgumentException">Thrown if either parameter value is null.</exception>
         public void AddAll(List<Predicate<K>> keyList, List<V> valueList)
@@ -158,7 +157,7 @@ namespace PredicateMaps.Maps
         /// <returns>The number of predicates which are true for valueToTest</returns>
         public int CountMatches(K valueToTest)
         {
-            return KeyPredicateList.AsParallel().Where(pred => pred.Invoke(valueToTest) == true).Count();
+            return KeyPredicateList.AsParallel().Count(pred => pred.Invoke(valueToTest) == true);
         }
 
         /// <summary>
