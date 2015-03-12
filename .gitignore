@@ -4,3 +4,6 @@ PredicateMaps/packages/*
 PredicateMapsTests/packages/*
 PredicateMapsTests/bin/*
 PredicateMapsTests/obj/*
+Examples/bin/*
+Examples/obj/*
+Examples/packages/*
