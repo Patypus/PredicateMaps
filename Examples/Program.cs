@@ -43,11 +43,7 @@ namespace Examples
         {
             var runner = new FizzBuzzRunner();
             var results = runner.Run(topLimit);
-            //results.ForEach(r => Console.WriteLine(r));
-            foreach(var result in results)
-            {
-                Console.WriteLine(result);
-            }
+            results.ForEach(r => Console.WriteLine(r));
         }
     }
 }
