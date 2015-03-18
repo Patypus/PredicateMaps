@@ -16,7 +16,7 @@ namespace Examples.FizzBuzz
             fizzBuzzSequenceMap = SetupSequenceMap();
         }
 
-        public IList<string> Run(int numberToCountTo)
+        public List<string> Run(int numberToCountTo)
         {
             var result = new List<string>();
             for (var x = 0; x <= numberToCountTo; x++ )
@@ -24,7 +24,7 @@ namespace Examples.FizzBuzz
                 var matches = fizzBuzzSequenceMap.GetAllMatches(x);
                 if (matches.Any()) 
                 {
-                    result.AddRange(matches);
+                    result.Add(string.Join(" ", matches));
                 }
                 else
                 {
