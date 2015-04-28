@@ -16,6 +16,16 @@ namespace PredicateMaps.Maps
     /// <typeparam name="V">Return type for the value function to return</typeparam>
     public class PredicateToFunctionMap<K, V> : IPredicateToFunctionMap<K, V> where V : class
     {
-        
+        public IList<Predicate<K>> KeyPredicateList { get; private set; }
+        public IList<Func<K, V>> ValueFunctionList { get; private set; }
+
+        /// <summary>
+        /// Initialises a new PredicateToFunctionMap with initialised but empty key and value lists.
+        /// </summary>
+        public PredicateToFunctionMap()
+        {
+            KeyPredicateList = new List<Predicate<K>>();
+            ValueFunctionList = new List<Func<K, V>>();
+        }
     }
 }
