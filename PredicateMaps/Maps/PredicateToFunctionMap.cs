@@ -14,7 +14,7 @@ namespace PredicateMaps.Maps
     /// </summary>
     /// <typeparam name="K">Type of items to test in the key predicates and for value functions to take as parameters</typeparam>
     /// <typeparam name="V">Return type for the value function to return</typeparam>
-    public class PredicateToFunctionMap<K, V> : IPredicateToFunctionMap<K, V> where V : class
+    internal class PredicateToFunctionMap<K, V> : IPredicateToFunctionMap<K, V> where V : class
     {
         public IList<Predicate<K>> KeyPredicateList { get; private set; }
         public IList<Func<K, V>> ValueFunctionList { get; private set; }

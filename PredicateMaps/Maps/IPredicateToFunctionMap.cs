@@ -14,7 +14,7 @@ namespace PredicateMaps.Maps
     /// </summary>
     /// <typeparam name="K">Type of items to test in the key predicates and for value functions to take as parameters</typeparam>
     /// <typeparam name="V">Return type for the value function to return</typeparam>
-    public interface IPredicateToFunctionMap<K, V>
+    internal interface IPredicateToFunctionMap<K, V>
     {
     }
 }
