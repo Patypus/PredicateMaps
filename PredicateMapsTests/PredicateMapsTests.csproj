@@ -43,8 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\InconsistentIndexExceptionTests.cs" />
-    <Compile Include="Maps\ClassPredicateMapCreationTests.cs" />
-    <Compile Include="Maps\ClassPredicateMapTests.cs" />
+    <Compile Include="Maps\PredicateMapCreationTests.cs" />
+    <Compile Include="Maps\PredicateMapTests.cs" />
     <Compile Include="Maps\PredicateToFunctionMapCreationTests.cs" />
     <Compile Include="Maps\PredicateToFunctionMapTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

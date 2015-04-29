@@ -39,7 +39,7 @@ namespace Examples.FizzBuzz
         {
             var functions = new List<Predicate<int>> { i => i % 3 == 0, i => i % 5 == 0 };
             var values = new List<string> { "fizz", "buzz" };
-            return new ClassPredicateMap<int, string>(functions, values);
+            return new PredicateMap<int, string>(functions, values);
         }
     }
 }

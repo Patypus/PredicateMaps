@@ -7,27 +7,25 @@ using System.Linq;
 namespace PredicateMaps.Maps
 {
     /// <summary>
-    /// Implementation of the IPredicateMap interface for values which are classes.
-    /// Represents a type of map with keys of Predicates which take objects of type K which
-    /// are mapped to values of type V, which is a class. Values are selected for return by this map
-    /// where key predicates evaluate to true.
+    /// Implementation of the IPredicateMap interface for which wraps a dictionary of type
+    /// predicate of K to value of type V. The wrapper simplifies access to the dictionary for the
+    /// user. The mapping is add only. Once a value is in it cannot be removed or updated to have a 
+    /// new value (currently - see open project issues).
     /// </summary>
     /// <typeparam name="K">Type of items to test in the key predicates</typeparam>
     /// <typeparam name="V">Class type of values</typeparam>
-    public class ClassPredicateMap<K, V> : IPredicateMap<K, V> where V : class
+    public class PredicateMap<K, V> : IPredicateMap<K, V>
     {
         private const int NO_VALUE_FOUND = -1;
 
-        public List<Predicate<K>> KeyPredicateList { get; private set; }
-        public List<V> ValueItemList { get; private set; }
+        private readonly IDictionary<Predicate<K>, V> _storageMap;
 
         /// <summary>
         /// Creates a new PredicateMap with empty key and value lists
         /// </summary>
-        public ClassPredicateMap()
+        public PredicateMap()
         {
-            KeyPredicateList = new List<Predicate<K>>();
-            ValueItemList = new List<V>();
+            _storageMap = new Dictionary<Predicate<K>, V>();
         }
 
         /// <summary>
@@ -38,12 +36,12 @@ namespace PredicateMaps.Maps
         /// <param name="valuesList">Typed collection of values to include in the map.</param>
         /// <exception cref="InconsistentIndexException">Thrown if the sizes of keyList and dataList are not equal.</exception>
         /// <exception cref="ArgumentException">Thrown if either parameter value is null.</exception>
-        public ClassPredicateMap(List<Predicate<K>> keyList, List<V> valuesList)
+        public PredicateMap(List<Predicate<K>> keyList, List<V> valuesList)
         {
             CheckValidityOfMultipleAddParameters(keyList, valuesList);
 
-            KeyPredicateList = keyList;
-            ValueItemList = valuesList;
+            _storageMap = new Dictionary<Predicate<K>, V>();
+            AddAll(keyList, valuesList);
         }
 
         private void CheckValidityOfMultipleAddParameters(List<Predicate<K>> keyList, List<V> valueList)
@@ -60,13 +58,23 @@ namespace PredicateMaps.Maps
             }
         }
 
+        public List<Predicate<K>> KeyPredicateList()
+        {
+            return _storageMap.Keys.ToList();
+        }
+
+        public List<V> ValueItemList()
+        {
+            return _storageMap.Values.ToList();
+        }
+
         /// <summary>
         /// Returns the number of elements in the map.
         /// </summary>
         /// <returns>int number of items in the map</returns>
         public int GetCount()
         {
-            return KeyPredicateList.Count;
+            return _storageMap.Count;
         }
 
         /// <summary>
@@ -83,8 +91,7 @@ namespace PredicateMaps.Maps
                                           : StringResources.InvalidDataParameter;
                 throw new ArgumentException(message);
             }
-            KeyPredicateList.Add(key);
-            ValueItemList.Add(value);
+            _storageMap.Add(key, value);
         }
 
         /// <summary>
@@ -98,22 +105,7 @@ namespace PredicateMaps.Maps
         /// <returns>Value associated with first predicate found that is true for the valueToTest parameter</returns>
         public V GetFirstMatch(K valueToTest)
         {
-            var indexForValue = GetIndexOfFirstMatch(valueToTest);
-            return indexForValue != NO_VALUE_FOUND ? ValueItemList[indexForValue] : null;
-        }
-
-        private int GetIndexOfFirstMatch(K valueToTest)
-        {
-            foreach (var keyPred in KeyPredicateList) {
-                var valueMatchesPredicate = keyPred.Invoke(valueToTest);
-                if (valueMatchesPredicate)
-                {
-                    //Quick return for performence over completeness.
-                    return KeyPredicateList.IndexOf(keyPred);
-                }
-            }
-            //Return nothing found if no predicates evaluate to true for the given value
-            return NO_VALUE_FOUND;
+            return _storageMap.FirstOrDefault(pair => pair.Key.Invoke(valueToTest)).Value;
         }
 
         /// <summary>
@@ -129,8 +121,10 @@ namespace PredicateMaps.Maps
         {
             CheckValidityOfMultipleAddParameters(keyList, valueList);
 
-            KeyPredicateList.AddRange(keyList);
-            ValueItemList.AddRange(valueList);
+            for (var index = 0; index < keyList.Count; index++)
+            {
+                _storageMap.Add(keyList[index], valueList[index]);
+            }
         }
 
         /// <summary>
@@ -144,10 +138,7 @@ namespace PredicateMaps.Maps
         /// <returns>A list of all matches</returns>
         public List<V> GetAllMatches(K valueToTest)
         {
-            var matchIndicies = GetIndexesOfMatchingPredicates(valueToTest);
-            var matchValues = matchIndicies.Select(index => ValueItemList[index]).ToList();
-            
-            return matchValues;
+            return _storageMap.Where(pair => pair.Key.Invoke(valueToTest)).Select(match => match.Value).ToList();
         }
 
         /// <summary>
@@ -157,38 +148,7 @@ namespace PredicateMaps.Maps
         /// <returns>The number of predicates which are true for valueToTest</returns>
         public int CountMatches(K valueToTest)
         {
-            return KeyPredicateList.AsParallel().Count(pred => pred.Invoke(valueToTest) == true);
-        }
-
-        /// <summary>
-        /// Returns a collection of all the indexes of entries in the map which evaluate to true for
-        /// valueToTest.
-        /// </summary>
-        /// <param name="valueToTest">Value to test predicates against</param>
-        /// <returns>Collection of all indexes where valueToTest evaluates predicates to true</returns>
-        public IEnumerable<int> GetIndexesOfMatches(K valueToTest)
-        {
-            return GetIndexesOfMatchingPredicates(valueToTest);
-        }
-
-        /// <summary>
-        /// Removes the key/value pair at the given index in the dictionary.
-        /// </summary>
-        /// <param name="index">Int index of the key value pair in the map to remove</param>
-        public void RemoveKeyValuePairAtGivenIndex(int index)
-        {
-            ValidateIndexParameter(index);
-
-            KeyPredicateList.RemoveAt(index);
-            ValueItemList.RemoveAt(index);
-        }
-
-        private IEnumerable<int> GetIndexesOfMatchingPredicates(K valueToTest)
-        {
-            var matchItems = KeyPredicateList.AsParallel().Where(pred => pred.Invoke(valueToTest) == true).ToList();
-            var matchIndicies = matchItems.Select(match => KeyPredicateList.IndexOf(match));
-
-            return matchIndicies;
+            return _storageMap.AsParallel().Count(pair => pair.Key.Invoke(valueToTest));
         }
 
         /// <summary>
@@ -198,43 +158,7 @@ namespace PredicateMaps.Maps
         /// <returns>true when a predicate returns true for valueToTest, false otherwise.</returns>
         public bool AnyMatches(K valueToTest)
         {
-            return KeyPredicateList.Any((predicate) => predicate.Invoke(valueToTest));
-        }
-
-        /// <summary>
-        /// Replaces the value in the map with newValue for all predicates where valueToTest evaluates them
-        /// to true
-        /// </summary>
-        /// <param name="valueToTest">Value to test predicates against</param>
-        /// <param name="newValue">New value to insert into the map</param>
-        public void UpdateValueInMapForPredicate(K valueToTest, V newValue)
-        {
-            var matchingIndicies = GetIndexesOfMatchingPredicates(valueToTest);
-            foreach (var index in matchingIndicies)
-            {
-                ValueItemList[index] = newValue;
-            }
-        }
-
-        /// <summary>
-        /// Replace the value in the map with newMap at the given index.
-        /// </summary>
-        /// <param name="index">Index of the location in the map to replace the existing value with newValue</param>
-        /// <param name="newValue">Value to place into the map at the index given</param>
-        public void UpdateValueAtIndex(int index, V newValue)
-        {
-            ValidateIndexParameter(index);
-
-            ValueItemList[index] = newValue;
-        }
-
-        private void ValidateIndexParameter(int index)
-        {
-            if (index < 0 || index >= KeyPredicateList.Count)
-            {
-                var message = string.Format(StringResources.IndexOutsideMapCoutRange, index, KeyPredicateList.Count);
-                throw new IndexOutOfRangeException(message);
-            }
+            return _storageMap.Keys.Any((predicate) => predicate.Invoke(valueToTest));
         }
     }
 }

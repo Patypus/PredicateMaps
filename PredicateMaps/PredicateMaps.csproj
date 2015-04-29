@@ -41,7 +41,7 @@
   <ItemGroup>
     <Compile Include="Exceptions\InconsistentIndexException.cs" />
     <Compile Include="Maps\IPredicateMap.cs" />
-    <Compile Include="Maps\ClassPredicateMap.cs" />
+    <Compile Include="Maps\PredicateMap.cs" />
     <Compile Include="Maps\IPredicateToFunctionMap.cs" />
     <Compile Include="Maps\PredicateToFunctionMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

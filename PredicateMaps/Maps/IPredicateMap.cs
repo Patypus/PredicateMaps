@@ -76,34 +76,5 @@ namespace PredicateMaps.Maps
         /// <param name="valueToTest">Value to run in predicate keys</param>
         /// <returns>true when a predicate returns true for valueToTest, false otherwise.</returns>
         bool AnyMatches(K valueToTest);
-
-        /// <summary>
-        /// Returns a collection of all the indexes of entries in the map which evaluate to true for
-        /// valueToTest.
-        /// </summary>
-        /// <param name="valueToTest">Value to test predicates against</param>
-        /// <returns>Collection of all indexes where valueToTest evaluates predicates to true</returns>
-        IEnumerable<int> GetIndexesOfMatches(K valueToTest);
-
-        /// <summary>
-        /// Removes the key/value pair at the given index in the dictionary.
-        /// </summary>
-        /// <param name="index">Int index of the key value pair in the map to remove</param>
-        void RemoveKeyValuePairAtGivenIndex(int index);
-
-        /// <summary>
-        /// Replaces the value in the map with newValue for all predicates where valueToTest evaluates them
-        /// to true
-        /// </summary>
-        /// <param name="valueToTest">Value to test predicates against</param>
-        /// <param name="newValue">New value to insert into the map</param>
-        void UpdateValueInMapForPredicate(K valueToTest, V newValue);
-
-        /// <summary>
-        /// Replace the value in the map with newMap at the given index.
-        /// </summary>
-        /// <param name="index">Index of the location in the map to replace the existing value with newValue</param>
-        /// <param name="newValue">Value to place into the map at the index given</param>
-        void UpdateValueAtIndex(int index, V newValue);
     }
 }

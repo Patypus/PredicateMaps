@@ -14,12 +14,12 @@ namespace PredicateMapsTests.Maps
     /// getting crowded.
     /// </summary>
     [TestFixture]
-    public class ClassPredicateMapCreationTests
+    public class PredicateMapCreationTests
     {
         [Test]
         public void DefaultConstructorCreatesEmptyMap()
         {
-            var basicMap = new ClassPredicateMap<string, string>();
+            var basicMap = new PredicateMap<string, string>();
             var itemsInNewMap = basicMap.GetCount();
             Assert.AreEqual(0, itemsInNewMap);
         }
@@ -31,10 +31,10 @@ namespace PredicateMapsTests.Maps
             var keyList = new List<Predicate<string>> { (s) => s.Contains("Hello") };
             var dataList = new List<string> { dataItem };
 
-            var populatedMap = new ClassPredicateMap<string, string>(keyList, dataList);
-            var keysFromMap = populatedMap.KeyPredicateList;
+            var populatedMap = new PredicateMap<string, string>(keyList, dataList);
+            var keysFromMap = populatedMap.KeyPredicateList();
 
-            Assert.IsTrue(populatedMap.ValueItemList.Contains(dataItem));
+            Assert.IsTrue(populatedMap.ValueItemList().Contains(dataItem));
             //Harder to test for the key as the original predicate can't be checked for equality directly.
             //Sticking with checking the number in the collection and it returns true when it should as a check for equality.
             //This is a basic test for coverage rather than checking something complex.
@@ -49,7 +49,7 @@ namespace PredicateMapsTests.Maps
             var keys = new List<Predicate<string>>();
             var data = new List<string> { "These list sizes dont match..." };
 
-            new ClassPredicateMap<string, string>(keys, data);
+            new PredicateMap<string, string>(keys, data);
         }
 
         [Test]
@@ -61,7 +61,7 @@ namespace PredicateMapsTests.Maps
 
             try
             {
-                new ClassPredicateMap<int, string>(keys, data);
+                new PredicateMap<int, string>(keys, data);
             }
             catch (InconsistentIndexException iie)
             {
@@ -79,7 +79,7 @@ namespace PredicateMapsTests.Maps
 
             try
             {
-                new ClassPredicateMap<string, string>(null, new List<string>());
+                new PredicateMap<string, string>(null, new List<string>());
             }
             catch (ArgumentException ae)
             {
@@ -97,7 +97,7 @@ namespace PredicateMapsTests.Maps
 
             try
             {
-                new ClassPredicateMap<string, string>(new List<Predicate<string>>(), null);
+                new PredicateMap<string, string>(new List<Predicate<string>>(), null);
             }
             catch (ArgumentException ae)
             {
