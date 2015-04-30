@@ -8,13 +8,14 @@ namespace PredicateMaps.Maps
 {
     /// <summary>
     /// Implementation of the IPredicateMap interface for which wraps a dictionary of type
-    /// predicate of K to value of type V. The wrapper simplifies access to the dictionary for the
-    /// user. The mapping is add only. Once a value is in it cannot be removed or updated to have a 
-    /// new value (currently - see open project issues).
+    /// predicate of K to value of type V (which extend class). The wrapper simplifies access 
+    /// to the dictionary for the user. The mapping is add only. Once a value is in it cannot 
+    /// be removed or updated to have a 
+    /// new value (currently - see open project issues). 
     /// </summary>
     /// <typeparam name="K">Type of items to test in the key predicates</typeparam>
     /// <typeparam name="V">Class type of values</typeparam>
-    public class PredicateMap<K, V> : IPredicateMap<K, V>
+    public class PredicateMap<K, V> : IPredicateMap<K, V> where V : class
     {
         private const int NO_VALUE_FOUND = -1;
 
@@ -105,7 +106,8 @@ namespace PredicateMaps.Maps
         /// <returns>Value associated with first predicate found that is true for the valueToTest parameter</returns>
         public V GetFirstMatch(K valueToTest)
         {
-            return _storageMap.FirstOrDefault(pair => pair.Key.Invoke(valueToTest)).Value;
+            var firstMatch = _storageMap.FirstOrDefault(pair => pair.Key.Invoke(valueToTest));
+            return firstMatch != null ? firstMatch.value : null;
         }
 
         /// <summary>
