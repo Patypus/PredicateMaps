@@ -30,6 +30,20 @@ namespace PredicateMaps.Maps
         }
 
         /// <summary>
+        /// Creates a new PredicateMap populated with the values from the supplied dictionary.
+        /// </summary>
+        /// <param name="mappingToWrap">Dictionary containing all the keys and values to include in the predicate map.</param>
+        /// <exception cref="ArgumentException">Thrown if mapToWrap parameter value is null.</exception>
+        public PredicateMap(IDictionary<Predicate<K>, V> mappingToWrap)
+        {
+            if (mappingToWrap == null)
+            {
+                throw new ArgumentException(StringResources.InvalidDictionaryConstructorParameter);
+            }
+            _storageMap = mappingToWrap;
+        }
+
+        /// <summary>
         /// Creates a PredicateMap which is has the contents of the keyList and valuesList params populated in it.
         /// The collections for keys and values must be of the same size.
         /// </summary>

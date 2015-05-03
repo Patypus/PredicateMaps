@@ -91,7 +91,7 @@ namespace PredicateMapsTests.Maps
         }
 
         [Test]
-        public void DataCollectionCausesInvalidArgumentException()
+        public void NullDataCollectionCausesInvalidArgumentException()
         {
             ArgumentException caughtException = null;
 
@@ -106,6 +106,27 @@ namespace PredicateMapsTests.Maps
 
             Assert.NotNull(caughtException);
             Assert.AreEqual(StringResources.InvalidDataCollectionParameter, caughtException.Message);
+        }
+
+        [Test]
+        public void DictionaryConstricutorPopulatesInternalDictionaryWithAllValuesFromParameter()
+        {
+            var initialData = new Dictionary<Predicate<string>, string>
+            {
+                { (s) => string.IsNullOrEmpty(s), "invalid string" },
+                { (s) => s.Length > 150, "Long string" },
+                { (s) => s.Contains("hello"), "welcoming string" },
+            };
+            var map = new PredicateMap<string, string>(initialData);
+
+            CollectionAssert.AreEquivalent(initialData.Keys, map.KeyPredicateList());
+            CollectionAssert.AreEquivalent(initialData.Values, map.ValueItemList());
+        }
+
+        [Test, ExpectedException(typeof(ArgumentException))]
+        public void NullDictionaryForConstructorCausesArgumentException()
+        {
+            new PredicateMap<int, string>(null);
         }
     }
 }
