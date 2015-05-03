@@ -37,9 +37,12 @@ namespace Examples.FizzBuzz
 
         private IPredicateMap<int, string> SetupSequenceMap()
         {
-            var functions = new List<Predicate<int>> { i => i % 3 == 0, i => i % 5 == 0 };
-            var values = new List<string> { "fizz", "buzz" };
-            return new PredicateMap<int, string>(functions, values);
+            var functionMap = new Dictionary<Predicate<int>, string>
+            {
+                { i => i % 3 == 0, "fizz" },
+                { i => i % 5 == 0, "buzz" }
+            };
+            return new PredicateMap<int, string>(functionMap);
         }
     }
 }

@@ -14,10 +14,13 @@ namespace PredicateMapsTests.Maps
         [Test]
         public void CountReturnsSizeOfMap()
         {
-            var keys = new List<Predicate<int>> { (i) => i > 1, (i) => i == 1, (i) => 1 < 1 };
-            var data = new List<string> { "More than 1", "Exactly 1", "Less than 1" };
-
-            var map = new PredicateMap<int, string>(keys, data);
+            var mapping = new Dictionary<Predicate<int>, string>
+            {
+                { (i) => i > 1, "More than 1" },
+                { (i) => i == 1, "Exactly 1" },
+                { (i) => 1 < 1, "Less than 1" }
+            };
+            var map = new PredicateMap<int, string>(mapping);
 
             Assert.AreEqual(3, map.GetCount());
         }
@@ -78,11 +81,10 @@ namespace PredicateMapsTests.Maps
         [Test]
         public void GetFirstMatch_ReturnsCorrectItemForKey()
         {
-            var predicateList = new List<Predicate<int>> { (i) => i == 5 };
             var value = "This should get returned.";
-            var valueList = new List<string> { value };
+            var mapping = new Dictionary<Predicate<int>, string> { { (i) => i == 5, value } };
             
-            var predicateMap = new PredicateMap<int, string>(predicateList, valueList);
+            var predicateMap = new PredicateMap<int, string>(mapping);
             var returnedValue = predicateMap.GetFirstMatch(5);
 
             Assert.AreEqual(value, returnedValue);
@@ -91,10 +93,13 @@ namespace PredicateMapsTests.Maps
         [Test]
         public void GetFirstMatch_RetrunsNullWhenNoMatchesExists()
         {
-            var predicateList = new List<Predicate<int>> { (i) => i == 5, (i) => i == 3 };
-            var valueList = new List<string> { "This should NOT get returned.", "Neither should this" };
+            var mapping = new Dictionary<Predicate<int>, string>
+            {
+                { (i) => i == 5, "This should NOT get returned." },
+                { (i) => i == 3, "Neither should this" }
+            };
 
-            var predicateMap = new PredicateMap<int, string>(predicateList, valueList);
+            var predicateMap = new PredicateMap<int, string>(mapping);
             var returnedValue = predicateMap.GetFirstMatch(4);
 
             Assert.Null(returnedValue);
@@ -182,9 +187,13 @@ namespace PredicateMapsTests.Maps
         [Test]
         public void GetAllMatches_ReturnsCorrectValuesWhenTwoKeyPredicatesAreIdentical()
         {
-            var predicates = new List<Predicate<string>> { (s) => s.Length == 1, (s) => s == "other", (s) => s.Length == 1 };
-            var values = new List<string> { "match one", "No Match", "match two" };
-            var map = new PredicateMap<string, string>(predicates, values);
+            var mapping = new Dictionary<Predicate<string>, string>
+            {
+                { (s) => s.Length == 1, "match one" },
+                { (s) => s == "other", "No Match" },
+                { (s) => s.Length == 1, "match two" }
+            };
+            var map = new PredicateMap<string, string>(mapping);
 
             var expected = new List<string> { "match one", "match two" };
             var result = map.GetAllMatches("s");
@@ -203,14 +212,13 @@ namespace PredicateMapsTests.Maps
         [Test]
         public void CountMatches_ReturnsZeroWhenMapHasNoMatches()
         {
-            var predicates = new List<Predicate<Type>> 
-                                    { 
-                                        (t) => t == typeof(ArgumentException), 
-                                        (t) => t == typeof(NullReferenceException), 
-                                        (t) => t  == typeof(StackOverflowException) 
-                                    };
-            var values = new List<string> { "That was invalid", "Something was null", "Stack has overflown" };
-            var map = new PredicateMap<Type, string>();
+            var mapping = new Dictionary<Predicate<Type>, string>
+            {
+                { (t) => t == typeof(ArgumentException), "That was invalid" },
+                { (t) => t == typeof(NullReferenceException), "Something was null" },
+                { (t) => t  == typeof(StackOverflowException), "Stack has overflown" },
+            };
+            var map = new PredicateMap<Type, string>(mapping);
             var matches = map.CountMatches(("This is not an exception").GetType());
             Assert.AreEqual(0, matches);
         }
@@ -238,9 +246,13 @@ namespace PredicateMapsTests.Maps
         [Test]
         public void AnyMatches_ReturnsTrueWhenSomethingInMapIsTrueForValue()
         {
-            var predicates = new List<Predicate<string>> { (s) => s.Length > 10, (s) => s != null, (s) => s.Contains("fred") };
-            var values = new List<string> { "over 10", "not null", "Has a FRED" };
-            var map = new PredicateMap<string, string>(predicates, values);
+            var mapping = new Dictionary<Predicate<string>, string>
+            {
+                { (s) => s.Length > 10, "over 10" },
+                { (s) => s != null, "not null" },
+                { (s) => s.Contains("fred"), "Has a FRED" }
+            };
+            var map = new PredicateMap<string, string>(mapping);
 
             Assert.True(map.AnyMatches("This string matches for Most"));
         }
