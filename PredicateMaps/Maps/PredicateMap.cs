@@ -106,8 +106,8 @@ namespace PredicateMaps.Maps
         /// <returns>Value associated with first predicate found that is true for the valueToTest parameter</returns>
         public V GetFirstMatch(K valueToTest)
         {
-            var firstMatch = _storageMap.FirstOrDefault(pair => pair.Key.Invoke(valueToTest));
-            return firstMatch != null ? firstMatch.value : null;
+            var matches = _storageMap.Where(pair => pair.Key.Invoke(valueToTest));
+            return matches.Any() ? matches.First().Value : null;
         }
 
         /// <summary>
