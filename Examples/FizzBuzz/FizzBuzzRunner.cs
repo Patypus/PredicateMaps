@@ -42,7 +42,7 @@ namespace Examples.FizzBuzz
                 { i => i % 3 == 0, "fizz" },
                 { i => i % 5 == 0, "buzz" }
             };
-            return new PredicateMap<int, string>(functionMap);
+            return new PredicateMap<int, string>(functionMap, string.Empty);
         }
     }
 }

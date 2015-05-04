@@ -15,32 +15,38 @@ namespace PredicateMaps.Maps
     /// </summary>
     /// <typeparam name="K">Type of items to test in the key predicates</typeparam>
     /// <typeparam name="V">Class type of values</typeparam>
-    public class PredicateMap<K, V> : IPredicateMap<K, V> where V : class
+    public class PredicateMap<K, V> : IPredicateMap<K, V>
     {
         private const int NO_VALUE_FOUND = -1;
 
         private readonly IDictionary<Predicate<K>, V> _storageMap;
 
+        private V _defaultValue;
+
         /// <summary>
         /// Creates a new PredicateMap with empty key and value lists
+        /// <param name="defaultValue">Value to return when no matches are found. Null is a valid value for this parameter.</param>
         /// </summary>
-        public PredicateMap()
+        public PredicateMap(V defaultValue)
         {
             _storageMap = new Dictionary<Predicate<K>, V>();
+            _defaultValue = defaultValue;
         }
 
         /// <summary>
         /// Creates a new PredicateMap populated with the values from the supplied dictionary.
         /// </summary>
         /// <param name="mappingToWrap">Dictionary containing all the keys and values to include in the predicate map.</param>
+        /// <param name="defaultValue">Value to return when no matches are found. Null is a valid value for this parameter.</param>
         /// <exception cref="ArgumentException">Thrown if mapToWrap parameter value is null.</exception>
-        public PredicateMap(IDictionary<Predicate<K>, V> mappingToWrap)
+        public PredicateMap(IDictionary<Predicate<K>, V> mappingToWrap, V defaultValue)
         {
             if (mappingToWrap == null)
             {
                 throw new ArgumentException(StringResources.InvalidDictionaryConstructorParameter);
             }
             _storageMap = mappingToWrap;
+            _defaultValue = defaultValue;
         }
 
         /// <summary>
@@ -49,14 +55,16 @@ namespace PredicateMaps.Maps
         /// </summary>
         /// <param name="keyList">Collection of typed Predicates to use as the keys collection in the new map.</param>
         /// <param name="valuesList">Typed collection of values to include in the map.</param>
+        /// <param name="defaultValue">Value to return when no matches are found. Null is a valid value for this parameter.</param>
         /// <exception cref="InconsistentIndexException">Thrown if the sizes of keyList and dataList are not equal.</exception>
         /// <exception cref="ArgumentException">Thrown if either parameter value is null.</exception>
-        public PredicateMap(List<Predicate<K>> keyList, List<V> valuesList)
+        public PredicateMap(List<Predicate<K>> keyList, List<V> valuesList, V defaultValue)
         {
             CheckValidityOfMultipleAddParameters(keyList, valuesList);
 
             _storageMap = new Dictionary<Predicate<K>, V>();
             AddAll(keyList, valuesList);
+            _defaultValue = defaultValue;
         }
 
         private void CheckValidityOfMultipleAddParameters(List<Predicate<K>> keyList, List<V> valueList)
@@ -111,6 +119,8 @@ namespace PredicateMaps.Maps
 
         /// <summary>
         /// Method to find the value which is associated with the first predicate to resolve to true for the valueToTest parameter.
+        /// If no matches are found then the default value is returned. This value is set in the constructor or via the SetDefaultValue
+        /// method.
         /// 
         /// This method only finds the value for the first predicate which resolves to true with the value supplied through
         /// the valueToTest parameter. To find values associated with all predicates which resolve to true for the supplied
@@ -121,7 +131,7 @@ namespace PredicateMaps.Maps
         public V GetFirstMatch(K valueToTest)
         {
             var matches = _storageMap.Where(pair => pair.Key.Invoke(valueToTest));
-            return matches.Any() ? matches.First().Value : null;
+            return matches.Any() ? matches.First().Value : _defaultValue;
         }
 
         /// <summary>
@@ -146,9 +156,7 @@ namespace PredicateMaps.Maps
         /// <summary>
         /// Finds all values where valueToTest evaluates the prdicate related to the value to true.
         /// 
-        /// This method favours completeness over speed and will evaluate all predicates in the collection even
-        /// if only one near the start evaluates to true. If you know that the Map contains only a single matching
-        /// predicate for valueToTest use GetFirstMatch for performance. 
+        /// If no values are found then an empty list is returned.
         /// </summary>
         /// <param name="valueToTest">Value to test against the predicate keys</param>
         /// <returns>A list of all matches</returns>
@@ -175,6 +183,17 @@ namespace PredicateMaps.Maps
         public bool AnyMatches(K valueToTest)
         {
             return _storageMap.Keys.Any((predicate) => predicate.Invoke(valueToTest));
+        }
+
+        /// <summary>
+        /// Method to set the default value that is returned when no matches for a value are found in the 
+        /// GetFirstMatch method. Setting the default value via this method ovrerides any value that has
+        /// previously been set.
+        /// </summary>
+        /// <param name="defaultValue">Value to set the default value to. Null is a valid value for this parameter.</param>
+        public void SetDefaultValue(V defaultValue)
+        {
+            _defaultValue = defaultValue;
         }
     }
 }

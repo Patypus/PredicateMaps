@@ -19,7 +19,7 @@ namespace PredicateMapsTests.Maps
         [Test]
         public void DefaultConstructorCreatesEmptyMap()
         {
-            var basicMap = new PredicateMap<string, string>();
+            var basicMap = new PredicateMap<string, string>("default value");
             var itemsInNewMap = basicMap.GetCount();
             Assert.AreEqual(0, itemsInNewMap);
         }
@@ -31,7 +31,7 @@ namespace PredicateMapsTests.Maps
             var keyList = new List<Predicate<string>> { (s) => s.Contains("Hello") };
             var dataList = new List<string> { dataItem };
 
-            var populatedMap = new PredicateMap<string, string>(keyList, dataList);
+            var populatedMap = new PredicateMap<string, string>(keyList, dataList, string.Empty);
             var keysFromMap = populatedMap.KeyPredicateList();
 
             Assert.IsTrue(populatedMap.ValueItemList().Contains(dataItem));
@@ -49,7 +49,7 @@ namespace PredicateMapsTests.Maps
             var keys = new List<Predicate<string>>();
             var data = new List<string> { "These list sizes dont match..." };
 
-            new PredicateMap<string, string>(keys, data);
+            new PredicateMap<string, string>(keys, data, "Nothing found");
         }
 
         [Test]
@@ -61,7 +61,7 @@ namespace PredicateMapsTests.Maps
 
             try
             {
-                new PredicateMap<int, string>(keys, data);
+                new PredicateMap<int, string>(keys, data, string.Empty);
             }
             catch (InconsistentIndexException iie)
             {
@@ -79,7 +79,7 @@ namespace PredicateMapsTests.Maps
 
             try
             {
-                new PredicateMap<string, string>(null, new List<string>());
+                new PredicateMap<string, string>(null, new List<string>(), "Defaults");
             }
             catch (ArgumentException ae)
             {
@@ -97,7 +97,7 @@ namespace PredicateMapsTests.Maps
 
             try
             {
-                new PredicateMap<string, string>(new List<Predicate<string>>(), null);
+                new PredicateMap<string, string>(new List<Predicate<string>>(), null, string.Empty);
             }
             catch (ArgumentException ae)
             {
@@ -117,7 +117,7 @@ namespace PredicateMapsTests.Maps
                 { (s) => s.Length > 150, "Long string" },
                 { (s) => s.Contains("hello"), "welcoming string" },
             };
-            var map = new PredicateMap<string, string>(initialData);
+            var map = new PredicateMap<string, string>(initialData, "No matches found");
 
             CollectionAssert.AreEquivalent(initialData.Keys, map.KeyPredicateList());
             CollectionAssert.AreEquivalent(initialData.Values, map.ValueItemList());
@@ -126,7 +126,40 @@ namespace PredicateMapsTests.Maps
         [Test, ExpectedException(typeof(ArgumentException))]
         public void NullDictionaryForConstructorCausesArgumentException()
         {
-            new PredicateMap<int, string>(null);
+            new PredicateMap<int, string>(null, "Default value");
+        }
+
+        [Test]
+        public void SingleParameterConstructorSetsDafaultValue()
+        {
+            var defaultValue = "This is the default value.";
+            var map = new PredicateMap<int, string>(defaultValue);
+
+            var result = map.GetFirstMatch(1);
+            Assert.AreEqual(defaultValue, result);
+        }
+
+        [Test]
+        public void DictionaryParameterConstructorSetsDafaultValue()
+        {
+            var defaultValue = "Expected default";
+            var dictionary = new Dictionary<Predicate<Type>, string>();
+            var map = new PredicateMap<Type, string>(dictionary, defaultValue);
+
+            var result = map.GetFirstMatch(typeof(ArgumentException));
+            Assert.AreEqual(defaultValue, result);
+        }
+
+        [Test]
+        public void ListParameterConstructorSetsDafaultValue()
+        {
+            var defaultValue = "Get this when nothing matchers";
+            var keyList = new List<Predicate<string>>();
+            var valueList = new List<string>();
+            var map = new PredicateMap<string, string>(keyList, valueList, defaultValue);
+
+            var result = map.GetFirstMatch("Find me a match!");
+            Assert.AreEqual(defaultValue, result);
         }
     }
 }

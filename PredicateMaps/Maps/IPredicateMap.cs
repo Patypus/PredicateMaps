@@ -76,5 +76,13 @@ namespace PredicateMaps.Maps
         /// <param name="valueToTest">Value to run in predicate keys</param>
         /// <returns>true when a predicate returns true for valueToTest, false otherwise.</returns>
         bool AnyMatches(K valueToTest);
+
+        /// <summary>
+        /// Method to set the default value that is returned when no matches for a value are found in the 
+        /// GetFirstMatch method. Setting the default value via this method ovrerides any value that has
+        /// previously been set.
+        /// </summary>
+        /// <param name="defaultValue">Value to set the default value to. Null is a valid value for this parameter.</param>
+        void SetDefaultValue(V defaultValue);
     }
 }
