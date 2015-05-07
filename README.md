@@ -1,4 +1,4 @@
-#PredicateMaps
+#Predicate Maps Library
 [![Build Status](https://travis-ci.org/Patypus/PredicateMaps.svg?branch=master)](https://travis-ci.org/Patypus/PredicateMaps)
 =============
 This is a libraries project which contains a wrapper class (PredicateMap) which wraps a dictionary of type Predicate((K), V). The wrapper hides the selecting values where the predicates evaluate to true for simplicity in the caller.
@@ -8,12 +8,39 @@ As a project this needs more polish in it but I'm working on it!
 =============
 
 ##Getting started
-
+#####Creating
 Once you have the PredicateMaps dll included in you project and added as a reference, see the installation section for adding it, start by creating a new PredicateMap:
 ```C#
 var map = new PredicateMap<Type, string>("No matches found");
 ```
 The types applied refer to the parameter type for the predicate keys, *Type* in this case and the value type for the values, in this case *string*. So this new map wraps a *Dictionary<Predicate<Type>,string>*. The string parameter provided is used as the default value for a return in no matches are found for a Type passed to the maps. 
+#####Adding values
+Values can be added to the map with one of the map functions like this:
+```C#
+map.Add((type) => type == typeof(ArgumentException), "An argument was invalid");
+```
+Other add operations can add mutliple values at once:
+```C#
+AddAll(List<Predicate<K>> keyList, List<V> valueList)
+```
+and constructors can add values as the map is created:
+```C#
+new PredicateMap(IDictionary<Predicate<K>, V> mappingToWrap, V defaultValue)
+new PredicateMap(List<Predicate<K>> keyList, List<V> valuesList, V defaultValue)
+```
+All take the default value that the first example constructor took in addition to the keys and values to populate the PredicateMap. 
+#####Getting matches
+Matches can be retrieved singly like this this for the examples above:
+```C#
+var exception = new ArgumentException();
+map.GetFirstMatch(exception);
+```
+Which will return "An argument was invalid" for the argument exception type or "No matches found" for types other than argument exception.
+If multiple matches could exist in a map for a value this can be used to find all of the values which match.
+```C#
+GetAllMatches(K valueToTest);
+```
+Which returns a collection of matching values or an empty collection if no matches are found.
 
 =============
 ##Installation
