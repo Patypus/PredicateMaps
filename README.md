@@ -13,34 +13,34 @@ Once you have the PredicateMaps dll included in you project and added as a refer
 ```C#
 var map = new PredicateMap<Type, string>("No matches found");
 ```
-The types applied refer to the parameter type for the predicate keys, *Type* in this case and the value type for the values, in this case *string*. So this new map wraps a *Dictionary<Predicate<Type>,string>*. The string parameter provided is used as the default value for a return in no matches are found for a Type passed to the maps. 
+The types applied refer to the parameter type for the predicate keys, *Type* in this case and the value type for the values, in this case, is *string*. So this new map wraps a *Dictionary<Predicate<Type>,string>*. The string parameter provided is used as the default value for a return if no matches are found for a Type passed to the maps. 
 #####Adding values
-Values can be added to the map with one of the map functions like this:
+Values can be added to the map with one of the map's add functions like this:
 ```C#
 map.Add((type) => type == typeof(ArgumentException), "An argument was invalid");
 ```
-Other add operations can add mutliple values at once:
+Other add functions can add mutliple values at once:
 ```C#
 AddAll(List<Predicate<K>> keyList, List<V> valueList)
 ```
-and constructors can add values as the map is created:
+In Addition, some of the constructors can add values as the map is created:
 ```C#
 new PredicateMap(IDictionary<Predicate<K>, V> mappingToWrap, V defaultValue)
 new PredicateMap(List<Predicate<K>> keyList, List<V> valuesList, V defaultValue)
 ```
-All take the default value that the first example constructor took in addition to the keys and values to populate the PredicateMap. 
+All constructors take the default value that the first example constructor took in addition to the keys and values to populate the PredicateMap. 
 #####Getting matches
-Matches can be retrieved singly like this this for the examples above:
+Matches can be retrieved singly like this example for the map created above:
 ```C#
 var exception = new ArgumentException();
-map.GetFirstMatch(exception);
+map.GetFirstMatch(exception.GetType());
 ```
-Which will return "An argument was invalid" for the argument exception type or "No matches found" for types other than argument exception.
-If multiple matches could exist in a map for a value this can be used to find all of the values which match.
+This will return "An argument was invalid" for the ArgumentException type and will return "No matches found" for types other than that of ArgumentException.
+The GetAllMatches function can be used find all of the values which match a given test value if multiple matches could exist in the map for the test value.
 ```C#
 GetAllMatches(K valueToTest);
 ```
-Which returns a collection of matching values or an empty collection if no matches are found.
+This will return a collection of matching values or an empty collection if no matches are found.
 
 =============
 ##Installation
