@@ -37,9 +37,17 @@ namespace PredicateMaps.Maps
         /// </summary>
         /// <param name="keyList">Collection of predicates for use as keys</param>
         /// <param name="valueList">Collection of values for retreival when the key predicate evaluates to true.</param>
-        /// /// <exception cref="InconsistentIndexException">Thrown if the sizes of keyList and valueList are not equal.</exception>
+        /// <exception cref="InconsistentIndexException">Thrown if the sizes of keyList and valueList are not equal.</exception>
         /// <exception cref="ArgumentException">Thrown if either parameter value is null.</exception>
         void AddAll(List<Predicate<K>> keyList, List<V> valueList);
+
+        /// <summary>
+        /// Adds all elements in the provided dictionary to the map.
+        /// </summary>
+        /// <param name="keyValueDictionary">Dictionary containing new predicate to value pairs to add to the map. 
+        /// Null is not a valid value for this parameter.</param>
+        /// <exception cref="ArgumentException">Thrown if the dictionary parameter value is null.</exception>
+        void AddAll(IDictionary<Predicate<K>, V> keyValueDictionary);
 
         /// <summary>
         /// Method to find the value which is associated with the first predicate to resolve to true for the valueToTest parameter.

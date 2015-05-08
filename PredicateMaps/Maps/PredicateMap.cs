@@ -154,6 +154,17 @@ namespace PredicateMaps.Maps
         }
 
         /// <summary>
+        /// Adds all elements in the provided dictionary to the map.
+        /// </summary>
+        /// <param name="keyValueDictionary">Dictionary containing new predicate to value pairs to add to the map. 
+        /// Null is not a valid value for this parameter.</param>
+        /// <exception cref="ArgumentException">Thrown if the dictionary parameter value is null.</exception>
+        public void AddAll(IDictionary<Predicate<K>, V> keyValueDictionary)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
         /// Finds all values where valueToTest evaluates the prdicate related to the value to true.
         /// 
         /// If no values are found then an empty list is returned.

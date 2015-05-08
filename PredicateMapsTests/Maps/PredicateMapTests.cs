@@ -120,7 +120,7 @@ namespace PredicateMapsTests.Maps
         }
 
         [Test]
-        public void AddAll_AddsAllItemsInCollectionToMap()
+        public void ListAddAll_AddsAllItemsInCollectionToMap()
         {
             var predicates = new List<Predicate<double>> { (d) => d < 2.0, (d) => d < 0.0, (d) => d > 100.0 };
             var values = new List<string> { "Small double", "That's negative", "Large double." };
@@ -132,7 +132,7 @@ namespace PredicateMapsTests.Maps
 
         [Test]
         [ExpectedException(typeof(InconsistentIndexException))]
-        public void AddAll_ThrowsInconsistentIndexExceptionWhenSizesOfParameterCollectionsDoNoMatch()
+        public void ListAddAll_ThrowsInconsistentIndexExceptionWhenSizesOfParameterCollectionsDoNoMatch()
         {
             var predicates = new List<Predicate<string>> { (s) => s.Length == 0 };
             var values = new List<string> { "0", "4", "4", "E", "6" };
@@ -143,7 +143,7 @@ namespace PredicateMapsTests.Maps
 
         [Test]
         [ExpectedException(typeof(ArgumentException))]
-        public void AddAll_ThrowsInvalidArgumentExceptionWhenKeyCollectionIsNull()
+        public void ListAddAll_ThrowsInvalidArgumentExceptionWhenKeyCollectionIsNull()
         {
             var valuesCollection = new List<string>();
             var map = new PredicateMap<string, string>(string.Empty);
@@ -153,7 +153,7 @@ namespace PredicateMapsTests.Maps
 
         [Test]
         [ExpectedException(typeof(ArgumentException))]
-        public void AddAll_ThrowsInvalidArgumentExceptionWhenValueCollectionIsNull()
+        public void ListAddAll_ThrowsInvalidArgumentExceptionWhenValueCollectionIsNull()
         {
             var predicatesCollection = new List<Predicate<string>>();
             var map = new PredicateMap<string, string>(string.Empty);
@@ -272,6 +272,18 @@ namespace PredicateMapsTests.Maps
             Assert.AreNotEqual(beforeUpdate, afterUpdate);
             Assert.AreEqual(initialDefaultValue, beforeUpdate);
             Assert.AreEqual(secondDefaultValue, afterUpdate);
+        }
+
+        [Test]
+        public void DictionaryAddAll_AppendsAllElementsFromPassedDictionaryTpMapsExistingValues()
+        {
+            Assert.Fail();
+        }
+
+        [Test]
+        public void DictionaryAddAll_ThrowsArugmentExceptionWhenValuePassedIsNull()
+        {
+            Assert.Fail();
         }
     }
 }
