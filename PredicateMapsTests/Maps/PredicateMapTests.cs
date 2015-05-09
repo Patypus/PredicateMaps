@@ -277,13 +277,24 @@ namespace PredicateMapsTests.Maps
         [Test]
         public void DictionaryAddAll_AppendsAllElementsFromPassedDictionaryTpMapsExistingValues()
         {
-            Assert.Fail();
+            var valuesToAdd = new Dictionary<Predicate<int>, string>
+            {
+                { (i) => i < 0, "negative"  },
+                { (i) => i == 0, "zero"  },
+                { (i) => i > 0, "positive"  },
+            };
+            var map = new PredicateMap<int, string>(string.Empty);
+            map.AddAll(valuesToAdd);
+
+            Assert.True(valuesToAdd.Keys.All(k => map.KeyPredicateList().Contains(k)));
+            Assert.True(valuesToAdd.Values.All(v => map.ValueItemList().Contains(v)));
         }
 
-        [Test]
+        [Test, ExpectedException(typeof(ArgumentException))]
         public void DictionaryAddAll_ThrowsArugmentExceptionWhenValuePassedIsNull()
         {
-            Assert.Fail();
+            var map = new PredicateMap<int, string>(string.Empty);
+            map.AddAll(null);
         }
     }
 }

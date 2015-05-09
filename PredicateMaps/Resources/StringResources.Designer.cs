@@ -97,6 +97,15 @@ namespace PredicateMaps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Null is not a valid value for the dictionary passed to this method..
+        /// </summary>
+        internal static string InvalidDictionaryAddAllParameter {
+            get {
+                return ResourceManager.GetString("InvalidDictionaryAddAllParameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Null is not a valid value for the dictionary passed to this constructor..
         /// </summary>
         internal static string InvalidDictionaryConstructorParameter {

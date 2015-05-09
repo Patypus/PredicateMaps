@@ -161,7 +161,15 @@ namespace PredicateMaps.Maps
         /// <exception cref="ArgumentException">Thrown if the dictionary parameter value is null.</exception>
         public void AddAll(IDictionary<Predicate<K>, V> keyValueDictionary)
         {
-            throw new NotImplementedException();
+            if (keyValueDictionary == null)
+            {
+                throw new ArgumentException(StringResources.InvalidDictionaryAddAllParameter);
+            }
+
+            foreach (var pair in keyValueDictionary)
+            {
+                _storageMap.Add(pair);
+            }
         }
 
         /// <summary>

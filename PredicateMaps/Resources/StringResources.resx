@@ -129,6 +129,9 @@
   <data name="InvalidDataParameter" xml:space="preserve">
     <value>Null is not a valid data value.</value>
   </data>
+  <data name="InvalidDictionaryAddAllParameter" xml:space="preserve">
+    <value>Null is not a valid value for the dictionary passed to this method.</value>
+  </data>
   <data name="InvalidDictionaryConstructorParameter" xml:space="preserve">
     <value>Null is not a valid value for the dictionary passed to this constructor.</value>
   </data>
