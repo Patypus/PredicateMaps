@@ -59,26 +59,6 @@ namespace PredicateMapsTests.Maps
         }
 
         [Test]
-        public void NullValueForAddGivesArgumentException()
-        {
-            var expectedMessage = StringResources.InvalidDataParameter;
-            Exception caughtException = null;
-
-            try
-            {
-                var map = new PredicateMap<string, string>(string.Empty);
-                map.Add((s) => s.Equals("someKey"), null);
-            }
-            catch (ArgumentException ae)
-            {
-                caughtException = ae;
-            }
-
-            Assert.NotNull(caughtException);
-            Assert.AreEqual(expectedMessage, caughtException.Message);
-        }
-        
-        [Test]
         public void GetFirstMatch_ReturnsCorrectItemForKey()
         {
             var value = "This should get returned.";
