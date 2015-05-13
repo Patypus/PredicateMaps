@@ -184,11 +184,10 @@ namespace PredicateMaps.Maps
 
         /// <summary>
         /// Finds all values where valueToTest evaluates the prdicate related to the value to true.
-        /// 
-        /// If no values are found then an empty list is returned.
+        /// An empty list is returned if no predicates evaluate to true for valueToTest
         /// </summary>
-        /// <param name="valueToTest">Value to test against the predicate keys</param>
-        /// <returns>A list of all matches</returns>
+        /// <param name="valueToTest">Value to test with the predicate keys</param>
+        /// <returns>A list of all values whose predicate key is true for valueToTest</returns>
         public List<V> GetAllMatches(K valueToTest)
         {
             return _storageMap.Where(pair => pair.Key.Invoke(valueToTest)).Select(match => match.Value).ToList();
@@ -197,18 +196,18 @@ namespace PredicateMaps.Maps
         /// <summary>
         /// Counts the number of predicates in the map which evaluate to true for valueToTest
         /// </summary>
-        /// <param name="valueToTest">Value to evaluate predicates with.</param>
-        /// <returns>The number of predicates which are true for valueToTest</returns>
+        /// <param name="valueToTest">Value to count matches for</param>
+        /// <returns>The number of predicates which evaluate to true for valueToTest</returns>
         public int CountMatches(K valueToTest)
         {
             return _storageMap.AsParallel().Count(pair => pair.Key.Invoke(valueToTest));
         }
 
         /// <summary>
-        /// Method to find if the map contains any matches for the value of valueToTest.
+        /// Returns true if any predicates in the map evaluate to true for valueToTest otherwise false.
         /// </summary>
-        /// <param name="valueToTest">Value to run in predicate keys</param>
-        /// <returns>true when a predicate returns true for valueToTest, false otherwise.</returns>
+        /// <param name="valueToTest">Value to test predicate keys with</param>
+        /// <returns>True if any predicate returns true for valueToTest, false otherwise.</returns>
         public bool AnyMatches(K valueToTest)
         {
             return _storageMap.Keys.Any((predicate) => predicate.Invoke(valueToTest));
