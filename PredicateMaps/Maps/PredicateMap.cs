@@ -71,18 +71,15 @@ namespace PredicateMaps.Maps
             _defaultValue = defaultValue;
         }
 
-        private void CheckValidityOfMultipleAddParameters(List<Predicate<K>> keyList, List<V> valueList)
+        /// <summary>
+        /// Method to set the default value that is returned when no matches for a value are found in the 
+        /// GetFirstMatch method. Setting the default value via this method ovrerides any value that has
+        /// previously been set.
+        /// </summary>
+        /// <param name="defaultValue">Value to set the default value to. Null is a valid value for this parameter.</param>
+        public void SetDefaultValue(V defaultValue)
         {
-            if (keyList == null || valueList == null)
-            {
-                var message = keyList == null ? StringResources.InvalidKeyCollectionParameter :
-                                                StringResources.InvalidDataCollectionParameter;
-                throw new ArgumentException(message);
-            }
-            if (keyList.Count != valueList.Count)
-            {
-                throw new InconsistentIndexException(keyList.Count, valueList.Count);
-            }
+            _defaultValue = defaultValue;
         }
 
         /// <summary>
@@ -128,23 +125,6 @@ namespace PredicateMaps.Maps
         }
 
         /// <summary>
-        /// Method to find the value which is associated with the first predicate to resolve to true for the valueToTest parameter.
-        /// If no matches are found then the default value is returned. This value is set in the constructor or via the SetDefaultValue
-        /// method.
-        /// 
-        /// This method only finds the value associated with the first predicate which resolves to true with the value supplied through
-        /// the valueToTest parameter. To find values associated with all predicates which resolve to true for the supplied
-        /// parameter use GetAllMatches.
-        /// </summary>
-        /// <param name="valueToTest">Value to test in key predicates to find a match for.</param>
-        /// <returns>Value associated with first predicate found that is true for the valueToTest parameter</returns>
-        public V GetFirstMatch(K valueToTest)
-        {
-            var matches = _storageMap.Where(pair => pair.Key.Invoke(valueToTest));
-            return matches.Any() ? matches.First().Value : _defaultValue;
-        }
-
-        /// <summary>
         /// Adds all elements in key and value lists to the map, matching predicates to values in the provided collections
         /// by index which must be provided in the correct order. If the size of the keyList and valueList do not match this 
         /// method will throw an InconsistentIndexException. Null is not a valid value for either parameter for this method.
@@ -183,6 +163,23 @@ namespace PredicateMaps.Maps
         }
 
         /// <summary>
+        /// Method to find the value which is associated with the first predicate to resolve to true for the valueToTest parameter.
+        /// If no matches are found then the default value is returned. This value is set in the constructor or via the SetDefaultValue
+        /// method.
+        /// 
+        /// This method only finds the value associated with the first predicate which resolves to true with the value supplied through
+        /// the valueToTest parameter. To find values associated with all predicates which resolve to true for the supplied
+        /// parameter use GetAllMatches.
+        /// </summary>
+        /// <param name="valueToTest">Value to test in key predicates to find a match for.</param>
+        /// <returns>Value associated with first predicate found that is true for the valueToTest parameter</returns>
+        public V GetFirstMatch(K valueToTest)
+        {
+            var matches = _storageMap.Where(pair => pair.Key.Invoke(valueToTest));
+            return matches.Any() ? matches.First().Value : _defaultValue;
+        }
+
+        /// <summary>
         /// Finds all values where valueToTest evaluates the prdicate related to the value to true.
         /// An empty list is returned if no predicates evaluate to true for valueToTest
         /// </summary>
@@ -213,15 +210,18 @@ namespace PredicateMaps.Maps
             return _storageMap.Keys.Any((predicate) => predicate.Invoke(valueToTest));
         }
 
-        /// <summary>
-        /// Method to set the default value that is returned when no matches for a value are found in the 
-        /// GetFirstMatch method. Setting the default value via this method ovrerides any value that has
-        /// previously been set.
-        /// </summary>
-        /// <param name="defaultValue">Value to set the default value to. Null is a valid value for this parameter.</param>
-        public void SetDefaultValue(V defaultValue)
+        private void CheckValidityOfMultipleAddParameters(List<Predicate<K>> keyList, List<V> valueList)
         {
-            _defaultValue = defaultValue;
+            if (keyList == null || valueList == null)
+            {
+                var message = keyList == null ? StringResources.InvalidKeyCollectionParameter :
+                                                StringResources.InvalidDataCollectionParameter;
+                throw new ArgumentException(message);
+            }
+            if (keyList.Count != valueList.Count)
+            {
+                throw new InconsistentIndexException(keyList.Count, valueList.Count);
+            }
         }
     }
 }
