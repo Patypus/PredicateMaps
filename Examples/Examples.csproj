@@ -41,10 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExceptionFiltering\ExceptionFilter.cs" />
     <Compile Include="FizzBuzz\FizzBuzzRunner.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="ExamplesLauncher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewChooser\ViewResolver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

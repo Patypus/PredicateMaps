@@ -1,4 +1,5 @@
-﻿using Examples.FizzBuzz;
+﻿using Examples.ExceptionFiltering;
+using Examples.FizzBuzz;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace Examples
 {
-    class Program
+    public class ExamplesLauncher
     {
         private const string FizzBuzzKey = "FizzBuzz";
+        private const string ExceptionFilter = "ExceptionFilter";
 
         public static void Main(string[] args)
         {
@@ -24,6 +26,7 @@ namespace Examples
         {
             Console.WriteLine("Available calls:");
             Console.WriteLine(String.Join(" ", "FizzBuzz to number:", FizzBuzzKey, "{number to count to}"));
+            Console.WriteLine(String.Join(" ", "Throw exception to demonstrate catching", ExceptionFilter, "{Name of excpetion type to throw}", "{message to include in exception}"));
         }
 
         private static void PerformRequiredOperation(string[] args)
@@ -33,6 +36,8 @@ namespace Examples
                 case FizzBuzzKey:
                     RunFizzBuzz(Int32.Parse(args[1]));
                     break;
+                case ExceptionFilter:
+
                 default:
                     PrintUsage();
                     break;
@@ -44,6 +49,12 @@ namespace Examples
             var runner = new FizzBuzzRunner();
             var results = runner.Run(topLimit);
             results.ForEach(r => Console.WriteLine(r));
+        }
+
+        private static void RunExceptionFiltering(string exceptionType, string message)
+        {
+            var filter = new ExceptionFilter();
+            Console.WriteLine(filter.ThrowAndCatchException(exceptionType, message));
         }
     }
 }
