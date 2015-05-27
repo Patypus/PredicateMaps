@@ -12,6 +12,11 @@ namespace Examples
     {
         private const string FizzBuzzKey = "FizzBuzz";
         private const string ExceptionFilter = "ExceptionFilter";
+        private static IDictionary<string, Action<string[]>> operations = new Dictionary<string, Action<string[]>>
+        {
+            { FizzBuzzKey, RunExceptionFiltering },
+            { ExceptionFilter, RunFizzBuzz }
+        };
 
         public static void Main(string[] args)
         {
@@ -31,30 +36,27 @@ namespace Examples
 
         private static void PerformRequiredOperation(string[] args)
         {
-            switch (args[0])
+            if (operations.ContainsKey(args[0]))
             {
-                case FizzBuzzKey:
-                    RunFizzBuzz(Int32.Parse(args[1]));
-                    break;
-                case ExceptionFilter:
-
-                default:
-                    PrintUsage();
-                    break;
+                operations[args[0]].Invoke(args);
+            }
+            else
+            {
+                PrintUsage();
             }
         }
 
-        private static void RunFizzBuzz(int topLimit)
+        private static void RunFizzBuzz(string[] args)
         {
             var runner = new FizzBuzzRunner();
-            var results = runner.Run(topLimit);
+            var results = runner.Run(Int32.Parse(args[1]));
             results.ForEach(r => Console.WriteLine(r));
         }
 
-        private static void RunExceptionFiltering(string exceptionType, string message)
+        private static void RunExceptionFiltering(string[] args)
         {
             var filter = new ExceptionFilter();
-            Console.WriteLine(filter.ThrowAndCatchException(exceptionType, message));
+            Console.WriteLine(filter.ThrowAndCatchException(args[1], args[2]));
         }
     }
 }
