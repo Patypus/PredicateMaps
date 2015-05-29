@@ -8,7 +8,7 @@ namespace Examples.ExceptionFiltering
 {
     public class ExceptionFilter
     {
-        public string ThrowAndCatchException(string exceptionTypeToThrow, string messageForException)
+        public string RespondToThrownException(Exception thrown)
         {
             return string.Empty;
         }

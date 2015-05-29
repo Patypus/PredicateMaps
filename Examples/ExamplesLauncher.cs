@@ -56,7 +56,8 @@ namespace Examples
         private static void RunExceptionFiltering(string[] args)
         {
             var filter = new ExceptionFilter();
-            Console.WriteLine(filter.ThrowAndCatchException(args[1], args[2]));
+            var thrower = new ExceptionThrower(filter);
+            thrower.ThrowExceptionForFilter(args[1], args[2]);
         }
     }
 }

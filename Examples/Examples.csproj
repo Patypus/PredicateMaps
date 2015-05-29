@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExceptionFiltering\ExceptionFilter.cs" />
+    <Compile Include="ExceptionFiltering\ExceptionThrower.cs" />
     <Compile Include="FizzBuzz\FizzBuzzRunner.cs" />
     <Compile Include="ExamplesLauncher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
