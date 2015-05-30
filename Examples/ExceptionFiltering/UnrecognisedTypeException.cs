@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace Examples.ExceptionFiltering
 {
-    public class ExceptionFilter
+    public class UnrecognisedTypeException : Exception
     {
-        public string RespondToThrownException(Exception thrown)
+        public UnrecognisedTypeException(string message) : base(message)
         {
-            //Remember to handle unrecongised type exception
-            return string.Empty;
         }
     }
 }
