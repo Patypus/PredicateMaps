@@ -120,7 +120,10 @@
   <data name="ArgumentExceptionMessage" xml:space="preserve">
     <value>Thrown exception was Argument Exception.</value>
   </data>
-  <data name="NotCurrentlyImplementedException" xml:space="preserve">
+  <data name="IsUnrecognisedTypeException" xml:space="preserve">
+    <value>Unable to interpret type name parameter. The ExceptionThrower was not able to create an instance of the required type.</value>
+  </data>
+  <data name="NotCurrentlyImplementedExceptionMessage" xml:space="preserve">
     <value>Thrown exception was Not Implemented Exception but message indicates that method will be implemented in a later release.</value>
   </data>
   <data name="NotImplementedExceptionMessage" xml:space="preserve">

@@ -33,8 +33,9 @@ namespace Examples.ExceptionFiltering
             {
                 { IsArgumentException, Strings.ArgumentExceptionMessage },
                 { IsNotImplementedException, Strings.NotImplementedExceptionMessage },
-                { IsNotImplementedExceptionTemporarily, Strings.},
-                { IsNullReferenceException, Strings.NullReferenceExceptionMessage}
+                { IsNotImplementedExceptionTemporarily, Strings.NotCurrentlyImplementedExceptionMessage },
+                { IsNullReferenceException, Strings.NullReferenceExceptionMessage },
+                { IsUnrecognisedTypeException, Strings.IsUnrecognisedTypeException }
             };
             var defaultMessage = Strings.UnableToHandlePassedException;
             return new PredicateMap<Exception, string>(exceptionFilters, defaultMessage);
@@ -58,6 +59,11 @@ namespace Examples.ExceptionFiltering
         private bool IsNullReferenceException(Exception exception)
         {
             return exception is NullReferenceException;
+        }
+
+        private bool IsUnrecognisedTypeException(Exception exception)
+        {
+            return exception is UnrecognisedTypeException;
         }
     }
 }

@@ -70,11 +70,20 @@ namespace Examples.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to interpret type name parameter. The ExceptionThrower was not able to create an instance of the required type..
+        /// </summary>
+        internal static string IsUnrecognisedTypeException {
+            get {
+                return ResourceManager.GetString("IsUnrecognisedTypeException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thrown exception was Not Implemented Exception but message indicates that method will be implemented in a later release..
         /// </summary>
-        internal static string NotCurrentlyImplementedException {
+        internal static string NotCurrentlyImplementedExceptionMessage {
             get {
-                return ResourceManager.GetString("NotCurrentlyImplementedException", resourceCulture);
+                return ResourceManager.GetString("NotCurrentlyImplementedExceptionMessage", resourceCulture);
             }
         }
         
