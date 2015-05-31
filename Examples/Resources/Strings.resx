@@ -117,6 +117,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ArgumentExceptionMessage" xml:space="preserve">
+    <value>Thrown exception was Argument Exception.</value>
+  </data>
+  <data name="NotCurrentlyImplementedException" xml:space="preserve">
+    <value>Thrown exception was Not Implemented Exception but message indicates that method will be implemented in a later release.</value>
+  </data>
+  <data name="NotImplementedExceptionMessage" xml:space="preserve">
+    <value>Thrown exception was Not Implemented Exception.</value>
+  </data>
+  <data name="NullReferenceExceptionMessage" xml:space="preserve">
+    <value>Thrown exception was Null Reference Exception.</value>
+  </data>
+  <data name="UnableToHandlePassedException" xml:space="preserve">
+    <value>The exception type passed for filtering was not of a recognised type.</value>
+  </data>
   <data name="UnrecognisedExceptionType" xml:space="preserve">
     <value>The entered type name {0} was not recognised for excpetion filtering.</value>
   </data>

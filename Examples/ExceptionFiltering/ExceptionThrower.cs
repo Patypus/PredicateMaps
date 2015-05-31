@@ -18,11 +18,6 @@ namespace Examples.ExceptionFiltering
             _filter = filter;
         }
 
-        public IEnumerable<String> ThrowableExceptionTypes()
-        {
-            return _supportedExceptionTypes.Keys;
-        }
-
         public void ThrowExceptionForFilter(string exceptionType, string message)
         {
             try

@@ -61,6 +61,51 @@ namespace Examples.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thrown exception was Argument Exception..
+        /// </summary>
+        internal static string ArgumentExceptionMessage {
+            get {
+                return ResourceManager.GetString("ArgumentExceptionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thrown exception was Not Implemented Exception but message indicates that method will be implemented in a later release..
+        /// </summary>
+        internal static string NotCurrentlyImplementedException {
+            get {
+                return ResourceManager.GetString("NotCurrentlyImplementedException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thrown exception was Not Implemented Exception..
+        /// </summary>
+        internal static string NotImplementedExceptionMessage {
+            get {
+                return ResourceManager.GetString("NotImplementedExceptionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thrown exception was Null Reference Exception..
+        /// </summary>
+        internal static string NullReferenceExceptionMessage {
+            get {
+                return ResourceManager.GetString("NullReferenceExceptionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The exception type passed for filtering was not of a recognised type..
+        /// </summary>
+        internal static string UnableToHandlePassedException {
+            get {
+                return ResourceManager.GetString("UnableToHandlePassedException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The entered type name {0} was not recognised for excpetion filtering..
         /// </summary>
         internal static string UnrecognisedExceptionType {
