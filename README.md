@@ -1,5 +1,6 @@
 #Predicate Maps Library
 [![Build Status](https://travis-ci.org/Patypus/PredicateMaps.svg?branch=master)](https://travis-ci.org/Patypus/PredicateMaps)
+[![NuGet](https://img.shields.io/nuget/v/PredicateMaps.svg)](http://www.nuget.org/packages/PredicateMaps)
 =============
 This is a libraries project which contains a wrapper class (PredicateMap) which wraps a dictionary of type Predicate((K), V). The wrapper hides the selecting values where the predicates evaluate to true for simplicity in the caller.
 
