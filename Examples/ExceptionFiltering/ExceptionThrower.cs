@@ -9,30 +9,21 @@ namespace Examples.ExceptionFiltering
 {
     public class ExceptionThrower
     {
-        private readonly ExceptionFilter _filter;
         private readonly IDictionary<string, Type> _supportedExceptionTypes;
 
-
-        public ExceptionThrower(ExceptionFilter filter)
+        public ExceptionThrower()
         {
-            _filter = filter;
+            _supportedExceptionTypes = CreateDictionaryOfSupportedTypes();
         }
 
         public void ThrowExceptionForFilter(string exceptionType, string message)
         {
-            try
+            if (!_supportedExceptionTypes.ContainsKey(exceptionType))
             {
-                if (!_supportedExceptionTypes.ContainsKey(exceptionType))
-                {
-                    var exceptionMessage = string.Format(Strings.UnrecognisedExceptionType, exceptionType);
-                    throw new UnrecognisedTypeException(exceptionMessage);
-                }
-                ThrowCorrectException(exceptionType, message);
+                var exceptionMessage = string.Format(Strings.UnrecognisedExceptionType, exceptionType);
+                throw new UnrecognisedTypeException(exceptionMessage);
             }
-            catch (Exception e)
-            {
-                _filter.RespondToThrownException(e);
-            }
+            ThrowCorrectException(exceptionType, message);            
         }
 
         private void ThrowCorrectException(string exceptionType, string message)

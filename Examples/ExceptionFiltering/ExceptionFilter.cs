@@ -24,7 +24,15 @@ namespace Examples.ExceptionFiltering
 
         public static IEnumerable<string> GetHandledTypesDescriptions()
         {
-            return null;
+            return new List<string>()
+            {
+                "These types are have special handling in the ExceptionFilter:",
+                "ArgumentExceptions",
+                "NotImplementedExceptions without the word 'yet' in the message",
+                "NotImplementedExceptions with the word 'yet' in the message",
+                "NullReferenceException",
+                "Enter the type name of the exception to throw for the filter to catch. If the name is not recognised an UnrecognisedTypeException will be thrown."
+            };
         }
 
         private IPredicateMap<Exception, string> CreateFilterMap()
