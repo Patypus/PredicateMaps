@@ -35,6 +35,8 @@ namespace Examples.ExceptionFiltering
             };
         }
 
+        //This predicate map is more complex as it uses methods defined below as the predicates for the map.
+        //This setup allows for more complex conditions to be used as the map's matching predicates.
         private IPredicateMap<Exception, string> CreateFilterMap()
         {
             var exceptionFilters = new Dictionary<Predicate<Exception>, string>()

@@ -16,6 +16,8 @@ namespace Examples.ExceptionFiltering
             _supportedExceptionTypes = CreateDictionaryOfSupportedTypes();
         }
 
+        //This method throws the exception that the user has requested, provided that the type can be interpreded.
+        //The unrecognised type exception is thrown if the type cannot be recognised and is also handled by the filter.
         public void ThrowExceptionForFilter(string exceptionType, string message)
         {
             if (!_supportedExceptionTypes.ContainsKey(exceptionType))
@@ -33,6 +35,7 @@ namespace Examples.ExceptionFiltering
             throw instance;
         }
 
+        //This dictionary maps the names of exception types to the types that the Activator can use.
         private IDictionary<string, Type> CreateDictionaryOfSupportedTypes()
         {
             return new Dictionary<string, Type>()
