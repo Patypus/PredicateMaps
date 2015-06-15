@@ -16,16 +16,42 @@ namespace PredicateMaps.Maps
     /// <typeparam name="V">Return type for the value function to return</typeparam>
     internal class PredicateToFunctionMap<K, V> : IPredicateToFunctionMap<K, V> where V : class
     {
-        public IList<Predicate<K>> KeyPredicateList { get; private set; }
-        public IList<Func<K, V>> ValueFunctionList { get; private set; }
+        private readonly IDictionary<Predicate<K>, Func<K, V>> _storageMap;
 
         /// <summary>
         /// Initialises a new PredicateToFunctionMap with initialised but empty key and value lists.
         /// </summary>
         public PredicateToFunctionMap()
         {
-            KeyPredicateList = new List<Predicate<K>>();
-            ValueFunctionList = new List<Func<K, V>>();
+            _storageMap = new Dictionary<Predicate<K>, Func<K, V>>();
+        }
+
+        /// <summary>
+        /// Initialises a new PredicateToFunctionMap with the key values from the supplied dictionary in the 
+        /// map.
+        /// </summary>
+        /// <param name="keyValueDictionary">Prepopulated key value dictionary to enter to the new map</param>
+        public PredicateToFunctionMap(IDictionary<Predicate<K>, Func<K, V>> keyValueDictionary)
+        {
+            _storageMap = keyValueDictionary;
+        }
+
+        /// <summary>
+        /// Retrieves the Predicates of type K which are the keys in the map.
+        /// </summary>
+        /// <returns>Collection of all keys that are in the map.</returns>
+        public IList<Predicate<K>> KeyPredicateList()
+        {
+            return _storageMap.Keys.ToList();
+        }
+
+        /// <summary>
+        /// Retrieves collection of value functions in the map
+        /// </summary>
+        /// <returns>All value functions which have been added to the map up to this point.</returns>
+        public IList<Func<K, V>> ValueFunctionList()
+        {
+            return _storageMap.Values.ToList();
         }
     }
 }

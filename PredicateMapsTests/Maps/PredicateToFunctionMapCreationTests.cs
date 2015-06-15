@@ -16,8 +16,22 @@ namespace PredicateMapsTests.Maps
         {
             var emptyMap = new PredicateToFunctionMap<int, string>();
 
-            Assert.AreEqual(0, emptyMap.KeyPredicateList.Count);
-            Assert.AreEqual(0, emptyMap.ValueFunctionList.Count);
+            Assert.AreEqual(0, emptyMap.KeyPredicateList().Count);
+            Assert.AreEqual(0, emptyMap.ValueFunctionList().Count);
+        }
+
+        [Test]
+        public void DictionaryConstructor_InitialisesMapWithKeysAndValuesInIt()
+        {
+            var testData = new Dictionary<Predicate<string>, Func<string, string>>
+            {
+                { (s) => s.Contains("hello"), (s) => string.Join(" ", s, " contains hello.") },
+                { (s) => s.Length > 50, (s) => s + " is pretty long." }
+            };
+            var map = new PredicateToFunctionMap<string, string>(testData);
+
+            Assert.AreEqual(testData.Keys, map.KeyPredicateList());
+            Assert.AreEqual(testData.Values, map.ValueFunctionList());
         }
     }
 }

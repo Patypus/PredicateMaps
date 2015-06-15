@@ -16,5 +16,16 @@ namespace PredicateMaps.Maps
     /// <typeparam name="V">Return type for the value function to return</typeparam>
     internal interface IPredicateToFunctionMap<K, V>
     {
+        /// <summary>
+        /// Retrieves the Predicates of type K which are the keys in the map.
+        /// </summary>
+        /// <returns>Collection of all keys that are in the map.</returns>
+        IList<Predicate<K>> KeyPredicateList();
+
+        /// <summary>
+        /// Retrieves collection of value functions in the map
+        /// </summary>
+        /// <returns>All value functions which have been added to the map up to this point.</returns>
+        IList<Func<K, V>> ValueFunctionList();
     }
 }
