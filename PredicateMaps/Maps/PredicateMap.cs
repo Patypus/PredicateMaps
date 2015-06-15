@@ -86,7 +86,7 @@ namespace PredicateMaps.Maps
         /// Retrieves the Predicates of type K which are the keys in the map.
         /// </summary>
         /// <returns>Collection of all keys that are in the map.</returns>
-        public List<Predicate<K>> KeyPredicateList()
+        public IList<Predicate<K>> KeyPredicateList()
         {
             return _storageMap.Keys.ToList();
         }
@@ -95,7 +95,7 @@ namespace PredicateMaps.Maps
         /// Retrieves collection of values of type V in the map.
         /// </summary>
         /// <returns>Collection of all values that are in the map.</returns>
-        public List<V> ValueItemList()
+        public IList<V> ValueItemList()
         {
             return _storageMap.Values.ToList();
         }

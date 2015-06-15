@@ -15,6 +15,18 @@ namespace PredicateMaps.Maps
     public interface IPredicateMap<K, V>
     {
         /// <summary>
+        /// Retrieves the Predicates of type K which are the keys in the map.
+        /// </summary>
+        /// <returns>Collection of all keys that are in the map.</returns>
+        IList<Predicate<K>> KeyPredicateList();
+
+        /// <summary>
+        /// Retrieves collection of values of type V in the map.
+        /// </summary>
+        /// <returns>Collection of all values that are in the map.</returns>
+        IList<V> ValueItemList();
+
+        /// <summary>
         /// Returns the total number of elements in the map.
         /// </summary>
         /// <returns>int number of items in the map</returns>
