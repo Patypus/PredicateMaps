@@ -22,6 +22,7 @@ namespace Examples
         {
             if (args.Length == 0 || args[0] == "?")
             {
+                //User has not entered a parameter we can run to show them the usage message
                 PrintUsage();
             }
             else
@@ -45,12 +46,15 @@ namespace Examples
 
         private static void PerformRequiredOperation(string[] args)
         {
+            //If the operation key (first parameter) is in the dictionary of runnable types
+            //get and run the operation with the arguments.
             if (operations.ContainsKey(args[0]))
             {
                 operations[args[0]].Invoke(args);
             }
             else
             {
+                //Entered parameter was not recognised, reshow the user the usage message
                 PrintUsage();
             }
         }
@@ -68,10 +72,13 @@ namespace Examples
             var thrower = new ExceptionThrower();
             try 
             { 
+                //Throw the required exception from the thrower
                 thrower.ThrowExceptionForFilter(args[1], args[2]);
             }
             catch (Exception e)
             {
+                //After catching the exception, use the filter to get a printable message about the type.
+                //A real world filter could be used to make a more reasoned response to a thrown exception.
                 Console.WriteLine(filter.RespondToThrownException(e));
             }
         }
