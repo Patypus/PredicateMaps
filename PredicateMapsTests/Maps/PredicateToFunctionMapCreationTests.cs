@@ -33,5 +33,27 @@ namespace PredicateMapsTests.Maps
             Assert.AreEqual(testData.Keys, map.KeyPredicateList());
             Assert.AreEqual(testData.Values, map.ValueFunctionList());
         }
+
+        [Test, ExpectedException]
+        public void DictionaryConstructor_NullDictionayCausesArgumentException()
+        {
+            new PredicateToFunctionMap<int, string>(null);
+        }
+
+        [Test]
+        public void DictionaryConstructor_MessageInExceptionForNullConstructorContainsNameOfClass()
+        {
+            Exception exception = null;
+            try
+            {
+                new PredicateToFunctionMap<int, string>(null);
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+            Assert.NotNull(exception);
+            Assert.True(exception.Message.Contains(typeof(PredicateToFunctionMap<int, string>).Name));
+        }
     }
 }

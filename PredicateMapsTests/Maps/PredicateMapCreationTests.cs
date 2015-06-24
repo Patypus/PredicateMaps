@@ -130,6 +130,22 @@ namespace PredicateMapsTests.Maps
         }
 
         [Test]
+        public void DictionaryConstructor_MessageInExceptionForNullConstructorContainsNameOfClass()
+        {
+            Exception exception = null;
+            try
+            {
+                new PredicateMap<int, string>(null, "Default value");
+            }
+            catch (Exception e)
+            {
+                exception = e;
+            }
+            Assert.NotNull(exception);
+            Assert.True(exception.Message.Contains(typeof(PredicateMap<int, string>).Name));
+        }
+
+        [Test]
         public void SingleParameterConstructorSetsDafaultValue()
         {
             var defaultValue = "This is the default value.";

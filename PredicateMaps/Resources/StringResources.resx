@@ -133,7 +133,7 @@
     <value>Null is not a valid value for the dictionary passed to this method.</value>
   </data>
   <data name="InvalidDictionaryConstructorParameter" xml:space="preserve">
-    <value>Null is not a valid value for the dictionary passed to this constructor.</value>
+    <value>Null is not a valid value for the dictionary passed to the constructor for {0}</value>
   </data>
   <data name="InvalidKeyCollectionParameter" xml:space="preserve">
     <value>Null is not a valid value for key collection parameter.</value>

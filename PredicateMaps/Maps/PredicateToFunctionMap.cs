@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PredicateMaps.Resources;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,6 +34,11 @@ namespace PredicateMaps.Maps
         /// <param name="keyValueDictionary">Prepopulated key value dictionary to enter to the new map</param>
         public PredicateToFunctionMap(IDictionary<Predicate<K>, Func<K, V>> keyValueDictionary)
         {
+            if (keyValueDictionary == null)
+            {
+                var message = string.Format(StringResources.InvalidDictionaryConstructorParameter, this.GetType().Name);
+                throw new ArgumentException(message);
+            }
             _storageMap = keyValueDictionary;
         }
 

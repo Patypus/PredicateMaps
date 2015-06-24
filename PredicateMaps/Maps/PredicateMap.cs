@@ -45,7 +45,8 @@ namespace PredicateMaps.Maps
         {
             if (mappingToWrap == null)
             {
-                throw new ArgumentException(StringResources.InvalidDictionaryConstructorParameter);
+                var message = string.Format(StringResources.InvalidDictionaryConstructorParameter, this.GetType().Name);
+                throw new ArgumentException(message);
             }
             _storageMap = mappingToWrap;
             _defaultValue = defaultValue;

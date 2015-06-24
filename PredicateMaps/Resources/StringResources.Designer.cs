@@ -106,7 +106,7 @@ namespace PredicateMaps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Null is not a valid value for the dictionary passed to this constructor..
+        ///   Looks up a localized string similar to Null is not a valid value for the dictionary passed to the constructor for {0}.
         /// </summary>
         internal static string InvalidDictionaryConstructorParameter {
             get {
