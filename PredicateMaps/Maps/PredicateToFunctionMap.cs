@@ -42,6 +42,16 @@ namespace PredicateMaps.Maps
             _storageMap = keyValueDictionary;
         }
 
+        public PredicateToFunctionMap(IList<Predicate<K>> keyList, IList<Func<K, V>> functionValueList)
+        {
+            _storageMap = new Dictionary<Predicate<K>, Func<K, V>>();
+
+            for (var index = 0; index < keyList.Count; index++)
+            {
+                _storageMap.Add(keyList[index], functionValueList[index]);
+            }
+        }
+
         /// <summary>
         /// Retrieves the Predicates of type K which are the keys in the map.
         /// </summary>
