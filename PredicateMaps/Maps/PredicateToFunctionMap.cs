@@ -1,4 +1,5 @@
-﻿using PredicateMaps.Resources;
+﻿using PredicateMaps.Exceptions;
+using PredicateMaps.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +47,8 @@ namespace PredicateMaps.Maps
         {
             _storageMap = new Dictionary<Predicate<K>, Func<K, V>>();
 
+            CheckValidityOfMultipleAddParameters(keyList, functionValueList);
+
             for (var index = 0; index < keyList.Count; index++)
             {
                 _storageMap.Add(keyList[index], functionValueList[index]);
@@ -68,6 +71,20 @@ namespace PredicateMaps.Maps
         public IList<Func<K, V>> ValueFunctionList()
         {
             return _storageMap.Values.ToList();
+        }
+
+        private void CheckValidityOfMultipleAddParameters(IList<Predicate<K>> keyList, IList<Func<K, V>> valueList)
+        {
+            if (keyList == null || valueList == null)
+            {
+                var message = keyList == null ? StringResources.InvalidKeyCollectionParameter :
+                                                StringResources.InvalidDataCollectionParameter;
+                throw new ArgumentException(message);
+            }
+            if (keyList.Count != valueList.Count)
+            {
+                throw new InconsistentIndexException(keyList.Count, valueList.Count);
+            }
         }
     }
 }

@@ -77,5 +77,31 @@ namespace PredicateMapsTests.Maps
             CollectionAssert.AreEqual(keysList, map.KeyPredicateList());
             CollectionAssert.AreEqual(valuesList, map.ValueFunctionList());
         }
+
+        [Test, ExpectedException(typeof(ArgumentException))]
+        public void ListConstructor_ArgumentExceptionThrownForNullKeyCollection()
+        {
+            var valuesList = new List<Func<Type, string>>()
+            {
+                (t) => "Something went wrong at some point",
+                (t) => "Your are in the type already",
+                (t) => "It is in our namespace, whole space: " + t.Namespace
+ 
+            };
+
+            new PredicateToFunctionMap<Type, string>(null, valuesList);
+        }
+
+        [Test, ExpectedException(typeof(ArgumentException))]
+        public void ListConstructor_ArgumentExceptionThrownForNullValueFunctionCollection()
+        {
+            var keysList = new List<Predicate<Type>> {
+                (t) => t.IsAssignableFrom(typeof(Exception)),
+                (t) => t.Name == "PredicateToFunctionMapCreationTests",
+                (t) => !t.Namespace.Contains("PredicateMaps")
+            };
+
+            new PredicateToFunctionMap<Type, string>(keysList, null);
+        }
     }
 }
