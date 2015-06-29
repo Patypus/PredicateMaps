@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using PredicateMaps.Exceptions;
 using PredicateMaps.Maps;
 using System;
 using System.Collections.Generic;
@@ -102,6 +103,18 @@ namespace PredicateMapsTests.Maps
             };
 
             new PredicateToFunctionMap<Type, string>(keysList, null);
+        }
+
+        [Test, ExpectedException(typeof(InconsistentIndexException))]
+        public void ListConstructor_InconsistentIndexExceptionThrownWhenKeyAndValueCollectionsAreDifferentSizes()
+        {
+            var keysList = new List<Predicate<string>> { (s) => s.Contains("hello") };
+            var valueList = new List<Func<string, string>> 
+            { 
+                s => "string is a greeting: " + s,  
+                s => "string is a goodbye."
+            };
+            new PredicateToFunctionMap<string, string>(keysList, valueList);
         }
     }
 }
