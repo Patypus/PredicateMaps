@@ -15,7 +15,7 @@ namespace PredicateMapsTests.Maps
         [Test]
         public void ParameterlessConstructor_InitialisesEmptyKeyAndValueLists()
         {
-            var emptyMap = new PredicateToFunctionMap<int, string>();
+            var emptyMap = new PredicateToFunctionMap<int, string>("defaultValue");
 
             Assert.AreEqual(0, emptyMap.KeyPredicateList().Count);
             Assert.AreEqual(0, emptyMap.ValueFunctionList().Count);
@@ -29,7 +29,7 @@ namespace PredicateMapsTests.Maps
                 { (s) => s.Contains("hello"), (s) => string.Join(" ", s, " contains hello.") },
                 { (s) => s.Length > 50, (s) => s + " is pretty long." }
             };
-            var map = new PredicateToFunctionMap<string, string>(testData);
+            var map = new PredicateToFunctionMap<string, string>(testData, "default value for when no matches are found");
 
             Assert.AreEqual(testData.Keys, map.KeyPredicateList());
             Assert.AreEqual(testData.Values, map.ValueFunctionList());
@@ -38,7 +38,7 @@ namespace PredicateMapsTests.Maps
         [Test, ExpectedException]
         public void DictionaryConstructor_NullDictionayCausesArgumentException()
         {
-            new PredicateToFunctionMap<int, string>(null);
+            new PredicateToFunctionMap<int, string>(null, "default value");
         }
 
         [Test]
@@ -47,7 +47,7 @@ namespace PredicateMapsTests.Maps
             Exception exception = null;
             try
             {
-                new PredicateToFunctionMap<int, string>(null);
+                new PredicateToFunctionMap<int, string>(null, "default value");
             }
             catch (Exception e)
             {
@@ -73,7 +73,7 @@ namespace PredicateMapsTests.Maps
  
             };
 
-            var map = new PredicateToFunctionMap<Type, string>(keysList, valuesList);
+            var map = new PredicateToFunctionMap<Type, string>(keysList, valuesList, "default value for when no matches are found");
 
             CollectionAssert.AreEqual(keysList, map.KeyPredicateList());
             CollectionAssert.AreEqual(valuesList, map.ValueFunctionList());
@@ -90,7 +90,7 @@ namespace PredicateMapsTests.Maps
  
             };
 
-            new PredicateToFunctionMap<Type, string>(null, valuesList);
+            new PredicateToFunctionMap<Type, string>(null, valuesList, "default value for when no matches are found");
         }
 
         [Test, ExpectedException(typeof(ArgumentException))]
@@ -102,7 +102,7 @@ namespace PredicateMapsTests.Maps
                 (t) => !t.Namespace.Contains("PredicateMaps")
             };
 
-            new PredicateToFunctionMap<Type, string>(keysList, null);
+            new PredicateToFunctionMap<Type, string>(keysList, null, "default value for when no matches are found");
         }
 
         [Test, ExpectedException(typeof(InconsistentIndexException))]
@@ -114,7 +114,7 @@ namespace PredicateMapsTests.Maps
                 s => "string is a greeting: " + s,  
                 s => "string is a goodbye."
             };
-            new PredicateToFunctionMap<string, string>(keysList, valueList);
+            new PredicateToFunctionMap<string, string>(keysList, valueList, "default value for when no matches are found");
         }
     }
 }

@@ -19,13 +19,16 @@ namespace PredicateMaps.Maps
     internal class PredicateToFunctionMap<K, V> : IPredicateToFunctionMap<K, V> where V : class
     {
         private readonly IDictionary<Predicate<K>, Func<K, V>> _storageMap;
+        private V _defaultValue;
 
         /// <summary>
         /// Initialises a new PredicateToFunctionMap with initialised but empty key and value lists.
         /// </summary>
-        public PredicateToFunctionMap()
+        /// <param name="defaultValue">Default value to return when no matches are found for a value of K</param>
+        public PredicateToFunctionMap(V defaultValue)
         {
             _storageMap = new Dictionary<Predicate<K>, Func<K, V>>();
+            _defaultValue = defaultValue;
         }
 
         /// <summary>
@@ -33,7 +36,9 @@ namespace PredicateMaps.Maps
         /// map.
         /// </summary>
         /// <param name="keyValueDictionary">Prepopulated key value dictionary to enter to the new map</param>
-        public PredicateToFunctionMap(IDictionary<Predicate<K>, Func<K, V>> keyValueDictionary)
+        /// <param name="defaultValue">Default value to return when no matches are found for a value of K</param>
+        /// /// <exception cref="ArgumentException">Thrown if keyValueDictionary is null</exception>
+        public PredicateToFunctionMap(IDictionary<Predicate<K>, Func<K, V>> keyValueDictionary, V defaultValue)
         {
             if (keyValueDictionary == null)
             {
@@ -41,9 +46,20 @@ namespace PredicateMaps.Maps
                 throw new ArgumentException(message);
             }
             _storageMap = keyValueDictionary;
+            _defaultValue = defaultValue;
         }
 
-        public PredicateToFunctionMap(IList<Predicate<K>> keyList, IList<Func<K, V>> functionValueList)
+        /// <summary>
+        /// Initialises a new PredicateToFunctionMap populated with the keys and values from the respective collections supplied.
+        /// The keys and values are matched together by their indexes in the two collections. If the 2 collections are different
+        /// lengths an InconsistentIndexException will be thrown.
+        /// </summary>
+        /// <param name="keyList"></param>
+        /// <param name="functionValueList"></param>
+        /// <param name="defaultValue">Default value to return when no matches are found for a value of K</param>
+        /// <exception cref="ArgumentException">Thrown if keyList or functionValueList is null</exception>
+        /// <exception cref="InconsistentIndexException">Thrown if the number of elements in keyList and functionValueList do not match</exception>
+        public PredicateToFunctionMap(IList<Predicate<K>> keyList, IList<Func<K, V>> functionValueList, V defaultValue)
         {
             _storageMap = new Dictionary<Predicate<K>, Func<K, V>>();
 
