@@ -27,5 +27,11 @@ namespace PredicateMaps.Maps
         /// </summary>
         /// <returns>All value functions which have been added to the map up to this point.</returns>
         IList<Func<K, V>> ValueFunctionList();
+
+        /// <summary>
+        /// Gets the number of entries in this map.
+        /// </summary>
+        /// <returns>The number of key/value pairs in this map.</returns>
+        int GetCount();
     }
 }

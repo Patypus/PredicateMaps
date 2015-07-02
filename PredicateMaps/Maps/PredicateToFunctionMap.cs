@@ -89,6 +89,15 @@ namespace PredicateMaps.Maps
             return _storageMap.Values.ToList();
         }
 
+        /// <summary>
+        /// Gets the number of entries in this map.
+        /// </summary>
+        /// <returns>The number of key/value pairs in this map.</returns>
+        public int GetCount()
+        {
+            return _storageMap.Count;
+        }
+
         private void CheckValidityOfMultipleAddParameters(IList<Predicate<K>> keyList, IList<Func<K, V>> valueList)
         {
             if (keyList == null || valueList == null)
