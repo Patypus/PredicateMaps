@@ -124,10 +124,10 @@
     <value>The index value {0} is outside of the range of the map from 0 to {1}.</value>
   </data>
   <data name="InvalidDataCollectionParameter" xml:space="preserve">
-    <value>Null is not a valid value for the data collection parameter.</value>
+    <value>Null is not a valid value for the value collection parameter.</value>
   </data>
   <data name="InvalidDataParameter" xml:space="preserve">
-    <value>Null is not a valid data value.</value>
+    <value>Null is not valid for the value parameter.</value>
   </data>
   <data name="InvalidDictionaryAddAllParameter" xml:space="preserve">
     <value>Null is not a valid value for the dictionary passed to this method.</value>
@@ -139,6 +139,6 @@
     <value>Null is not a valid value for key collection parameter.</value>
   </data>
   <data name="InvalidKeyParameter" xml:space="preserve">
-    <value>Null is not a valid key value.</value>
+    <value>Null is not valid for the key parameter</value>
   </data>
 </root>

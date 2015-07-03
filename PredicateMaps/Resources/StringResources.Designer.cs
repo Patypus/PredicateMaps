@@ -79,7 +79,7 @@ namespace PredicateMaps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Null is not a valid value for the data collection parameter..
+        ///   Looks up a localized string similar to Null is not a valid value for the value collection parameter..
         /// </summary>
         internal static string InvalidDataCollectionParameter {
             get {
@@ -88,7 +88,7 @@ namespace PredicateMaps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Null is not a valid data value..
+        ///   Looks up a localized string similar to Null is not valid for the value parameter..
         /// </summary>
         internal static string InvalidDataParameter {
             get {
@@ -124,7 +124,7 @@ namespace PredicateMaps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Null is not a valid key value..
+        ///   Looks up a localized string similar to Null is not valid for the key parameter.
         /// </summary>
         internal static string InvalidKeyParameter {
             get {

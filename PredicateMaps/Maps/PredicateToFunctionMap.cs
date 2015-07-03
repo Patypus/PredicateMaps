@@ -105,7 +105,15 @@ namespace PredicateMaps.Maps
         /// <param name="valueFunction">Value function to associate with the given key in the map</param>
         public void Add(Predicate<K> key, Func<K, V> valueFunction)
         {
-            throw new NotImplementedException();
+            if (key == null || valueFunction == null)
+            {
+                var message = key == null 
+                                ? StringResources.InvalidKeyParameter
+                                : StringResources.InvalidDataParameter;
+                throw new ArgumentException(message);
+            }
+            
+            _storageMap.Add(key, valueFunction);
         }
 
         private void CheckValidityOfMultipleAddParameters(IList<Predicate<K>> keyList, IList<Func<K, V>> valueList)
