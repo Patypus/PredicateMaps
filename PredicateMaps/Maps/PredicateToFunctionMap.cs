@@ -16,7 +16,7 @@ namespace PredicateMaps.Maps
     /// </summary>
     /// <typeparam name="K">Type of items to test in the key predicates and for value functions to take as parameters</typeparam>
     /// <typeparam name="V">Return type for the value function to return</typeparam>
-    internal class PredicateToFunctionMap<K, V> : IPredicateToFunctionMap<K, V> where V : class
+    public class PredicateToFunctionMap<K, V> : IPredicateToFunctionMap<K, V> where V : class
     {
         private readonly IDictionary<Predicate<K>, Func<K, V>> _storageMap;
         private V _defaultValue;
@@ -96,6 +96,16 @@ namespace PredicateMaps.Maps
         public int GetCount()
         {
             return _storageMap.Count;
+        }
+
+        /// <summary>
+        /// Method to append the provided key value pair to the map.
+        /// </summary>
+        /// <param name="key">Key predicate to add to the map</param>
+        /// <param name="valueFunction">Value function to associate with the given key in the map</param>
+        public void Add(Predicate<K> key, Func<K, V> valueFunction)
+        {
+            throw new NotImplementedException();
         }
 
         private void CheckValidityOfMultipleAddParameters(IList<Predicate<K>> keyList, IList<Func<K, V>> valueList)

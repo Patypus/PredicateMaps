@@ -33,5 +33,12 @@ namespace PredicateMaps.Maps
         /// </summary>
         /// <returns>The number of key/value pairs in this map.</returns>
         int GetCount();
+
+        /// <summary>
+        /// Method to append the provided key value pair to the map.
+        /// </summary>
+        /// <param name="key">Key predicate to add to the map</param>
+        /// <param name="valueFunction">Value function to associate with the given key in the map</param>
+        void Add(Predicate<K> key, Func<K, V> valueFunction);
     }
 }
