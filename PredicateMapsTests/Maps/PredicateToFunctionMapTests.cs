@@ -53,5 +53,29 @@ namespace PredicateMapsTests.Maps
             var map = new PredicateToFunctionMap<object, string>("default value irrelevant to this test.");
             map.Add((o) => o != null, null);
         }
+
+        [Test]
+        public void DictionaryAddAll_AddsAllElementsFromDictionaryParameter()
+        {
+            var toAdd = new Dictionary<Predicate<Exception>, Func<Exception, string>>
+            {
+                { (e) => e.GetType().IsAssignableFrom(typeof(NullReferenceException)), (e) => "Something was null" },
+                { (e) => e is ArgumentException, (e) => "A parameter was invalid: " + e.Message },
+                { (e) => e.InnerException != null, (e) => String.Join(" ", "concatenated message:", e.Message, e.InnerException.Message)  },
+            };
+
+            var map = new PredicateToFunctionMap<Exception, string>("Default value");
+            map.AddAll(toAdd);
+
+            CollectionAssert.AreEquivalent(toAdd.Keys, map.KeyPredicateList());
+            CollectionAssert.AreEquivalent(toAdd.Values, map.ValueFunctionList());
+        }
+
+        [Test, ExpectedException(typeof(ArgumentException))]
+        public void DictionaryAddAll_ThrowsArgumentExceptionWhenDictionaryIsNull()
+        {
+            var map = new PredicateToFunctionMap<Exception, string>("Default value not related to this test");
+            map.AddAll(null);
+        }
     }
 }
