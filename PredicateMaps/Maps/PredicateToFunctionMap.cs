@@ -146,7 +146,12 @@ namespace PredicateMaps.Maps
         /// <exception cref="ArgumentException">Thrown if either parameter value is null.</exception>
         public void AddAll(IList<Predicate<K>> predicateListToAdd, IList<Func<K, V>> valueListToAdd)
         {
-            throw new NotImplementedException();
+            CheckValidityOfMultipleAddParameters(predicateListToAdd, valueListToAdd);
+
+            for (var index = 0; index < predicateListToAdd.Count; index++)
+            {
+                _storageMap.Add(predicateListToAdd[index], valueListToAdd[index]);
+            }
         }
 
         private void CheckValidityOfMultipleAddParameters(IList<Predicate<K>> keyList, IList<Func<K, V>> valueList)
