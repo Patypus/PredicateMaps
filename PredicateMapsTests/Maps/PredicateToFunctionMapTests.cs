@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PredicateMaps.Maps;
+using PredicateMaps.Exceptions;
 
 namespace PredicateMapsTests.Maps
 {
@@ -76,6 +77,50 @@ namespace PredicateMapsTests.Maps
         {
             var map = new PredicateToFunctionMap<Exception, string>("Default value not related to this test");
             map.AddAll(null);
+        }
+
+        [Test]
+        public void ListAddAll_AddsAllElementsToMap()
+        {
+            var keys = new List<Predicate<string>>
+            {
+                s => s.Contains("hello"), 
+                s => s.Length > 500,
+                s => s.StartsWith("Warning")
+            };
+            var values = new List<Func<string, string>>
+            {
+                s => "Greeting message: " + s,
+                s => "Long message",
+                s => "Something has gone wrong: " + s
+            };
+            var map = new PredicateToFunctionMap<string, string>("not needed");
+            map.AddAll(keys, values);
+            
+            Assert.AreEqual(keys, map.KeyPredicateList());
+            Assert.AreEqual(values, map.ValueFunctionList());
+        }
+
+        [Test, ExpectedException(typeof(InconsistentIndexException))]
+        public void ListAddAll_InconsistentIndexExceptionThrownWhenSizesOfKeyAndValueListsDoNotMatch()
+        {
+            var map = new PredicateToFunctionMap<string, string>("unrelated to test");
+            var keysCollection = new List<Predicate<string>> { (s) => s.Contains("some text") };
+            map.AddAll(keysCollection, new List<Func<string, string>>());
+        }
+
+        [Test, ExpectedException(typeof(ArgumentException))]
+        public void ListAddAll_ArgumentExceptionThrownForNullKeyPredicateCollection()
+        {
+            var map = new PredicateToFunctionMap<Type, Exception>(new NullReferenceException("no result found"));
+            map.AddAll(null, new List<Func<Type, Exception>>());
+        }
+
+        [Test, ExpectedException(typeof(ArgumentException))]
+        public void ListAddAll_ArgumentExceptionThrownForNullValuePredicateCollection()
+        {
+            var map = new PredicateToFunctionMap<Type, string>("Value not related to test");
+            map.AddAll(new List<Predicate<Type>>(), null);
         }
     }
 }

@@ -135,6 +135,20 @@ namespace PredicateMaps.Maps
             }
         }
 
+        /// <summary>
+        /// Adds all elements in key and value lists to the map, matching predicates to values in the provided collections
+        /// by index which must be provided in the correct order. If the size of the keyList and valueList do not match this 
+        /// method will throw an InconsistentIndexException. Null is not a valid value for either parameter for this method.
+        /// </summary>
+        /// <param name="keyList">Collection of predicates of type K for use as keys</param>
+        /// <param name="valueList">Collection of value function of parameter type K and return type V for use as values</param>
+        /// <exception cref="InconsistentIndexException">Thrown if the sizes of keyList and valueList are not equal.</exception>
+        /// <exception cref="ArgumentException">Thrown if either parameter value is null.</exception>
+        public void AddAll(IList<Predicate<K>> predicateListToAdd, IList<Func<K, V>> valueListToAdd)
+        {
+            throw new NotImplementedException();
+        }
+
         private void CheckValidityOfMultipleAddParameters(IList<Predicate<K>> keyList, IList<Func<K, V>> valueList)
         {
             if (keyList == null || valueList == null)

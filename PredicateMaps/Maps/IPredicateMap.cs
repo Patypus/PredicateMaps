@@ -47,7 +47,7 @@ namespace PredicateMaps.Maps
         /// </summary>
         /// <param name="keyList">Collection of predicates of type K for use as keys</param>
         /// <param name="valueList">Collection of values of type V for use as values</param>
-        /// /// <exception cref="InconsistentIndexException">Thrown if the sizes of keyList and valueList are not equal.</exception>
+        /// <exception cref="InconsistentIndexException">Thrown if the sizes of keyList and valueList are not equal.</exception>
         /// <exception cref="ArgumentException">Thrown if either parameter value is null.</exception>
         void AddAll(List<Predicate<K>> keyList, List<V> valueList);
 
