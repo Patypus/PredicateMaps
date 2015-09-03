@@ -90,6 +90,17 @@ namespace PredicateMaps.Maps
         }
 
         /// <summary>
+        /// Method to set the default value that is returned when no matches for a value are found in the 
+        /// ResolveFirstMatch method. Setting the default value via this method ovrerides any value that has
+        /// previously been set.
+        /// </summary>
+        /// <param name="defaultValue">Value to set the default value to. Null is a valid value for this parameter.</param>
+        public void SetDefaultValue(V defaultValue)
+        {
+            _defaultValue = defaultValue;
+        }
+
+        /// <summary>
         /// Gets the number of entries in this map.
         /// </summary>
         /// <returns>The number of key/value pairs in this map.</returns>

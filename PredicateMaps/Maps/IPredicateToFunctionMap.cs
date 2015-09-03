@@ -29,6 +29,14 @@ namespace PredicateMaps.Maps
         IList<Func<K, V>> ValueFunctionList();
 
         /// <summary>
+        /// Method to set the default value that is returned when no matches for a value are found in the 
+        /// ResolveFirstMatch method. Setting the default value via this method ovrerides any value that has
+        /// previously been set.
+        /// </summary>
+        /// <param name="defaultValue">Value to set the default value to. Null is a valid value for this parameter.</param>
+        void SetDefaultValue(V defaultValue);
+
+        /// <summary>
         /// Gets the number of entries in this map.
         /// </summary>
         /// <returns>The number of key/value pairs in this map.</returns>
@@ -59,5 +67,20 @@ namespace PredicateMaps.Maps
         /// <exception cref="InconsistentIndexException">Thrown if the sizes of keyList and valueList are not equal.</exception>
         /// <exception cref="ArgumentException">Thrown if either parameter value is null.</exception>
         void AddAll(IList<Predicate<K>> predicateListToAdd, IList<Func<K, V>> valueListToAdd);
+
+        /// <summary>
+        /// Finds a function associated the first predicate which resolves to true for the valueToTest parameter and evaluates this
+        /// function to get a value of V. 
+        /// If no matches are found then the default value is returned. This value is set in the constructor or via the SetDefaultValue
+        /// method.
+        /// 
+        /// This method only finds the value associated with the first predicate which resolves to true with the value supplied through
+        /// the valueToTest parameter. To find values associated with all predicates which resolve to true for the supplied
+        /// parameter use GetAllMatches.
+        /// </summary>
+        /// <param name="valueToTest">Value to test in key predicates to find a match for.</param>
+        /// <returns>Value associated with first predicate found that is true for the valueToTest parameter</returns>
+        V ResolveFirstMatch(K valueToTest);
+
     }
 }

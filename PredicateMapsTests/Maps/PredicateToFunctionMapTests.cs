@@ -122,5 +122,11 @@ namespace PredicateMapsTests.Maps
             var map = new PredicateToFunctionMap<Type, string>("Value not related to test");
             map.AddAll(new List<Predicate<Type>>(), null);
         }
+
+        [Test]
+        public void SetDefaultValue_UpdatesDefaultValueInMap()
+        {
+            Assert.Fail();
+        }
     }
 }
