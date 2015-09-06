@@ -126,7 +126,15 @@ namespace PredicateMapsTests.Maps
         [Test]
         public void SetDefaultValue_UpdatesDefaultValueInMap()
         {
-            Assert.Fail();
+            var firstDefaultValue = "Initial value";
+            var updatedValue = "Updated value";
+
+            var map = new PredicateToFunctionMap<int, string>(firstDefaultValue);
+            map.SetDefaultValue(updatedValue);
+            var result = map.GetFirstMatch(-1);
+
+            Assert.AreNotEqual(firstDefaultValue, result);
+            Assert.AreEqual(updatedValue, result);
         }
 
         [Test]
