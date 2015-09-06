@@ -128,5 +128,32 @@ namespace PredicateMapsTests.Maps
         {
             Assert.Fail();
         }
+
+        [Test]
+        public void GetFirstMatch_ReturnsCorrectValueForKey()
+        {
+            var expectedValue = "This value should be returned.";
+            var defaultValue = "default value not needed for test.";
+            var data = new Dictionary<Predicate<Type>, Func<Type, string>>
+            {
+                { (t) => t.IsAssignableFrom(typeof(Exception)), (t) => expectedValue },
+                { (t) => t.Namespace.Contains("PredicateMaps"), (t) => "Type is in one of our namespaces" }
+            };
+            var map = new PredicateToFunctionMap<Type, string>(data, defaultValue);
+
+            var result = map.GetFirstMatch(typeof(Exception));
+            Assert.AreEqual(expectedValue, result);
+        }
+
+        [Test]
+        public void GetFirstMatch_ReturnsDefaultValueWhenNoMatchesExistForPassedKey()
+        {
+            var defaultValue = "Expected default value";
+            var map = new PredicateToFunctionMap<int, string>(defaultValue);
+
+            var result = map.GetFirstMatch(14);
+
+            Assert.AreEqual(result, defaultValue);
+        }
     }
 }

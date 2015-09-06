@@ -80,7 +80,7 @@ namespace PredicateMaps.Maps
         /// </summary>
         /// <param name="valueToTest">Value to test in key predicates to find a match for.</param>
         /// <returns>Value associated with first predicate found that is true for the valueToTest parameter</returns>
-        V ResolveFirstMatch(K valueToTest);
+        V GetFirstMatch(K valueToTest);
 
     }
 }

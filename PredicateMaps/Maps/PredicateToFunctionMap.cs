@@ -91,7 +91,7 @@ namespace PredicateMaps.Maps
 
         /// <summary>
         /// Method to set the default value that is returned when no matches for a value are found in the 
-        /// ResolveFirstMatch method. Setting the default value via this method ovrerides any value that has
+        /// GetFirstMatch method. Setting the default value via this method ovrerides any value that has
         /// previously been set.
         /// </summary>
         /// <param name="defaultValue">Value to set the default value to. Null is a valid value for this parameter.</param>
@@ -163,6 +163,26 @@ namespace PredicateMaps.Maps
             {
                 _storageMap.Add(predicateListToAdd[index], valueListToAdd[index]);
             }
+        }
+
+        /// <summary>
+        /// Finds a function associated the first predicate which resolves to true for the valueToTest parameter and evaluates this
+        /// function to get a value of V. 
+        /// If no matches are found then the default value is returned. This value is set in the constructor or via the SetDefaultValue
+        /// method.
+        /// 
+        /// This method only finds the value associated with the first predicate which resolves to true with the value supplied through
+        /// the valueToTest parameter. To find values associated with all predicates which resolve to true for the supplied
+        /// parameter use GetAllMatches.
+        /// </summary>
+        /// <param name="valueToTest">Value to test in key predicates to find a match for.</param>
+        /// <returns>Value associated with first predicate found that is true for the valueToTest parameter</returns>
+        public V GetFirstMatch(K valueToTest)
+        {
+            var matches = _storageMap.Where(pair => pair.Key.Invoke(valueToTest));
+            return matches.Any()
+                    ? matches.First().Value.Invoke(valueToTest)
+                    : _defaultValue;
         }
 
         private void CheckValidityOfMultipleAddParameters(IList<Predicate<K>> keyList, IList<Func<K, V>> valueList)
