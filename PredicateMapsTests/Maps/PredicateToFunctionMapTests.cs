@@ -163,5 +163,32 @@ namespace PredicateMapsTests.Maps
 
             Assert.AreEqual(result, defaultValue);
         }
+
+        [Test]
+        public void GetAllMatches_ReturnsEmptyCollectionWhenNoMatchesExist()
+        {
+            var map = new PredicateToFunctionMap<int, string>("Default value not relevant.");
+            var results = map.GetAllMatches(-1);
+
+            CollectionAssert.IsEmpty(results);
+        }
+
+        [Test]
+        public void GetAllMatches_ReturnsAllExpectedMatchesInCollection()
+        {
+            var data = new Dictionary<Predicate<int>, Func<int, string>>
+            {
+                { (i) => i > 0, (i) => string.Format("{0} is greater than 0", i) },
+                { (i) => i < 5, (i) => string.Format("{0} is less than 5", i) },
+                { (i) => i == 2000, (i) => "value is oddly out the area of the other values"}
+            };
+            var map = new PredicateToFunctionMap<int, string>(data, "default value unused in this test");
+
+            var results = map.GetAllMatches(4);
+
+            var expected = new List<string> { "4 is greater than 0", "4 is less than 5" };
+            Assert.AreEqual(2, results.Count);
+            CollectionAssert.AreEquivalent(expected, results);
+        }
     }
 }

@@ -82,5 +82,14 @@ namespace PredicateMaps.Maps
         /// <returns>Value associated with first predicate found that is true for the valueToTest parameter</returns>
         V GetFirstMatch(K valueToTest);
 
+        /// <summary>
+        /// Finds all functions associated with predicates which evaluate to true for valueToTest parameter and evaluates them. The
+        /// results are returned in a collection.
+        /// 
+        /// An empty list is returned if no predicates evaluate to true for valueToTest
+        /// </summary>
+        /// <param name="valueToTest">Value to test with the predicate keys</param>
+        /// <returns>A list of all values whose predicate key is true for valueToTest</returns>
+        List<V> GetAllMatches(K valueToTest);
     }
 }

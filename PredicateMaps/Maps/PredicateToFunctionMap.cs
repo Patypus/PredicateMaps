@@ -185,6 +185,21 @@ namespace PredicateMaps.Maps
                     : _defaultValue;
         }
 
+        /// <summary>
+        /// Finds all functions associated with predicates which evaluate to true for valueToTest parameter and evaluates them. The
+        /// results are returned in a collection.
+        /// 
+        /// An empty list is returned if no predicates evaluate to true for valueToTest
+        /// </summary>
+        /// <param name="valueToTest">Value to test with the predicate keys</param>
+        /// <returns>A list of all values whose predicate key is true for valueToTest</returns>
+        public List<V> GetAllMatches(K valueToTest)
+        {
+            var matches = _storageMap.AsParallel().Where(pair => pair.Key.Invoke(valueToTest));
+            var results = matches.AsParallel().Select(pair => pair.Value.Invoke(valueToTest));
+            return results.ToList();
+        }
+
         private void CheckValidityOfMultipleAddParameters(IList<Predicate<K>> keyList, IList<Func<K, V>> valueList)
         {
             if (keyList == null || valueList == null)
