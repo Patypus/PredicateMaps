@@ -195,7 +195,7 @@ namespace PredicateMaps.Maps
         /// <returns>A list of all values whose predicate key is true for valueToTest</returns>
         public List<V> GetAllMatches(K valueToTest)
         {
-            var matches = _storageMap.AsParallel().Where(pair => pair.Key.Invoke(valueToTest));
+            var matches = GetMatchingPairsForValue(valueToTest);
             var results = matches.AsParallel().Select(pair => pair.Value.Invoke(valueToTest));
             return results.ToList();
         }
@@ -208,6 +208,21 @@ namespace PredicateMaps.Maps
         public bool AnyMatches(K valueToTest)
         {
             return _storageMap.Any(pair => pair.Key.Invoke(valueToTest));
+        }
+
+        /// <summary>
+        /// Counts the number of predicates in the map which evaluate to true for valueToTest
+        /// </summary>
+        /// <param name="valueToTest">Value to count matches for</param>
+        /// <returns>The number of predicates which evaluate to true for valueToTest</returns>
+        public int CountMatches(K valueToTest)
+        {
+            return GetMatchingPairsForValue(valueToTest).Count();
+        }
+
+        private ParallelQuery<KeyValuePair<Predicate<K>, Func<K, V>>> GetMatchingPairsForValue(K valueToTest)
+        {
+            return _storageMap.AsParallel().Where(pair => pair.Key.Invoke(valueToTest));
         }
 
         private void CheckValidityOfMultipleAddParameters(IList<Predicate<K>> keyList, IList<Func<K, V>> valueList)

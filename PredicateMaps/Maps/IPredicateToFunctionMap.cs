@@ -99,5 +99,11 @@ namespace PredicateMaps.Maps
         /// <returns>True if any predicate returns true for valueToTest, false otherwise.</returns>
         bool AnyMatches(K valueToTest);
 
+        /// <summary>
+        /// Counts the number of predicates in the map which evaluate to true for valueToTest
+        /// </summary>
+        /// <param name="valueToTest">Value to count matches for</param>
+        /// <returns>The number of predicates which evaluate to true for valueToTest</returns>
+        int CountMatches(K valueToTest);
     }
 }

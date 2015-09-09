@@ -212,5 +212,29 @@ namespace PredicateMapsTests.Maps
             var result = map.AnyMatches("a new value");
             Assert.IsTrue(result);
         }
+
+        [Test]
+        public void CountMatches_ReturnsZeroForNewlyCreatedMaps()
+        {
+            var map = new PredicateMap<string, string>("value irrelevant to test");
+
+            var matches = map.CountMatches("Any value");
+            Assert.AreEqual(0, 0);
+        }
+
+        [Test]
+        public void CountMatches_ReturnsCorrectNumberOfMatchesForPopulatedMaps()
+        {
+            var data = new Dictionary<Predicate<int>, Func<int, string>>
+            {
+                { (i) => i == 0, (i) => "Value is 0" },
+                { (i) => i > -1 && i <= 7, (i) => string.Format("value is: {0}", i) },
+                { (i) => i > 8, (i) => "Value is out of range."}
+            };
+            var map = new PredicateToFunctionMap<int, string>(data, string.Empty);
+
+            var matches = map.CountMatches(0);
+            Assert.AreEqual(2, matches);
+        }
     }
 }
