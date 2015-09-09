@@ -190,5 +190,27 @@ namespace PredicateMapsTests.Maps
             Assert.AreEqual(2, results.Count);
             CollectionAssert.AreEquivalent(expected, results);
         }
+
+        [Test]
+        public void AnyMatches_ReturnsFalseWhenNoMatchesExistForValueToTest()
+        {
+            var map = new PredicateToFunctionMap<string, List<string>>(new List<string>());
+
+            var matches = map.AnyMatches("Are there any matches?");
+            Assert.IsFalse(matches);
+        }
+
+        [Test]
+        public void AnyMatches_ReturnsTrueWhenMatchesExistForValueToTest()
+        {
+            var data = new Dictionary<Predicate<string>, Func<string, string>> 
+            {
+                { (s) => s.Length > 0, (s) => "value is populated" }
+            };
+            var map = new PredicateToFunctionMap<string, string>(data, "Unused default value");
+
+            var result = map.AnyMatches("a new value");
+            Assert.IsTrue(result);
+        }
     }
 }

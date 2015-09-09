@@ -200,6 +200,16 @@ namespace PredicateMaps.Maps
             return results.ToList();
         }
 
+        /// <summary>
+        /// Returns true if any predicates in the map evaluate to true for valueToTest, otherwise false.
+        /// </summary>
+        /// <param name="valueToTest">Value to test predicate keys with</param>
+        /// <returns>True if any predicate returns true for valueToTest, false otherwise.</returns>
+        public bool AnyMatches(K valueToTest)
+        {
+            return _storageMap.Any(pair => pair.Key.Invoke(valueToTest));
+        }
+
         private void CheckValidityOfMultipleAddParameters(IList<Predicate<K>> keyList, IList<Func<K, V>> valueList)
         {
             if (keyList == null || valueList == null)

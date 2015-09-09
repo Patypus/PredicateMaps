@@ -91,5 +91,13 @@ namespace PredicateMaps.Maps
         /// <param name="valueToTest">Value to test with the predicate keys</param>
         /// <returns>A list of all values whose predicate key is true for valueToTest</returns>
         List<V> GetAllMatches(K valueToTest);
+
+        /// <summary>
+        /// Returns true if any predicates in the map evaluate to true for valueToTest, otherwise false.
+        /// </summary>
+        /// <param name="valueToTest">Value to test predicate keys with</param>
+        /// <returns>True if any predicate returns true for valueToTest, false otherwise.</returns>
+        bool AnyMatches(K valueToTest);
+
     }
 }
