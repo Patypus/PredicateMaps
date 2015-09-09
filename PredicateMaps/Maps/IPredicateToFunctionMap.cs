@@ -29,7 +29,7 @@ namespace PredicateMaps.Maps
         IList<Func<K, V>> ValueFunctionList();
 
         /// <summary>
-        /// Method to set the default value that is returned when no matches for a value are found in the 
+        /// Sets the default value that is returned when no matches for a value are found in the 
         /// ResolveFirstMatch method. Setting the default value via this method ovrerides any value that has
         /// previously been set.
         /// </summary>
@@ -43,7 +43,7 @@ namespace PredicateMaps.Maps
         int GetCount();
 
         /// <summary>
-        /// Method to append the provided key value pair to the map.
+        /// Appends the provided key value pair to the map.
         /// </summary>
         /// <param name="key">Key predicate to add to the map</param>
         /// <param name="valueFunction">Value function to associate with the given key in the map</param>
@@ -51,7 +51,7 @@ namespace PredicateMaps.Maps
         void Add(Predicate<K> key, Func<K, V> valueFunction);
 
         /// <summary>
-        /// Method which adds all of the key value pairs from the provided dictionary to the map.
+        /// Adds all of the key value pairs from the provided dictionary to the map.
         /// </summary>
         /// <param name="keyValuesToAdd">Dictionary of key value pairs to add to the map</param>
         /// <exception cref="ArgumentException">Thrown if keyValueToAdd parameter is null.</exception>

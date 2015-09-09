@@ -90,7 +90,7 @@ namespace PredicateMaps.Maps
         }
 
         /// <summary>
-        /// Method to set the default value that is returned when no matches for a value are found in the 
+        /// Sets the default value that is returned when no matches for a value are found in the 
         /// GetFirstMatch method. Setting the default value via this method ovrerides any value that has
         /// previously been set.
         /// </summary>

@@ -60,7 +60,7 @@ namespace PredicateMaps.Maps
         void AddAll(IDictionary<Predicate<K>, V> keyValueDictionary);
 
         /// <summary>
-        /// Method to find the value which is associated with the first predicate to resolve to true for the valueToTest parameter.
+        /// Find the value which is associated with the first predicate to resolve to true for the valueToTest parameter.
         /// If no matches are found then the default value is returned. This value is set in the constructor or via the SetDefaultValue
         /// method.
         /// 
@@ -95,7 +95,7 @@ namespace PredicateMaps.Maps
         int CountMatches(K valueToTest);
 
         /// <summary>
-        /// Method to set the default value that is returned when no matches for a value are found in the 
+        /// Set the default value that is returned when no matches for a value are found in the 
         /// GetFirstMatch method. Setting the default value via this method ovrerides any value that has
         /// previously been set.
         /// </summary>
