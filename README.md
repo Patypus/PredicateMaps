@@ -1,9 +1,8 @@
 #Predicate Maps Library
 [![Build Status](https://travis-ci.org/Patypus/PredicateMaps.svg?branch=master)](https://travis-ci.org/Patypus/PredicateMaps)
 [![NuGet](https://img.shields.io/nuget/v/PredicateMaps.svg)](http://www.nuget.org/packages/PredicateMaps)
-
 =============
-This is libraries project which provide functionality for associating a descision with a value. To this end, the library contains 2 wrappers classes, PredicateMap & PredicateToFunctionMap which wrap dictionaries of type (Predicate(K), V) and (Predicate(K), Func(K, V)) respectively. Both of these wrappers the selecting values where the predicates evaluate to true for simplicity in the caller.
+This is libraries project which provide functionality for associating a decision with a value. To this end, the library contains 2 wrappers classes, PredicateMap & PredicateToFunctionMap which wrap dictionaries of type (Predicate(K), V) and (Predicate(K), Func(K, V)) respectively. Both of these wrappers perform the selection of values where the predicates evaluate to true from a dictionary to provide simplicity in the caller.
 
 =============
 
