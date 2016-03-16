@@ -3,9 +3,7 @@
 [![NuGet](https://img.shields.io/nuget/v/PredicateMaps.svg)](http://www.nuget.org/packages/PredicateMaps)
 
 =============
-This is a libraries project which contains a wrapper class (PredicateMap) which wraps a dictionary of type Predicate((K), V). The wrapper hides the selecting values where the predicates evaluate to true for simplicity in the caller.
-
-As a project this needs more polish in it but I'm working on it!
+This is libraries project which provide functionality for associating a decision with a value. To this end, the library contains 2 wrappers classes, PredicateMap & PredicateToFunctionMap which wrap dictionaries of type (Predicate(K), V) and (Predicate(K), Func(K, V)) respectively. Both of these wrappers perform the selection of values where the predicates evaluate to true from a dictionary to provide simplicity in the caller.
 
 =============
 
@@ -43,6 +41,9 @@ The GetAllMatches function can be used find all of the values which match a give
 GetAllMatches(K valueToTest);
 ```
 This will return a collection of matching values or an empty collection if no matches are found.
+#####Using test values in stored functions
+The PredicateToFunctionMap is included in the library to allow for for values which are used in the predicate keys to be available to functions stored as values. The map stored predicates of type K against functions of type (K, V). The map will find predicates which evaluate to true for a give value of type K and invoke the functions stored against these predicates with the same value of K. This map provides an easy way of storing an operation with a descision.
+PredicateToFunctionMap is created and used in the same way as the PredicateMap.
 
 =============
 ##Installation
